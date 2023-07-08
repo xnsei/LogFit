@@ -1,0 +1,2 @@
+# LogFit
+Workout Logger App
