@@ -1,8 +1,7 @@
 .sideBar {
   flex: 1;
-  border-right: 1px solid lightgray;
   min-height: 100vh;
-  background-color: white;
+  background-color: #f6f6fd;
 }
 
 .top {
@@ -11,17 +10,13 @@
   align-items: center;
   justify-content: center;
   background-color: #ece8ff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
   font-size: 24px;
   font-weight: 800;
   color: #6439ff;
-}
-
-hr {
-  height: 0;
-  border: 0.5px solid lightgray;
 }
 
 .title {
@@ -58,5 +53,5 @@ li {
 .text {
   font-size: 16px;
   font-weight: 600;
-  margin-left: 10px;
+  margin-left: 5px;
 }

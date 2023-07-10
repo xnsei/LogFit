@@ -2,6 +2,7 @@ import React from "react";
 import "./sidebar.css";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 
 const Sidebar = () => {
   return (
@@ -9,7 +10,6 @@ const Sidebar = () => {
       <div className="top">
         <span className="logo">LogFit</span>
       </div>
-      <hr />
       <div className="center">
         <p className="title">Workouts</p>
         <ul>
@@ -18,6 +18,12 @@ const Sidebar = () => {
           <li className="text">Full Body Workout</li>
         </ul>
         <p className="title">Custom Workouts</p>
+        <ul>
+          <li>
+            <AddBoxOutlinedIcon className="icon" />
+            <span>Create</span>
+          </li>
+        </ul>
       </div>
       <div className="bottom">
         <p className="title">User</p>
