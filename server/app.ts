@@ -1,4 +1,4 @@
-import database from "./dbConnection";
+import connectDB from "./dbConnection";
 
 const express = require("express");
 const cors = require("cors");
@@ -8,9 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-database();
+connectDB();
 
-app.get("/", (req: any, res: { json: (arg0: { message: string }) => void }) => {
+app.get("/", (req: any, res: any) => {
   res.json({ message: "Hello World!!!" });
 });
 
