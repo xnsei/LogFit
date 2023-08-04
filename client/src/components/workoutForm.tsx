@@ -1,5 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8000");
 
 const WorkoutForm = () => {
   const [workoutData, setWorkoutData] = useState({
@@ -11,12 +14,15 @@ const WorkoutForm = () => {
     setWorkoutData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const addWorkout = async (title: string) => {
+  const addWorkout = async () => {
     try {
       const response = await axios.post("http://localhost:8000/workouts/new", {
-        name: title,
+        name: workoutData.title,
       });
-      console.log(response.status);
+      if (response.status === 200) {
+        socket.emit("addWorkout", {});
+        console.log("event emitted");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +30,7 @@ const WorkoutForm = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    addWorkout(workoutData.title);
+    addWorkout();
   };
 
   return (
