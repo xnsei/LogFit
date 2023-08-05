@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 
 const socket = io("http://localhost:8000");
 
 const AllWorkouts = () => {
   const [workouts, setWorkouts] = useState(Array());
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const getWorkouts = async () => {
     try {
@@ -45,6 +47,17 @@ const AllWorkouts = () => {
     }
   };
 
+  const handleView = async (id: string) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/workouts/${id}`);
+      if (response.status === 200) {
+        navigate("/workout/view", { state: { workout: response.data } });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <h1>All Workouts</h1>
@@ -55,7 +68,7 @@ const AllWorkouts = () => {
           {workouts.map((workout) => (
             <li key={workout._id}>
               <div>{workout.name}</div>
-              <div></div>
+              <button onClick={() => handleView(workout._id)}>View</button>
               <button onClick={() => handleDelete(workout._id)}>Delete</button>
             </li>
           ))}

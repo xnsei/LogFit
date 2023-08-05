@@ -61,7 +61,7 @@ app.get(
   wrapAssync(async (req: any, res: any) => {
     const { id } = req.params;
     const requestedWorkout = await workout.findById(id);
-    res.json(requestedWorkout);
+    res.send(requestedWorkout);
   })
 );
 
@@ -70,7 +70,7 @@ app.post(
   wrapAssync(async (req: any, res: any) => {
     const { id } = req.params;
     const deletedWorkout = await workout.findByIdAndDelete(id);
-    res.json(deletedWorkout);
+    res.json({ message: "Workout Deleted Successfully" });
   })
 );
 
