@@ -8,6 +8,9 @@ const Navbar = () => {
   return (
     <div>
       <div className="navbar">
+        <div className="top">
+          <span className="logo">LogFit</span>
+        </div>
         <div className="icons">
           <NightsStayIcon className="icon" />
           <AccountCircleIcon className="icon" />
