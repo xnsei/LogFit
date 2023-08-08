@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
+import { WorkoutExercisesForm } from "../exercises/exerciseForm";
+import { WorkoutExercises } from "../exercises/allExercises";
 
 const socket = io("http://localhost:8000");
 
@@ -70,6 +72,8 @@ const AllWorkouts = () => {
               <div>{workout.name}</div>
               <button onClick={() => handleView(workout._id)}>View</button>
               <button onClick={() => handleDelete(workout._id)}>Delete</button>
+              <WorkoutExercisesForm id={workout._id} />
+              <WorkoutExercises id={workout._id} />
             </li>
           ))}
         </ul>

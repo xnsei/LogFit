@@ -83,6 +83,31 @@ app.post(
   })
 );
 
+app.post(
+  "/workouts/:id/exercises",
+  wrapAssync(async (req: any, res: any) => {
+    const { id } = req.params;
+    const { name } = req.body;
+    const newExercise = await new exercise({
+      name,
+    }).save();
+    const requestedWorkout = await workout.findByIdAndUpdate(id, {
+      $push: { exercises: newExercise._id },
+    });
+    res.json({ message: "Exercise added to workout successfully!" });
+  })
+);
+
+app.get(
+  "/workouts/:id/exercises",
+  wrapAssync(async (req: any, res: any) => {
+    const { id } = req.params;
+    const requestedWorkout = await workout.findById(id).populate("exercises");
+    const exercises = await requestedWorkout.exercises;
+    res.send(exercises);
+  })
+);
+
 app.get(
   "/exercises",
   wrapAssync(async (req: any, res: any) => {
@@ -107,6 +132,14 @@ app.post(
   "/exercises/:id/delete",
   wrapAssync(async (req: any, res: any) => {
     const { id } = req.params;
+    const workoutsToUpdate = await workout.find({ exercises: id });
+    const workoutsUpdated = await workoutsToUpdate.map(
+      async (tempWorkout: any) => {
+        await workout.findByIdAndUpdate(tempWorkout._id, {
+          $pull: { exercises: id },
+        });
+      }
+    );
     const deletedExercise = await exercise.findByIdAndDelete(id);
     res.json({ message: "Exercise Deleted Successfully" });
   })
