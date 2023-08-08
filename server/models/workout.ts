@@ -5,6 +5,7 @@ const workoutSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  exercises: [{ type: mongoose.Schema.Types.ObjectId, ref: "Exercise" }],
 });
 
 const Workout = mongoose.model("Workout", workoutSchema);
