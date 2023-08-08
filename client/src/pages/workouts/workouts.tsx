@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../commons/navbar/navbar";
-import WorkoutForm from "../../components/workoutForm";
-import AllWorkouts from "../../components/allWorkouts";
+import WorkoutForm from "./workoutForm";
+import AllWorkouts from "./allWorkouts";
 
 const Workouts = () => {
   return (

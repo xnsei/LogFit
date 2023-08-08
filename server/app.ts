@@ -6,6 +6,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 
 const workout = require("./models/workout");
+const exercise = require("./models/exercise");
 const wrapAssync = require("./utils/wrapAssync");
 
 const app = express();
@@ -31,6 +32,14 @@ io.on("connection", (socket: any) => {
 
   socket.on("deleteWorkout", (data: any) => {
     io.emit("updateWorkout", data);
+  });
+
+  socket.on("addExercise", (data: any) => {
+    io.emit("updateExercise", data);
+  });
+
+  socket.on("deleteExercise", (data: any) => {
+    io.emit("updateExercise", data);
   });
 });
 
@@ -71,6 +80,35 @@ app.post(
     const { id } = req.params;
     const deletedWorkout = await workout.findByIdAndDelete(id);
     res.json({ message: "Workout Deleted Successfully" });
+  })
+);
+
+app.get(
+  "/exercises",
+  wrapAssync(async (req: any, res: any) => {
+    const exercises = await exercise.find({});
+    res.send(exercises);
+  })
+);
+
+app.post(
+  "/exercises/new",
+  wrapAssync(async (req: any, res: any) => {
+    const { name } = req.body;
+    const newExercise = new exercise({
+      name,
+    });
+    await newExercise.save();
+    res.json({ message: "Exercise Saved SuccessFully!!" });
+  })
+);
+
+app.post(
+  "/exercises/:id/delete",
+  wrapAssync(async (req: any, res: any) => {
+    const { id } = req.params;
+    const deletedExercise = await exercise.findByIdAndDelete(id);
+    res.json({ message: "Exercise Deleted Successfully" });
   })
 );
 
