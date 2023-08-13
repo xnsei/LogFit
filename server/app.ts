@@ -1,4 +1,4 @@
-import connectDB from "./dbConnection";
+import connectDB from "./utils/dbConnection";
 
 const express = require("express");
 const cors = require("cors");
@@ -7,6 +7,7 @@ const { Server } = require("socket.io");
 
 const workout = require("./models/workout");
 const exercise = require("./models/exercise");
+const weight = require("./models/weight");
 const wrapAssync = require("./utils/wrapAssync");
 
 const app = express();
@@ -40,6 +41,14 @@ io.on("connection", (socket: any) => {
 
   socket.on("deleteExercise", (data: any) => {
     io.emit("updateExercise", data);
+  });
+
+  socket.on("addWeight", (data: any) => {
+    io.emit("updateWeight", data);
+  });
+
+  socket.on("deleteWeight", (data: any) => {
+    io.emit("updateWeight", data);
   });
 });
 
@@ -142,6 +151,36 @@ app.post(
     );
     const deletedExercise = await exercise.findByIdAndDelete(id);
     res.json({ message: "Exercise Deleted Successfully" });
+  })
+);
+
+app.get(
+  "/weights",
+  wrapAssync(async (req: any, res: any) => {
+    const weights = await weight.find({});
+    res.send(weights);
+  })
+);
+
+app.post(
+  "/weights/new",
+  wrapAssync(async (req: any, res: any) => {
+    const { entry, datadate } = req.body;
+    const newWeight = await weight.findOneAndUpdate(
+      { datadate: datadate },
+      { entry: entry },
+      { upsert: true }
+    );
+    res.json({ message: "Exercise Saved SuccessFully!!" });
+  })
+);
+
+app.post(
+  "/weights/:id/delete",
+  wrapAssync(async (req: any, res: any) => {
+    const { id } = req.params;
+    const deletedWeight = await weight.findByIdAndDelete(id);
+    res.json({ message: "Weight Deleted Successfully" });
   })
 );
 
