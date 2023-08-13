@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
+import Entries from "./entries";
 
 const baseURL = "http://localhost:8000";
 
@@ -117,6 +118,7 @@ const WorkoutExercises = (props: WorkoutProps) => {
             <li key={exercise._id}>
               <div>{exercise.name}</div>
               <button onClick={() => handleDelete(exercise._id)}>Delete</button>
+              <Entries exerciseId={exercise._id} />
             </li>
           ))}
         </ul>
