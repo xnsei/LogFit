@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./home.css";
 import Navbar from "../commons/navbar/navbar";
+import Weights from "./weights";
 
 const Home = () => {
   const [message, setMessage] = useState("");
@@ -16,6 +17,7 @@ const Home = () => {
       <div className="homeContainer">
         <Navbar />
         <p>Workout Tracker Home</p>
+        <Weights />
       </div>
     </div>
   );
