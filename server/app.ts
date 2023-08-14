@@ -1,13 +1,16 @@
 import connectDB from "./utils/dbConnection";
+import dotenv from "dotenv";
 
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
+const { jwt } = require("jsonwebtoken");
 
 const workout = require("./models/workout");
 const exercise = require("./models/exercise");
 const weight = require("./models/weight");
+const user = require("./models/user");
 const exerciseEntry = require("./models/entry");
 const wrapAssync = require("./utils/wrapAssync");
 
@@ -17,6 +20,8 @@ const httpServer = http.createServer(app);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+dotenv.config();
 
 const io = new Server(httpServer, {
   cors: {
@@ -158,6 +163,7 @@ app.post(
         });
       }
     );
+    // TODO : Handle deletion of the entries
     const deletedExercise = await exercise.findByIdAndDelete(id);
     res.json({ message: "Exercise Deleted Successfully" });
   })
@@ -222,6 +228,60 @@ app.post(
     const { exerciseId, entryId } = req.params;
     const deleteEntry = await exerciseEntry.findByIdAndDelete(entryId);
     res.json({ message: "Entry Deleted Successfully" });
+  })
+);
+
+app.post(
+  "/users/new",
+  wrapAssync(async (req: any, res: any) => {
+    const { username, email, password } = req.body;
+    const newUser = await new user({
+      username: username,
+      email: email,
+      password: password,
+    }).save();
+    if (newUser) {
+      const secret = process.env.SECRET;
+      const token = jwt.sign(
+        {
+          userId: newUser._id,
+        },
+        secret
+      );
+      return res.json({ token: token });
+    } else {
+      return res.json({ message: "some error occured" });
+    }
+  })
+);
+
+app.post(
+  "/users/delete",
+  wrapAssync(async (req: any, res: any) => {
+    const { token } = req.headers.token;
+    const secret = process.env.SECRET;
+    const decodedUser = jwt.verify(token, secret);
+    const userId = decodedUser.userId;
+    // TODO : handle deletion of workouts, exercise, weights and entries
+    const foundUser = await user.findByIdAndDelete(userId);
+    res.json({ message: "User deleted successfully" });
+  })
+);
+
+app.post(
+  "/users/update",
+  wrapAssync(async (req: any, res: any) => {
+    const { token } = req.headers.token;
+    const secret = process.env.SECRET;
+    const decodedUser = jwt.verify(token, secret);
+    const userId = decodedUser.userId;
+    const { username, email, password } = req.body;
+    const updatedUser = await user.findByIdAndUpdate(userId, {
+      username: username,
+      email: email,
+      password: password,
+    });
+    res.json({ message: "user updated successfully" });
   })
 );
 
