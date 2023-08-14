@@ -93,6 +93,7 @@ const Entries = (props: EntryProps) => {
           {reps.map((rep) => (
             <li key={rep._id}>
               <div>{rep.entry}</div>
+              <div>{rep.datadate}</div>
               <button onClick={() => handleDelete(rep._id)}>Delete</button>
             </li>
           ))}

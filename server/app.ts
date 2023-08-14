@@ -212,7 +212,6 @@ app.post(
       datadate: datadate,
       exerciseId: id,
     }).save();
-    console.log(req.body, id, reps, datadate);
     res.json({ message: "Entry Saved SuccessFully!!" });
   })
 );
