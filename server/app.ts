@@ -5,7 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
-const { jwt } = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 const workout = require("./models/workout");
 const exercise = require("./models/exercise");
@@ -163,7 +163,7 @@ app.post(
         });
       }
     );
-    // TODO : Handle deletion of the entries
+    await exerciseEntry.deleteMany({ exerciseId: id });
     const deletedExercise = await exercise.findByIdAndDelete(id);
     res.json({ message: "Exercise Deleted Successfully" });
   })
@@ -240,29 +240,37 @@ app.post(
       email: email,
       password: password,
     }).save();
-    if (newUser) {
-      const secret = process.env.SECRET;
-      const token = jwt.sign(
-        {
-          userId: newUser._id,
-        },
-        secret
-      );
-      return res.json({ token: token });
-    } else {
-      return res.json({ message: "some error occured" });
-    }
+    const secret = process.env.SECRET;
+    console.log(newUser._id, secret);
+    const token = jwt.sign(
+      {
+        userId: newUser._id,
+      },
+      secret
+    );
+    res.json({ token });
   })
 );
+
+const handleUserDeletion = async (userId: string) => {
+  // deleting workouts
+  await workout.deleteMany({ userId: userId });
+
+  // deleting exercises
+  await exercise.deleteMany({ userId: userId });
+
+  // deleting all the entries
+  await exerciseEntry.deleteMany({ userId: userId });
+};
 
 app.post(
   "/users/delete",
   wrapAssync(async (req: any, res: any) => {
-    const { token } = req.headers.token;
+    const token = req.headers.token;
     const secret = process.env.SECRET;
     const decodedUser = jwt.verify(token, secret);
     const userId = decodedUser.userId;
-    // TODO : handle deletion of workouts, exercise, weights and entries
+    handleUserDeletion(userId);
     const foundUser = await user.findByIdAndDelete(userId);
     res.json({ message: "User deleted successfully" });
   })
@@ -271,7 +279,7 @@ app.post(
 app.post(
   "/users/update",
   wrapAssync(async (req: any, res: any) => {
-    const { token } = req.headers.token;
+    const token = req.headers.token;
     const secret = process.env.SECRET;
     const decodedUser = jwt.verify(token, secret);
     const userId = decodedUser.userId;
@@ -282,6 +290,29 @@ app.post(
       password: password,
     });
     res.json({ message: "user updated successfully" });
+  })
+);
+
+app.post(
+  "/users/login",
+  wrapAssync(async (req: any, res: any) => {
+    const { email, password } = req.body;
+    const requestedUser = await user.findOne({
+      email: email,
+      password: password,
+    });
+    if (!requestedUser) {
+      return res.json({ message: "Please enter valid credentials" });
+    } else {
+      const secret = process.env.SECRET;
+      const token = jwt.sign(
+        {
+          userId: requestedUser._id,
+        },
+        secret
+      );
+      return res.json({ messaeg: "Logged in successfully!", token: token });
+    }
   })
 );
 
