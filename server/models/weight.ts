@@ -10,6 +10,10 @@ const weightSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const Weight = mongoose.model("Weight", weightSchema);

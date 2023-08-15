@@ -14,7 +14,11 @@ const AllWorkouts = () => {
 
   const getWorkouts = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/workouts");
+      const response = await axios.get("http://localhost:8000/workouts", {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       const data = await response.data;
       setWorkouts(data);
       setIsLoading(false);
@@ -38,7 +42,13 @@ const AllWorkouts = () => {
   const handleDelete = async (id: string) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/workouts/${id}/delete`
+        `http://localhost:8000/workouts/${id}/delete`,
+        null,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
       );
       if (response.status === 200) {
         socket.emit("deleteWorkout", {});
@@ -51,7 +61,11 @@ const AllWorkouts = () => {
 
   const handleView = async (id: string) => {
     try {
-      const response = await axios.get(`http://localhost:8000/workouts/${id}`);
+      const response = await axios.get(`http://localhost:8000/workouts/${id}`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       if (response.status === 200) {
         navigate("/workout/view", { state: { workout: response.data } });
       }

@@ -7,7 +7,6 @@ const Exercises = () => {
   return (
     <>
       <Navbar />
-      <ExerciseForm />
       <AllExercises />
     </>
   );

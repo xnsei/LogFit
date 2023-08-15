@@ -14,7 +14,11 @@ const AllExercises = () => {
 
   const getExercises = async () => {
     try {
-      const response = await axios.get(baseURL + "/exercises");
+      const response = await axios.get(baseURL + "/exercises", {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       const data = await response.data;
       setExercises(data);
       setIsLoading(false);
@@ -37,7 +41,15 @@ const AllExercises = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await axios.post(`${baseURL}/exercises/${id}/delete`);
+      const response = await axios.post(
+        `${baseURL}/exercises/${id}/delete`,
+        null,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status === 200) {
         socket.emit("deleteExercise", {});
         console.log("event emitted");
@@ -73,7 +85,12 @@ const WorkoutExercises = (props: WorkoutProps) => {
   const getExercises = async () => {
     try {
       const response = await axios.get(
-        baseURL + `/workouts/${props.id}/exercises`
+        baseURL + `/workouts/${props.id}/exercises`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
       );
       const data = await response.data;
       setExercises(data);
@@ -97,7 +114,15 @@ const WorkoutExercises = (props: WorkoutProps) => {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await axios.post(`${baseURL}/exercises/${id}/delete`);
+      const response = await axios.post(
+        `${baseURL}/exercises/${id}/delete`,
+        null,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status === 200) {
         socket.emit("deleteExercise", {});
         console.log("event emitted");

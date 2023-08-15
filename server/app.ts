@@ -68,10 +68,24 @@ io.on("connection", (socket: any) => {
 
 connectDB();
 
+const authenticateUser = wrapAssync(async (req: any) => {
+  const token = req.headers.token;
+  const secret = process.env.SECRET;
+  try {
+    const decodedUser = jwt.verify(token, secret);
+    const userId = decodedUser.userId;
+    const foundUser = await user.findById(userId);
+    return foundUser._id;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.get(
   "/workouts",
   wrapAssync(async (req: any, res: any) => {
-    const workouts = await workout.find({});
+    const userId = authenticateUser(req);
+    const workouts = await workout.find({ userId: userId });
     res.send(workouts);
   })
 );
@@ -80,8 +94,10 @@ app.post(
   "/workouts/new",
   wrapAssync(async (req: any, res: any) => {
     const { name } = req.body;
+    const userId = authenticateUser(req);
     const newWorkout = new workout({
-      name,
+      name: name,
+      userId: userId,
     });
     await newWorkout.save();
     res.json({ message: "Workout Saved SuccessFully!!" });
@@ -91,8 +107,9 @@ app.post(
 app.get(
   "/workouts/:id",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { id } = req.params;
-    const requestedWorkout = await workout.findById(id);
+    const requestedWorkout = await workout.findOne({ _id: id, userId: userId });
     res.send(requestedWorkout);
   })
 );
@@ -100,23 +117,32 @@ app.get(
 app.post(
   "/workouts/:id/delete",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { id } = req.params;
-    const deletedWorkout = await workout.findByIdAndDelete(id);
+    const workoutToBeDeleted = await workout.findOne({
+      _id: id,
+      userId: userId,
+    });
+    if (workoutToBeDeleted) await workout.findByIdAndDelete(id);
     res.json({ message: "Workout Deleted Successfully" });
   })
 );
 
 app.post(
-  "/workouts/:id/exercises",
+  "/workouts/:id/exercises/new",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { id } = req.params;
-    const { name } = req.body;
-    const newExercise = await new exercise({
-      name,
-    }).save();
-    const requestedWorkout = await workout.findByIdAndUpdate(id, {
-      $push: { exercises: newExercise._id },
-    });
+    const requestedWorkout = await workout.findOne({ _id: id, userId: userId });
+    if (requestedWorkout) {
+      const { name } = req.body;
+      const newExercise = await new exercise({
+        name,
+      }).save();
+      const workoutToBeUpdated = await workout.findByIdAndUpdate(id, {
+        $push: { exercises: newExercise._id },
+      });
+    }
     res.json({ message: "Exercise added to workout successfully!" });
   })
 );
@@ -124,8 +150,12 @@ app.post(
 app.get(
   "/workouts/:id/exercises",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { id } = req.params;
-    const requestedWorkout = await workout.findById(id).populate("exercises");
+
+    const requestedWorkout = await workout
+      .findOne({ _id: id, userId: userId })
+      .populate("exercises");
     const exercises = await requestedWorkout.exercises;
     res.send(exercises);
   })
@@ -134,28 +164,21 @@ app.get(
 app.get(
   "/exercises",
   wrapAssync(async (req: any, res: any) => {
-    const exercises = await exercise.find({});
+    const userId = authenticateUser(req);
+    const exercises = await exercise.find({ userId: userId });
     res.send(exercises);
-  })
-);
-
-app.post(
-  "/exercises/new",
-  wrapAssync(async (req: any, res: any) => {
-    const { name } = req.body;
-    const newExercise = new exercise({
-      name,
-    });
-    await newExercise.save();
-    res.json({ message: "Exercise Saved SuccessFully!!" });
   })
 );
 
 app.post(
   "/exercises/:id/delete",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { id } = req.params;
-    const workoutsToUpdate = await workout.find({ exercises: id });
+    const workoutsToUpdate = await workout.find({
+      exercises: id,
+      userId: userId,
+    });
     const workoutsUpdated = await workoutsToUpdate.map(
       async (tempWorkout: any) => {
         await workout.findByIdAndUpdate(tempWorkout._id, {
@@ -172,7 +195,8 @@ app.post(
 app.get(
   "/weights",
   wrapAssync(async (req: any, res: any) => {
-    const weights = await weight.find({});
+    const userId = authenticateUser(req);
+    const weights = await weight.find({ userId: userId });
     res.send(weights);
   })
 );
@@ -180,9 +204,10 @@ app.get(
 app.post(
   "/weights/new",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { entry, datadate } = req.body;
     const newWeight = await weight.findOneAndUpdate(
-      { datadate: datadate },
+      { datadate: datadate, userId: userId },
       { entry: entry },
       { upsert: true }
     );
@@ -193,8 +218,10 @@ app.post(
 app.post(
   "/weights/:id/delete",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { id } = req.params;
-    const deletedWeight = await weight.findByIdAndDelete(id);
+    const weightToBeDeleted = await weight.findOne({ userId: userId, _id: id });
+    if (weightToBeDeleted) await weight.findByIdAndDelete(id);
     res.json({ message: "Weight Deleted Successfully" });
   })
 );
@@ -202,8 +229,12 @@ app.post(
 app.get(
   "/exercises/:id/entries",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { id } = req.params;
-    const entries = await exerciseEntry.find({ exerciseId: id });
+    const entries = await exerciseEntry.find({
+      exerciseId: id,
+      userId: userId,
+    });
     res.send(entries);
   })
 );
@@ -211,12 +242,14 @@ app.get(
 app.post(
   "/exercises/:id/entries/new",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { id } = req.params;
     const { reps, datadate } = req.body;
     const newEntry = await new exerciseEntry({
       entry: reps,
       datadate: datadate,
       exerciseId: id,
+      userId: userId,
     }).save();
     res.json({ message: "Entry Saved SuccessFully!!" });
   })
@@ -225,8 +258,14 @@ app.post(
 app.post(
   "/exercises/:exerciseId/entries/:entryId/delete",
   wrapAssync(async (req: any, res: any) => {
+    const userId = authenticateUser(req);
     const { exerciseId, entryId } = req.params;
-    const deleteEntry = await exerciseEntry.findByIdAndDelete(entryId);
+    const entryToBeDeleted = await exerciseEntry.findOne({
+      _id: entryId,
+      exerciseId: exerciseId,
+      userId: userId,
+    });
+    if (entryToBeDeleted) await exerciseEntry.findByIdAndDelete(entryId);
     res.json({ message: "Entry Deleted Successfully" });
   })
 );

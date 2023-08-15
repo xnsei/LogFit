@@ -16,9 +16,17 @@ const WorkoutForm = () => {
 
   const addWorkout = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/workouts/new", {
-        name: workoutData.title,
-      });
+      const response = await axios.post(
+        "http://localhost:8000/workouts/new",
+        {
+          name: workoutData.title,
+        },
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status === 200) {
         socket.emit("addWorkout", {});
         console.log("event emitted");
