@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const loginUser = async () => {
+  const registerUser = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/users/login", {
+      const response = await axios.post("http://localhost:8000/users/new", {
+        username: username,
         email: email,
         password: password,
       });
@@ -19,7 +21,7 @@ const Login = () => {
         if (token) {
           localStorage.setItem("token", token);
         }
-        alert("Login Successfull!");
+        alert("Registration Successfull!");
         navigate("/");
       }
     } catch (error) {
@@ -29,13 +31,21 @@ const Login = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    loginUser();
+    registerUser();
   };
 
   return (
     <div>
-      <h2>Login Page</h2>
+      <h2>Registration Page</h2>
       <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="username"
+          placeholder="username"
+          required
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <br />
         <input
           type="email"
           name="email"
@@ -52,10 +62,10 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;

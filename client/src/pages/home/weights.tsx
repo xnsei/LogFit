@@ -14,7 +14,11 @@ const Weights = () => {
 
   const getWeights = async () => {
     try {
-      const response = await axios.get(baseURL + "/weights");
+      const response = await axios.get(baseURL + "/weights", {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       const data = await response.data;
       setWeights(data);
       setIsLoading(false);
@@ -37,7 +41,11 @@ const Weights = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await axios.post(`${baseURL}/weights/${id}/delete`);
+      const response = await axios.post(
+        `${baseURL}/weights/${id}/delete`,
+        null,
+        { headers: { token: localStorage.getItem("token") } }
+      );
       if (response.status === 200) {
         socket.emit("deleteWeight", {});
         console.log("event emitted");
@@ -52,10 +60,18 @@ const Weights = () => {
     const datadate: Date = new Date();
     const formattedDate = format(datadate, "yyyyMMdd");
     try {
-      const response = await axios.post(`${baseURL}/weights/new`, {
-        entry: entry,
-        datadate: formattedDate,
-      });
+      const response = await axios.post(
+        `${baseURL}/weights/new`,
+        {
+          entry: entry,
+          datadate: formattedDate,
+        },
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status === 200) {
         socket.emit("addWeight", {});
         console.log("event emitted");

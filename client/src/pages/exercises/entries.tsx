@@ -16,7 +16,12 @@ const Entries = (props: EntryProps) => {
   const getEntries = async () => {
     try {
       const response = await axios.get(
-        baseURL + `/exercises/${props.exerciseId}/entries`
+        baseURL + `/exercises/${props.exerciseId}/entries`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
       );
       const data = await response.data;
       setReps(data);
@@ -41,7 +46,13 @@ const Entries = (props: EntryProps) => {
   const handleDelete = async (id: string) => {
     try {
       const response = await axios.post(
-        `${baseURL}/exercises/${props.exerciseId}/entries/${id}/delete`
+        `${baseURL}/exercises/${props.exerciseId}/entries/${id}/delete`,
+        null,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
       );
       if (response.status === 200) {
         socket.emit("deleteEntry", {});
@@ -62,6 +73,11 @@ const Entries = (props: EntryProps) => {
         {
           reps: entry,
           datadate: formattedDate,
+        },
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
         }
       );
       if (response.status === 200) {
@@ -93,6 +109,7 @@ const Entries = (props: EntryProps) => {
           {reps.map((rep) => (
             <li key={rep._id}>
               <div>{rep.entry}</div>
+              <div>{rep.datadate}</div>
               <button onClick={() => handleDelete(rep._id)}>Delete</button>
             </li>
           ))}
