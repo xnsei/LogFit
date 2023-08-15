@@ -68,23 +68,31 @@ io.on("connection", (socket: any) => {
 
 connectDB();
 
-const authenticateUser = wrapAssync(async (req: any) => {
+const authenticateToken = wrapAssync(async (req: any, res: any, next: any) => {
   const token = req.headers.token;
   const secret = process.env.SECRET;
   try {
     const decodedUser = jwt.verify(token, secret);
     const userId = decodedUser.userId;
     const foundUser = await user.findById(userId);
-    return foundUser._id;
+    if (foundUser) {
+      req.user = userId;
+      next();
+    } else {
+      res.status(401);
+      return res.json({ messaeg: "Logged in successfully!", token: token });
+    }
   } catch (error) {
-    console.log(error);
+    res.status(401);
+    return res.json({ message: "Error occured: ", Error: error });
   }
 });
 
 app.get(
   "/workouts",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const workouts = await workout.find({ userId: userId });
     res.send(workouts);
   })
@@ -92,9 +100,10 @@ app.get(
 
 app.post(
   "/workouts/new",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
     const { name } = req.body;
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const newWorkout = new workout({
       name: name,
       userId: userId,
@@ -106,8 +115,9 @@ app.post(
 
 app.get(
   "/workouts/:id",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { id } = req.params;
     const requestedWorkout = await workout.findOne({ _id: id, userId: userId });
     res.send(requestedWorkout);
@@ -116,8 +126,9 @@ app.get(
 
 app.post(
   "/workouts/:id/delete",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { id } = req.params;
     const workoutToBeDeleted = await workout.findOne({
       _id: id,
@@ -130,8 +141,9 @@ app.post(
 
 app.post(
   "/workouts/:id/exercises/new",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { id } = req.params;
     const requestedWorkout = await workout.findOne({ _id: id, userId: userId });
     if (requestedWorkout) {
@@ -149,8 +161,9 @@ app.post(
 
 app.get(
   "/workouts/:id/exercises",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { id } = req.params;
 
     const requestedWorkout = await workout
@@ -163,8 +176,9 @@ app.get(
 
 app.get(
   "/exercises",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const exercises = await exercise.find({ userId: userId });
     res.send(exercises);
   })
@@ -172,8 +186,9 @@ app.get(
 
 app.post(
   "/exercises/:id/delete",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { id } = req.params;
     const workoutsToUpdate = await workout.find({
       exercises: id,
@@ -194,8 +209,9 @@ app.post(
 
 app.get(
   "/weights",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const weights = await weight.find({ userId: userId });
     res.send(weights);
   })
@@ -203,8 +219,9 @@ app.get(
 
 app.post(
   "/weights/new",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { entry, datadate } = req.body;
     const newWeight = await weight.findOneAndUpdate(
       { datadate: datadate, userId: userId },
@@ -217,8 +234,9 @@ app.post(
 
 app.post(
   "/weights/:id/delete",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { id } = req.params;
     const weightToBeDeleted = await weight.findOne({ userId: userId, _id: id });
     if (weightToBeDeleted) await weight.findByIdAndDelete(id);
@@ -228,8 +246,9 @@ app.post(
 
 app.get(
   "/exercises/:id/entries",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { id } = req.params;
     const entries = await exerciseEntry.find({
       exerciseId: id,
@@ -241,8 +260,9 @@ app.get(
 
 app.post(
   "/exercises/:id/entries/new",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { id } = req.params;
     const { reps, datadate } = req.body;
     const newEntry = await new exerciseEntry({
@@ -257,8 +277,9 @@ app.post(
 
 app.post(
   "/exercises/:exerciseId/entries/:entryId/delete",
+  authenticateToken,
   wrapAssync(async (req: any, res: any) => {
-    const userId = authenticateUser(req);
+    const userId = req.user;
     const { exerciseId, entryId } = req.params;
     const entryToBeDeleted = await exerciseEntry.findOne({
       _id: entryId,
@@ -354,6 +375,10 @@ app.post(
     }
   })
 );
+
+app.get("/authenticate", authenticateToken, (req: any, res: any) => {
+  res.json({ message: "authenticated" });
+});
 
 app.get("/", (req: any, res: any) => {
   res.json({ message: "Hello World!!!" });

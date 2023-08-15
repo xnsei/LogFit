@@ -8,7 +8,6 @@ const weightSchema = new mongoose.Schema({
   datadate: {
     type: String,
     required: true,
-    unique: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
