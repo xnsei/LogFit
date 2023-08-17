@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./workouts.css";
 import axios from "axios";
 import Navbar from "../commons/navbar/navbar";
 import WorkoutForm from "./workoutForm";
@@ -28,11 +29,13 @@ const Workouts = () => {
     authenticate();
   }, []);
   return (
-    <>
+    <div>
       <Navbar />
       <WorkoutForm />
-      <AllWorkouts />
-    </>
+      <div className="workout-container">
+        <AllWorkouts />
+      </div>
+    </div>
   );
 };
 

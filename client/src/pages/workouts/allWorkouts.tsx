@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import "./allWorkouts.css";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
@@ -77,21 +78,27 @@ const AllWorkouts = () => {
   return (
     <div>
       <h1>All Workouts</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {workouts.map((workout) => (
-            <li key={workout._id}>
-              <div>{workout.name}</div>
-              <button onClick={() => handleView(workout._id)}>View</button>
-              <button onClick={() => handleDelete(workout._id)}>Delete</button>
-              <WorkoutExercisesForm id={workout._id} />
-              <WorkoutExercises id={workout._id} />
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="workout-container">
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <ul>
+            {workouts.map((workout) => (
+              <li key={workout._id}>
+                <div className="workout-card">
+                  <div className="workout-title">{workout.name}</div>
+                  <button onClick={() => handleView(workout._id)}>View</button>
+                  <button onClick={() => handleDelete(workout._id)}>
+                    Delete
+                  </button>
+                  <WorkoutExercisesForm id={workout._id} />
+                  <WorkoutExercises id={workout._id} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
