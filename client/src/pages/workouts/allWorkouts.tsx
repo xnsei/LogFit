@@ -77,21 +77,28 @@ const AllWorkouts = () => {
 
   return (
     <div>
-      <h1>All Workouts</h1>
-      <div className="workout-container">
+      <div className="workouts-container">
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <ul>
+          <ul className="workouts-list">
             {workouts.map((workout) => (
               <li key={workout._id}>
                 <div className="workout-card">
-                  <div className="workout-title">{workout.name}</div>
-                  <button onClick={() => handleView(workout._id)}>View</button>
-                  <button onClick={() => handleDelete(workout._id)}>
-                    Delete
-                  </button>
-                  <WorkoutExercisesForm id={workout._id} />
+                  <div className="card-heading-container">
+                    <div
+                      onClick={() => handleView(workout._id)}
+                      className="workout-title"
+                    >
+                      {workout.name}
+                    </div>
+                    <button
+                      className="delete-button"
+                      onClick={() => handleDelete(workout._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                   <WorkoutExercises id={workout._id} />
                 </div>
               </li>

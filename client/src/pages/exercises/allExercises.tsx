@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
 import Entries from "./entries";
+import Modal from "../../components/Modal/modal";
+import { WorkoutExercisesForm } from "./exerciseForm";
+import "./allExercises.css";
 
 const baseURL = "http://localhost:8000";
 
@@ -81,6 +84,10 @@ const AllExercises = () => {
 const WorkoutExercises = (props: WorkoutProps) => {
   const [exercises, setExercises] = useState(Array());
   const [isLoading, setIsLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   const getExercises = async () => {
     try {
@@ -92,7 +99,7 @@ const WorkoutExercises = (props: WorkoutProps) => {
           },
         }
       );
-      const data = await response.data;
+      const data = await response.data.slice(0, 3);
       setExercises(data);
       setIsLoading(false);
     } catch (error) {
@@ -134,7 +141,15 @@ const WorkoutExercises = (props: WorkoutProps) => {
 
   return (
     <div>
-      <h3>All Exercises</h3>
+      <div className="headings-container">
+        <h3 className="exercices-heading">All Exercises</h3>
+        <button className="add-exercise-button" onClick={openModal}>
+          Add Exercise
+        </button>
+      </div>
+      <Modal isOpen={showModal} onClose={closeModal}>
+        <WorkoutExercisesForm id={props.id} />
+      </Modal>
       {isLoading ? (
         <p>Loading...</p>
       ) : (

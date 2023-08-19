@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
+import "./exerciseForm.css";
 
 const baseURL = "http://localhost:8000";
 
@@ -9,6 +10,7 @@ const socket = io(baseURL);
 
 const WorkoutExercisesForm = (props: WorkoutProps) => {
   const [exerciseData, setExerciseData] = useState({ title: "" });
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setExerciseData((prevData) => ({ ...prevData, [name]: value }));
@@ -42,20 +44,28 @@ const WorkoutExercisesForm = (props: WorkoutProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={exerciseData.title}
-          onChange={handleChange}
-          required
-        />
+    <div>
+      <div className="form-box">
+        <h2 className="form-heading">Add an Exercise</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              className="form-input"
+              type="text"
+              id="title"
+              name="title"
+              value={exerciseData.title}
+              onChange={handleChange}
+              placeholder="Exercise Title"
+              required
+            />
+          </div>
+          <button className="form-button" type="submit">
+            Add Exercise
+          </button>
+        </form>
       </div>
-      <button type="submit">Add Exercise</button>
-    </form>
+    </div>
   );
 };
 

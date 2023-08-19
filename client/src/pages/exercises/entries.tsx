@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { EntryProps } from "./entryProps";
+import Modal from "../../components/Modal/modal";
 
 const baseURL = "http://localhost:8000";
 
@@ -12,6 +13,10 @@ const Entries = (props: EntryProps) => {
   const [reps, setReps] = useState(Array());
   const [entry, setEntry] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   const getEntries = async () => {
     try {
@@ -89,19 +94,36 @@ const Entries = (props: EntryProps) => {
     }
   };
 
+  const entryForm = (
+    <div>
+      <button className="add-entry-button" onClick={openModal}>
+        Add Entry
+      </button>
+      <Modal isOpen={showModal} onClose={closeModal}>
+        <div className="form-box">
+          <h2 className="form-heading">Add Repetitions</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="form-input"
+              type="number"
+              name="entry"
+              placeholder="Reps"
+              onChange={(e) => setEntry(e.target.value)}
+              required
+            />
+            <button className="form-button" type="submit">
+              Add Entry
+            </button>
+          </form>
+        </div>
+      </Modal>
+    </div>
+  );
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          name="entry"
-          placeholder="Reps"
-          onChange={(e) => setEntry(e.target.value)}
-          required
-        />
-        <button type="submit">Add Entry</button>
-      </form>
-      <h1>All Entries</h1>
+      {entryForm}
+      <h3>All Entries</h3>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
