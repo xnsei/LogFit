@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Chart from "./chart";
+import SmallCard from "../../components/Card/small/smallCard";
 
 const baseURL = "http://localhost:8000";
 
@@ -82,6 +83,8 @@ const Weights = () => {
     }
   };
 
+  const deleteMeow = () => {};
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -95,18 +98,32 @@ const Weights = () => {
         <button type="submit">Add Weight</button>
       </form>
       <Chart data={weights} />
-      {/* {isLoading ? (
+      {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
-          {weights.map((weight) => (
-            <li key={weight._id}>
-              <div>{weight.entry}</div>
-              <button onClick={() => handleDelete(weight._id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      )} */}
+        // <ul>
+        //   {weights.map((weight) => (
+        //     <li key={weight._id}>
+        //       <div>{weight.entry}</div>
+        //       <button onClick={() => handleDelete(weight._id)}>Delete</button>
+        //     </li>
+        //   ))}
+        // </ul>
+        <SmallCard
+          title="weights"
+          onDelete={deleteMeow}
+          subTitile="All weights"
+          namesList={weights.map((weight) => ({
+            _id: weight._id,
+            url: `${baseURL}/weights/${weight._id}/delete`,
+            data: {
+              entry: weight.entry,
+              date: weight.datadate,
+            },
+          }))}
+          isWeights={true}
+        />
+      )}
     </div>
   );
 };

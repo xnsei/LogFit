@@ -1,11 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
-import Entries from "./entries";
+import { ExerciseEntries } from "./entries";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "./exerciseForm";
 import "./allExercises.css";
+import Carousel from "../../components/Carousel/carousel";
 
 const baseURL = "http://localhost:8000";
 
@@ -99,7 +100,7 @@ const WorkoutExercises = (props: WorkoutProps) => {
           },
         }
       );
-      const data = await response.data.slice(0, 3);
+      const data = await response.data;
       setExercises(data);
       setIsLoading(false);
     } catch (error) {
@@ -150,13 +151,11 @@ const WorkoutExercises = (props: WorkoutProps) => {
       <Modal isOpen={showModal} onClose={closeModal}>
         <WorkoutExercisesForm id={props.id} />
       </Modal>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul className="exercise-list">
+      <ul className="exercise-list">
+        <Carousel>
           {exercises.map((exercise) => (
             <li key={exercise._id}>
-              <div className="exercise-container">
+              {/* <div className="exercise-container">
                 <div>{exercise.name}</div>
                 <div className="exercise-container-child">
                   <Entries
@@ -170,11 +169,24 @@ const WorkoutExercises = (props: WorkoutProps) => {
                     Delete
                   </button>
                 </div>
-              </div>
+              </div> */}
+              {/* <SmallCard
+                title={exercise.name}
+                onDelete={() => handleDelete(exercise._id)}
+                subTitile={"Entries"}
+                isWeights={false}
+                namesList={}
+              /> */}
+
+              <ExerciseEntries
+                exerciseId={exercise._id}
+                exerciseName={exercise.name}
+                onDelete={() => handleDelete(exercise._id)}
+              />
             </li>
           ))}
-        </ul>
-      )}
+        </Carousel>
+      </ul>
     </div>
   );
 };

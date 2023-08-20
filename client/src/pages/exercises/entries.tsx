@@ -2,9 +2,10 @@ import axios from "axios";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { EntryProps } from "./entryProps";
+import { EntryProps, ExerciseEntryProps } from "./entryProps";
 import Modal from "../../components/Modal/modal";
 import "./entries.css";
+import SmallCard from "../../components/Card/small/smallCard";
 
 const baseURL = "http://localhost:8000";
 
@@ -146,4 +147,47 @@ const Entries = (props: EntryProps) => {
   );
 };
 
-export default Entries;
+const ExerciseEntries = (props: ExerciseEntryProps) => {
+  const [entries, setEntries] = useState(Array());
+
+  const getEntries = async () => {
+    try {
+      const response = await axios.get(
+        baseURL + `/exercises/${props.exerciseId}/entries`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
+      const data = await response.data.slice(0, 3);
+      setEntries(data);
+      // setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      // setIsLoading(false);
+    }
+    return entries;
+  };
+
+  useEffect(() => {}, []);
+  return (
+    <div>
+      <SmallCard
+        title={props.exerciseName}
+        onDelete={props.onDelete}
+        subTitile={"Entries"}
+        isWeights={false}
+        namesList={entries.map((entry) => ({
+          _id: entry._id,
+          url: `${baseURL}/exercises/${props.exerciseId}/entries/${entry._id}/delete`,
+          data: {
+            entry: entry.entry,
+          },
+        }))}
+      />
+    </div>
+  );
+};
+
+export { Entries, ExerciseEntries };

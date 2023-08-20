@@ -6,7 +6,6 @@ import Weights from "./weights";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const authenticate = async () => {
