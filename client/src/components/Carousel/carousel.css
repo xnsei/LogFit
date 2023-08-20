@@ -26,18 +26,9 @@
   margin: 0 10px;
 }
 
-.prev-button:hover,
-.next-button:hover {
-  /* background-color: #0056b3; */
-}
-
 .button-text {
   font-weight: 900;
   font-size: 24px;
-  /* color: rgb(255, 244, 226); */
-  transition: color 0.3s;
-}
-
-.button-text:hover {
   color: rgb(202, 166, 112);
+  transition: color 0.3s;
 }

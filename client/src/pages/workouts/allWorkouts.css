@@ -56,7 +56,7 @@
 }
 
 .workout-card button.delete-button {
-  background-color: #ff6347; /* Red color, adjust as needed */
+  background-color: rgb(218, 87, 0); /* Red color, adjust as needed */
 }
 
 .workout-card button.delete-button:hover {
@@ -64,9 +64,9 @@
 }
 
 .workout-card button.add-exercise-button {
-  background-color: #007bff; /* Blue color, adjust as needed */
+  background-color: rgb(218, 131, 0); /* Blue color, adjust as needed */
 }
 
 .workout-card button.add-exercise-button:hover {
-  background-color: #0056b3;
+  background-color: rgb(175, 115, 24);
 }
