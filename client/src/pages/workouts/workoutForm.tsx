@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { io } from "socket.io-client";
+import "./workoutForm.css";
 
 const socket = io("http://localhost:8000");
 
@@ -42,20 +43,26 @@ const WorkoutForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={workoutData.title}
-          onChange={handleChange}
-          required
-        ></input>
-      </div>
-      <button type="submit">Add Workout</button>
-    </form>
+    <div className="form-box">
+      <h2 className="form-heading">Add a Workout</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            className="form-input"
+            type="text"
+            id="title"
+            name="title"
+            value={workoutData.title}
+            onChange={handleChange}
+            placeholder="Workout Title"
+            required
+          ></input>
+        </div>
+        <button className="form-button" type="submit">
+          Add Workout
+        </button>
+      </form>
+    </div>
   );
 };
 

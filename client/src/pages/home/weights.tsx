@@ -2,6 +2,7 @@ import axios from "axios";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import Chart from "./chart";
 
 const baseURL = "http://localhost:8000";
 
@@ -93,8 +94,8 @@ const Weights = () => {
         />
         <button type="submit">Add Weight</button>
       </form>
-      <h1>All Weights</h1>
-      {isLoading ? (
+      <Chart data={weights} />
+      {/* {isLoading ? (
         <p>Loading...</p>
       ) : (
         <ul>
@@ -105,7 +106,7 @@ const Weights = () => {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
     </div>
   );
 };

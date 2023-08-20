@@ -1,0 +1,72 @@
+.workouts-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.workouts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.workout-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: inherit;
+  margin-bottom: 20px;
+  transition: transform 0.5s, box-shadow 0.3s;
+}
+
+.workout-card:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: #ebebeb 2px solid;
+}
+
+.workout-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.card-exercises {
+  margin-top: 10px;
+}
+
+.workout-card button {
+  /* background-color: #007bff; */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.workout-card button.delete-button {
+  background-color: #ff6347; /* Red color, adjust as needed */
+}
+
+.workout-card button.delete-button:hover {
+  background-color: #d84930; /* Red color, adjust as needed */
+}
+
+.workout-card button.add-exercise-button {
+  background-color: #007bff; /* Blue color, adjust as needed */
+}
+
+.workout-card button.add-exercise-button:hover {
+  background-color: #0056b3;
+}

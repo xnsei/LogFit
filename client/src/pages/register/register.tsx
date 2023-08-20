@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./register.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +7,7 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const registerUser = async () => {
@@ -23,8 +25,11 @@ const Register = () => {
         }
         alert("Registration Successfull!");
         navigate("/");
+      } else {
+        setError(true);
       }
     } catch (error) {
+      setError(true);
       console.log(error);
     }
   };
@@ -34,36 +39,55 @@ const Register = () => {
     registerUser();
   };
 
+  const handleNavigate = (e: any) => {
+    e.preventDefault();
+    navigate("/login");
+  };
+
   return (
-    <div>
-      <h2>Registration Page</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          required
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <br />
-        <input
-          type="email"
-          name="email"
-          placeholder="email"
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button type="submit">Register</button>
-      </form>
+    <div className="registration-container">
+      <div className="registration-box">
+        <h2 className="registration-heading">Create an Account</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="registration-input"
+            type="text"
+            name="username"
+            placeholder="username"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <br />
+          <input
+            className="registration-input"
+            type="email"
+            name="email"
+            placeholder="email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <br />
+          <input
+            className="registration-input"
+            type="password"
+            name="password"
+            placeholder="password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <br />
+          <button className="registration-button" type="submit">
+            Register
+          </button>
+        </form>
+        <p className="error-message">{error && "Email already exists"}</p>
+        <div className="registration-links">
+          <p>Already have an account?</p>
+          <a className="registration-link" onClick={handleNavigate}>
+            Login
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,12 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import "./workouts.css";
 import axios from "axios";
 import Navbar from "../commons/navbar/navbar";
 import WorkoutForm from "./workoutForm";
 import AllWorkouts from "./allWorkouts";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../components/Modal/modal";
 
 const Workouts = () => {
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   const authenticate = async () => {
     try {
@@ -28,11 +34,21 @@ const Workouts = () => {
     authenticate();
   }, []);
   return (
-    <>
+    <div>
       <Navbar />
-      <WorkoutForm />
-      <AllWorkouts />
-    </>
+      <div className="workouts-page">
+        <Modal isOpen={showModal} onClose={closeModal}>
+          <WorkoutForm />
+        </Modal>
+        <div className="heading">
+          <h1 className="workouts-heading">All Workouts</h1>
+          <button className="add-workout-button" onClick={openModal}>
+            Add Workout
+          </button>
+        </div>
+        <AllWorkouts />
+      </div>
+    </div>
   );
 };
 
