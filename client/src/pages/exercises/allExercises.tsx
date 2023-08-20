@@ -153,12 +153,24 @@ const WorkoutExercises = (props: WorkoutProps) => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
+        <ul className="exercise-list">
           {exercises.map((exercise) => (
             <li key={exercise._id}>
-              <div>{exercise.name}</div>
-              <button onClick={() => handleDelete(exercise._id)}>Delete</button>
-              <Entries exerciseId={exercise._id} />
+              <div className="exercise-container">
+                <div>{exercise.name}</div>
+                <div className="exercise-container-child">
+                  <Entries
+                    exerciseId={exercise._id}
+                    numberOfEntriesREquested={1}
+                  />
+                  <button
+                    className="exercise-delete-button"
+                    onClick={() => handleDelete(exercise._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             </li>
           ))}
         </ul>

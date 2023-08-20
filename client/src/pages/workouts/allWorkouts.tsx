@@ -99,7 +99,9 @@ const AllWorkouts = () => {
                       Delete
                     </button>
                   </div>
-                  <WorkoutExercises id={workout._id} />
+                  <div className="card-exercises">
+                    <WorkoutExercises id={workout._id} />
+                  </div>
                 </div>
               </li>
             ))}

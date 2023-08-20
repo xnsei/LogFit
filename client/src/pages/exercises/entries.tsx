@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { EntryProps } from "./entryProps";
 import Modal from "../../components/Modal/modal";
+import "./entries.css";
 
 const baseURL = "http://localhost:8000";
 
@@ -28,7 +29,7 @@ const Entries = (props: EntryProps) => {
           },
         }
       );
-      const data = await response.data;
+      const data = await response.data.slice(0, props.numberOfEntriesREquested);
       setReps(data);
       setIsLoading(false);
     } catch (error) {
@@ -94,7 +95,7 @@ const Entries = (props: EntryProps) => {
     }
   };
 
-  const entryForm = (
+  const entryForm = props.numberOfEntriesREquested > 1 && (
     <div>
       <button className="add-entry-button" onClick={openModal}>
         Add Entry
@@ -123,16 +124,20 @@ const Entries = (props: EntryProps) => {
   return (
     <div>
       {entryForm}
-      <h3>All Entries</h3>
+      {props.numberOfEntriesREquested > 1 && <h3>All Entries</h3>}
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
+        <ul className="entry-list">
           {reps.map((rep) => (
             <li key={rep._id}>
-              <div>{rep.entry}</div>
-              <div>{rep.datadate}</div>
-              <button onClick={() => handleDelete(rep._id)}>Delete</button>
+              <div className="entry-container">
+                <div className="entry-repetitions">{rep.entry}</div>
+                <div className="entry-datadate">{rep.datadate}</div>
+              </div>
+              {props.numberOfEntriesREquested > 1 && (
+                <button onClick={() => handleDelete(rep._id)}>Delete</button>
+              )}
             </li>
           ))}
         </ul>

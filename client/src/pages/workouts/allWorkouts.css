@@ -19,7 +19,7 @@
   padding: 20px;
   width: inherit;
   margin-bottom: 20px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.5s, box-shadow 0.3s;
 }
 
 .workout-card:hover {
@@ -30,6 +30,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: #ebebeb 2px solid;
 }
 
 .workout-title {
@@ -39,8 +40,12 @@
   cursor: pointer;
 }
 
+.card-exercises {
+  margin-top: 10px;
+}
+
 .workout-card button {
-  background-color: #007bff;
+  /* background-color: #007bff; */
   color: white;
   padding: 5px 10px;
   border: none;
@@ -52,6 +57,10 @@
 
 .workout-card button.delete-button {
   background-color: #ff6347; /* Red color, adjust as needed */
+}
+
+.workout-card button.delete-button:hover {
+  background-color: #d84930; /* Red color, adjust as needed */
 }
 
 .workout-card button.add-exercise-button {

@@ -42,3 +42,22 @@
 .form-button:hover {
   background-color: #0056b3;
 }
+
+.entry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.entry-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.entry-repetitions {
+  margin-right: 25px;
+}
+
+.entry-datadate {
+  margin-left: 25px;
+}

@@ -3,3 +3,31 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.exercise-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.exercise-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2px 0;
+}
+
+.exercise-container-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exercise-delete-button {
+  margin-left: 50px;
+  background-color: #ff6347; /* Red color, adjust as needed */
+}
+
+.exercise-delete-button:hover {
+  background-color: #d84930; /* Red color, adjust as needed */
+}
