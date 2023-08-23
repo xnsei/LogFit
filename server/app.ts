@@ -149,7 +149,8 @@ app.post(
     if (requestedWorkout) {
       const { name } = req.body;
       const newExercise = await new exercise({
-        name,
+        name: name,
+        userId: userId,
       }).save();
       const workoutToBeUpdated = await workout.findByIdAndUpdate(id, {
         $push: { exercises: newExercise._id },

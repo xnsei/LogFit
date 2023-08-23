@@ -15,8 +15,9 @@ const SmallCard = (props: SmallCardProps) => {
         headers: { token: localStorage.getItem("token") },
       });
       if (response.status === 200) {
+        console.log(response);
         socket.emit("deleteWeight", {});
-        console.log("event emitted");
+        console.log("meow event emitted");
       }
     } catch (error) {
       console.log(error);

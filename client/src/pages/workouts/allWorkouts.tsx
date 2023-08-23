@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import "./allWorkouts.css";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
-import { WorkoutExercisesForm } from "../exercises/exerciseForm";
 import { WorkoutExercises } from "../exercises/allExercises";
 
 const socket = io("http://localhost:8000");
@@ -100,7 +99,10 @@ const AllWorkouts = () => {
                     </button>
                   </div>
                   <div className="card-exercises">
-                    <WorkoutExercises id={workout._id} />
+                    <WorkoutExercises
+                      id={workout._id}
+                      baseUrl={`/workouts/${workout._id}`}
+                    />
                   </div>
                 </div>
               </li>

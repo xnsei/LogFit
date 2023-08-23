@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { WorkoutExercises } from "../exercises/allExercises";
+import { AllExercises, WorkoutExercises } from "../exercises/allExercises";
 
 const ShowWorkout = () => {
   const location = useLocation();
@@ -32,7 +32,8 @@ const ShowWorkout = () => {
   return (
     <div>
       <h1>{workout.name}</h1>
-      <WorkoutExercises id={workout._id} />
+      {/* <WorkoutExercises id={workout._id} baseUrl={`/workouts/${workout._id}`} /> */}
+      <AllExercises />
     </div>
   );
 };

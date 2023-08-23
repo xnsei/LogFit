@@ -170,7 +170,10 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
     return entries;
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getEntries();
+  }, []);
+
   return (
     <div>
       <SmallCard

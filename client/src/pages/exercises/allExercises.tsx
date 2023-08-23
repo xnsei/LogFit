@@ -65,19 +65,22 @@ const AllExercises = () => {
 
   return (
     <div>
-      <h1>All Exercises</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
+      <div className="headings-container">
+        <h3 className="exercices-heading">All Exercises</h3>
+      </div>
+      <ul className="exercise-list">
+        <Carousel>
           {exercises.map((exercise) => (
             <li key={exercise._id}>
-              <div>{exercise.name}</div>
-              <button onClick={() => handleDelete(exercise._id)}>Delete</button>
+              <ExerciseEntries
+                exerciseId={exercise._id}
+                exerciseName={exercise.name}
+                onDelete={() => handleDelete(exercise._id)}
+              />
             </li>
           ))}
-        </ul>
-      )}
+        </Carousel>
+      </ul>
     </div>
   );
 };
@@ -92,14 +95,11 @@ const WorkoutExercises = (props: WorkoutProps) => {
 
   const getExercises = async () => {
     try {
-      const response = await axios.get(
-        baseURL + `/workouts/${props.id}/exercises`,
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(baseURL + `${props.baseUrl}/exercises`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       const data = await response.data;
       setExercises(data);
       setIsLoading(false);
@@ -155,29 +155,6 @@ const WorkoutExercises = (props: WorkoutProps) => {
         <Carousel>
           {exercises.map((exercise) => (
             <li key={exercise._id}>
-              {/* <div className="exercise-container">
-                <div>{exercise.name}</div>
-                <div className="exercise-container-child">
-                  <Entries
-                    exerciseId={exercise._id}
-                    numberOfEntriesREquested={1}
-                  />
-                  <button
-                    className="exercise-delete-button"
-                    onClick={() => handleDelete(exercise._id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div> */}
-              {/* <SmallCard
-                title={exercise.name}
-                onDelete={() => handleDelete(exercise._id)}
-                subTitile={"Entries"}
-                isWeights={false}
-                namesList={}
-              /> */}
-
               <ExerciseEntries
                 exerciseId={exercise._id}
                 exerciseName={exercise.name}

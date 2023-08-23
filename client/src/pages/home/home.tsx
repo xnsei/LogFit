@@ -4,6 +4,8 @@ import "./home.css";
 import Navbar from "../commons/navbar/navbar";
 import Weights from "./weights";
 import { useNavigate } from "react-router-dom";
+import { AllExercises } from "../exercises/allExercises";
+import SmallCardWorkouts from "../workouts/smallCardWorkouts";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -29,12 +31,16 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home">
-      <div className="homeContainer">
-        <Navbar />
-        <p>Workout Tracker Home</p>
-        <Weights />
+    <div>
+      <div className="home">
+        <div className="homeContainer">
+          <Navbar />
+          <p>Workout Tracker Home</p>
+          <Weights />
+        </div>
       </div>
+      <SmallCardWorkouts />
+      <AllExercises />
     </div>
   );
 };
