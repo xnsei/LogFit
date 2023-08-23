@@ -68,7 +68,7 @@ const SmallCardWorkouts = () => {
             <li key={workout._id}>
               <SmallCardWorkoutExercises
                 baseUrl={`/workouts/${workout._id}`}
-                exerciseId={workout._id}
+                workoutId={workout._id}
                 workoutName={workout.name}
                 onDelete={() => handleDelete(workout._id)}
               />
