@@ -11,7 +11,7 @@ interface ExerciseProps {
   baseUrl: string;
   workoutName: string;
   onDelete: (event: React.MouseEvent<HTMLElement>) => void;
-  exerciseId: string;
+  workoutId: string;
 }
 
 const SmallCardWorkoutExercises: React.FC<ExerciseProps> = (
@@ -50,11 +50,11 @@ const SmallCardWorkoutExercises: React.FC<ExerciseProps> = (
         onDelete={props.onDelete}
         subTitile={"Exercises"}
         isWeights={false}
-        namesList={exercises.map((exercice) => ({
-          _id: exercice._id,
-          url: `${baseURL}/exercises/${props.exerciseId}/delete`,
+        namesList={exercises.map((exercise) => ({
+          _id: exercise._id,
+          url: `${baseURL}/exercises/${exercise._id}/delete`,
           data: {
-            entry: exercice.name,
+            entry: exercise.name,
           },
         }))}
       />
