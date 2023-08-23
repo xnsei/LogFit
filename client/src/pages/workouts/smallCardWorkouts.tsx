@@ -72,7 +72,6 @@ const SmallCardWorkouts = () => {
                 workoutName={workout.name}
                 onDelete={() => handleDelete(workout._id)}
               />
-              meow
             </li>
           ))}
         </Carousel>

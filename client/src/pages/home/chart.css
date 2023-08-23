@@ -1,16 +1,21 @@
 .chart-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
   padding: 20px;
-  border-radius: 10px;
-  background-color: #f8f8f8;
+  margin: 20px;
+  position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: blanchedalmond;
 }
 
 .chart-title {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: rgb(150, 150, 150);
+}
+
+.chart-canvas {
+  padding: 10px;
+  height: 400px;
+  background-color: rgb(255, 244, 226);
+  border: 3px solid rgb(238, 220, 192);
 }

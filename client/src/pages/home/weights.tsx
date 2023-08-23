@@ -109,20 +109,21 @@ const Weights = () => {
         //     </li>
         //   ))}
         // </ul>
-        <SmallCard
-          title="weights"
-          onDelete={deleteMeow}
-          subTitile="All weights"
-          namesList={weights.map((weight) => ({
-            _id: weight._id,
-            url: `${baseURL}/weights/${weight._id}/delete`,
-            data: {
-              entry: weight.entry,
-              date: weight.datadate,
-            },
-          }))}
-          isWeights={true}
-        />
+        // <SmallCard
+        //   title="weights"
+        //   onDelete={deleteMeow}
+        //   subTitile="All weights"
+        //   namesList={weights.map((weight) => ({
+        //     _id: weight._id,
+        //     url: `${baseURL}/weights/${weight._id}/delete`,
+        //     data: {
+        //       entry: weight.entry,
+        //       date: weight.datadate,
+        //     },
+        //   }))}
+        //   isWeights={true}
+        // />
+        <div></div>
       )}
     </div>
   );

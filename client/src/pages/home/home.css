@@ -1,7 +1,14 @@
-.home {
-  display: flex;
+.home-page {
+  margin: auto;
+  width: 60%;
 }
 
-.homeContainer {
-  flex: 9;
+.workouts,
+.exercises {
+  background-color: blanchedalmond;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  transition: transform 0.5s, box-shadow 0.3s;
 }

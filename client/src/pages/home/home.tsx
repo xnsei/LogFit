@@ -31,16 +31,16 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="home-page">
       <div className="home">
-        <div className="homeContainer">
-          <Navbar />
-          <p>Workout Tracker Home</p>
-          <Weights />
-        </div>
+        <Weights />
       </div>
-      <SmallCardWorkouts />
-      <AllExercises />
+      <div className="workouts">
+        <SmallCardWorkouts />
+      </div>
+      <div className="exercises">
+        <AllExercises />
+      </div>
     </div>
   );
 };
