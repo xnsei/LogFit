@@ -1,4 +1,5 @@
-export interface EntryProps {
-  exerciseId: String;
-  numberOfEntriesREquested: number;
+export interface ExerciseEntryProps {
+  exerciseName: string;
+  exerciseId: string;
+  onDelete: (event: React.MouseEvent<HTMLElement>) => void;
 }

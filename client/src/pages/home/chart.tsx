@@ -17,9 +17,11 @@ const chart = (weights: any) => {
               {
                 label: "Progression over past 30 days",
                 data: data.map((weight: any) => weight.entry),
-                borderWidth: 1,
+                borderWidth: 2,
                 fill: true,
                 tension: 0.4,
+                borderColor: "rgb(175, 115, 24)",
+                backgroundColor: "rgba(175, 115, 24, 0.3)",
               },
             ],
           }}
@@ -27,6 +29,7 @@ const chart = (weights: any) => {
             maintainAspectRatio: false,
             responsive: true,
           }}
+          className="chart-canvas"
         />
       </div>
     </div>

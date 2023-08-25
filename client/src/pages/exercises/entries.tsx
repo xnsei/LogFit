@@ -2,18 +2,19 @@ import axios from "axios";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { EntryProps } from "./entryProps";
+import { ExerciseEntryProps } from "./entryProps";
 import Modal from "../../components/Modal/modal";
 import "./entries.css";
+import SmallCard from "../../components/Card/small/smallCard";
+import BigCard from "../../components/Card/big/bigCard";
 
 const baseURL = "http://localhost:8000";
 
 const socket = io(baseURL);
 
-const Entries = (props: EntryProps) => {
-  const [reps, setReps] = useState(Array());
+const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
+  const [entries, setEntries] = useState(Array());
   const [entry, setEntry] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
@@ -29,12 +30,10 @@ const Entries = (props: EntryProps) => {
           },
         }
       );
-      const data = await response.data.slice(0, props.numberOfEntriesREquested);
-      setReps(data);
-      setIsLoading(false);
+      const data = await response.data;
+      setEntries(data);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
     }
     return entry;
   };
@@ -95,7 +94,7 @@ const Entries = (props: EntryProps) => {
     }
   };
 
-  const entryForm = props.numberOfEntriesREquested > 1 && (
+  const entryFormModal = (
     <div>
       <button className="add-entry-button" onClick={openModal}>
         Add Entry
@@ -123,27 +122,67 @@ const Entries = (props: EntryProps) => {
 
   return (
     <div>
-      {entryForm}
-      {props.numberOfEntriesREquested > 1 && <h3>All Entries</h3>}
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul className="entry-list">
-          {reps.map((rep) => (
-            <li key={rep._id}>
-              <div className="entry-container">
-                <div className="entry-repetitions">{rep.entry}</div>
-                <div className="entry-datadate">{rep.datadate}</div>
-              </div>
-              {props.numberOfEntriesREquested > 1 && (
-                <button onClick={() => handleDelete(rep._id)}>Delete</button>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+      <BigCard
+        title={props.exerciseName}
+        addEntryText={"Add Entry"}
+        onDelete={props.onDelete}
+        subTitile={"All Entries"}
+        namesList={entries.map((entry) => ({
+          _id: entry._id,
+          onEntryDelete: () => handleDelete(entry._id),
+          data: {
+            entry: entry.entry,
+            date: entry.datadate,
+          },
+        }))}
+        entryModal={entryFormModal}
+      />
     </div>
   );
 };
 
-export default Entries;
+const ExerciseEntries = (props: ExerciseEntryProps) => {
+  const [entries, setEntries] = useState(Array());
+
+  const getEntries = async () => {
+    try {
+      const response = await axios.get(
+        baseURL + `/exercises/${props.exerciseId}/entries`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
+      const data = await response.data.slice(0, 3);
+      setEntries(data);
+    } catch (error) {
+      console.log(error);
+    }
+    return entries;
+  };
+
+  useEffect(() => {
+    getEntries();
+  }, []);
+
+  return (
+    <div>
+      <SmallCard
+        title={props.exerciseName}
+        onDelete={props.onDelete}
+        subTitile={"Entries"}
+        isWeights={false}
+        namesList={entries.map((entry) => ({
+          _id: entry._id,
+          url: `${baseURL}/exercises/${props.exerciseId}/entries/${entry._id}/delete`,
+          data: {
+            entry: entry.entry,
+          },
+        }))}
+      />
+    </div>
+  );
+};
+
+export { BigCardExerciseEntries, ExerciseEntries };

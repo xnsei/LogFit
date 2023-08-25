@@ -1,0 +1,34 @@
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.prev-button,
+.next-button {
+  background-color: #007bff00;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 10px;
+}
+
+.button-text {
+  font-weight: 900;
+  font-size: 24px;
+  color: #caa670;
+  transition: color 0.3s;
+}

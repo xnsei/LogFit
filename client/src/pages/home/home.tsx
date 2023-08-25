@@ -4,9 +4,10 @@ import "./home.css";
 import Navbar from "../commons/navbar/navbar";
 import Weights from "./weights";
 import { useNavigate } from "react-router-dom";
+import { AllExercises } from "../exercises/allExercises";
+import SmallCardWorkouts from "../workouts/smallCardWorkouts";
 
 const Home = () => {
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const authenticate = async () => {
@@ -30,11 +31,15 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home">
-      <div className="homeContainer">
-        <Navbar />
-        <p>Workout Tracker Home</p>
+    <div className="home-page">
+      <div className="home">
         <Weights />
+      </div>
+      <div className="workouts">
+        <SmallCardWorkouts />
+      </div>
+      <div className="exercises">
+        <AllExercises />
       </div>
     </div>
   );

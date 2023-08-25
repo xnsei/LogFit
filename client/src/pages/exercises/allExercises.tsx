@@ -1,11 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
-import Entries from "./entries";
+import { ExerciseEntries } from "./entries";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "./exerciseForm";
 import "./allExercises.css";
+import Carousel from "../../components/Carousel/carousel";
 
 const baseURL = "http://localhost:8000";
 
@@ -64,19 +65,22 @@ const AllExercises = () => {
 
   return (
     <div>
-      <h1>All Exercises</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
+      <div className="headings-container">
+        <h3 className="exercices-heading">All Exercises</h3>
+      </div>
+      <ul className="exercise-list">
+        <Carousel>
           {exercises.map((exercise) => (
             <li key={exercise._id}>
-              <div>{exercise.name}</div>
-              <button onClick={() => handleDelete(exercise._id)}>Delete</button>
+              <ExerciseEntries
+                exerciseId={exercise._id}
+                exerciseName={exercise.name}
+                onDelete={() => handleDelete(exercise._id)}
+              />
             </li>
           ))}
-        </ul>
-      )}
+        </Carousel>
+      </ul>
     </div>
   );
 };
@@ -91,15 +95,12 @@ const WorkoutExercises = (props: WorkoutProps) => {
 
   const getExercises = async () => {
     try {
-      const response = await axios.get(
-        baseURL + `/workouts/${props.id}/exercises`,
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
-      const data = await response.data.slice(0, 3);
+      const response = await axios.get(baseURL + `${props.baseUrl}/exercises`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
+      const data = await response.data;
       setExercises(data);
       setIsLoading(false);
     } catch (error) {
@@ -150,31 +151,19 @@ const WorkoutExercises = (props: WorkoutProps) => {
       <Modal isOpen={showModal} onClose={closeModal}>
         <WorkoutExercisesForm id={props.id} />
       </Modal>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul className="exercise-list">
+      <ul className="exercise-list">
+        <Carousel>
           {exercises.map((exercise) => (
             <li key={exercise._id}>
-              <div className="exercise-container">
-                <div>{exercise.name}</div>
-                <div className="exercise-container-child">
-                  <Entries
-                    exerciseId={exercise._id}
-                    numberOfEntriesREquested={1}
-                  />
-                  <button
-                    className="exercise-delete-button"
-                    onClick={() => handleDelete(exercise._id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
+              <ExerciseEntries
+                exerciseId={exercise._id}
+                exerciseName={exercise.name}
+                onDelete={() => handleDelete(exercise._id)}
+              />
             </li>
           ))}
-        </ul>
-      )}
+        </Carousel>
+      </ul>
     </div>
   );
 };

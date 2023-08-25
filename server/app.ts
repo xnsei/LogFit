@@ -149,7 +149,8 @@ app.post(
     if (requestedWorkout) {
       const { name } = req.body;
       const newExercise = await new exercise({
-        name,
+        name: name,
+        userId: userId,
       }).save();
       const workoutToBeUpdated = await workout.findByIdAndUpdate(id, {
         $push: { exercises: newExercise._id },
@@ -166,11 +167,14 @@ app.get(
     const userId = req.user;
     const { id } = req.params;
 
-    const requestedWorkout = await workout
-      .findOne({ _id: id, userId: userId })
-      .populate("exercises");
-    const exercises = await requestedWorkout.exercises;
-    res.send(exercises);
+    const requestedWorkout = await workout.findOne({ _id: id, userId: userId });
+    if (requestedWorkout) {
+      const requestedWorkoutWithExercises = await requestedWorkout.populate(
+        "exercises"
+      );
+      const exercises = await requestedWorkoutWithExercises.exercises;
+      res.send(exercises);
+    }
   })
 );
 

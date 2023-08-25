@@ -1,0 +1,15 @@
+.workout-page {
+  width: 60%;
+  margin: auto;
+  padding: 20px;
+}
+
+.headings-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heading {
+  font-size: 36px;
+}

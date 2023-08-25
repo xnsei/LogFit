@@ -13,7 +13,7 @@
 }
 
 .workout-card {
-  background-color: white;
+  background-color: blanchedalmond;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -30,7 +30,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: #ebebeb 2px solid;
+  border-bottom: rgb(238, 220, 192) 2px solid;
 }
 
 .workout-title {
@@ -56,7 +56,7 @@
 }
 
 .workout-card button.delete-button {
-  background-color: #ff6347; /* Red color, adjust as needed */
+  background-color: rgb(218, 87, 0); /* Red color, adjust as needed */
 }
 
 .workout-card button.delete-button:hover {
@@ -64,9 +64,9 @@
 }
 
 .workout-card button.add-exercise-button {
-  background-color: #007bff; /* Blue color, adjust as needed */
+  background-color: rgb(218, 131, 0); /* Blue color, adjust as needed */
 }
 
 .workout-card button.add-exercise-button:hover {
-  background-color: #0056b3;
+  background-color: rgb(175, 115, 24);
 }
