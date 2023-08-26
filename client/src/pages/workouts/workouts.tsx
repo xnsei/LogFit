@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./workouts.css";
+import "./workouts.scss";
 import axios from "axios";
 import Navbar from "../commons/navbar/navbar";
 import WorkoutForm from "./workoutForm";

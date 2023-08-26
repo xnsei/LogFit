@@ -1,5 +1,5 @@
 import React from "react";
-import "./navbar.css";
+import "./navbar.scss";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 

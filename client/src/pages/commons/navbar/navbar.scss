@@ -1,17 +1,15 @@
-/* Navbar.css */
+@import "../colors.scss";
 
-/* Reset some default styles */
 body,
 ul {
   margin: 0;
   padding: 0;
 }
 
-/* Style the Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(75, 49, 11, 0.726);
+  background-color: $darkest;
   color: white;
   font-family: Arial, sans-serif;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
@@ -37,7 +35,7 @@ ul {
 }
 
 .logout-button:hover {
-  color: blanchedalmond;
+  color: $cardLight;
 }
 
 .logo-heading {
@@ -49,7 +47,7 @@ ul {
 }
 
 .logo-heading:hover {
-  color: blanchedalmond;
+  color: $cardLight;
 }
 
 .nav-links {
@@ -72,5 +70,5 @@ ul {
 }
 
 .nav-links button:hover {
-  color: blanchedalmond;
+  color: $cardLight;
 }

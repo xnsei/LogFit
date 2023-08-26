@@ -1,13 +1,15 @@
+@import "../commons/colors.scss";
+
 .form-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background-color: $background;
 }
 
 .form-box {
-  background-color: white;
+  background-color: $background;
   border-radius: 8px;
   padding: 20px;
   width: 400px;
@@ -24,13 +26,13 @@
   width: 80%;
   padding: 10px;
   margin: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid $border;
   border-radius: 4px;
   outline: none;
 }
 
 .form-button {
-  background-color: #007bff;
+  background-color: $button;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -40,5 +42,5 @@
 }
 
 .form-button:hover {
-  background-color: #0056b3;
+  background-color: $buttonHover;
 }

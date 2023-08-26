@@ -1,9 +1,11 @@
+@import "../commons/colors.scss";
+
 .weights-container {
   margin: 20px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  background-color: blanchedalmond;
+  background-color: $cardDark;
 }
 
 .weight-title-container {
@@ -13,8 +15,19 @@
   border: none;
 }
 
+.add-weight-button {
+  background-color: $background;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.add-weight-button:hover {
+  background-color: $cardLight;
+}
+
 .weight-form-box {
-  background-color: white;
+  background-color: $background;
   text-align: center;
   width: 400px;
 }
@@ -29,13 +42,13 @@
   width: 80%;
   padding: 10px;
   margin: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid $border;
   border-radius: 4px;
   outline: none;
 }
 
 .weight-form-button {
-  background-color: #007bff;
+  background-color: $button;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -45,5 +58,5 @@
 }
 
 .weight-form-button:hover {
-  background-color: #0056b3;
+  background-color: $buttonHover;
 }

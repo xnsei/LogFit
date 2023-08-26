@@ -1,10 +1,12 @@
+@import "../../../pages/commons/colors.scss";
+
 .big-card-container {
   min-width: 300px;
   min-height: 100px;
   padding: 20px;
   margin: 20px 5px;
   border-radius: 10px;
-  background-color: blanchedalmond;
+  background-color: $cardDark;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -13,7 +15,7 @@
   display: flex;
   justify-content: space-between;
   padding-bottom: 5px;
-  border-bottom: 2px solid rgb(238, 220, 192);
+  border-bottom: 2px solid $border;
 }
 
 .title-buttons {
@@ -24,6 +26,14 @@
 .title-buttons button {
   height: 30px;
   margin-left: 5px;
+  background-color: $background;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.title-buttons button:hover {
+  background-color: $cardLight;
 }
 
 .sub-section {
@@ -52,9 +62,18 @@
   flex-grow: 1;
   margin-right: 40px;
   padding: 0 10px;
-  border-bottom: 1px solid rgb(238, 220, 192);
+  border-bottom: 1px solid $border;
 }
 
 .entry-item-container button {
-  height: 25px;
+  border: none;
+  color: $darkest;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 7px 15px;
+  background-color: $background;
+}
+
+.entry-item-container button:hover {
+  background-color: $cardLight;
 }

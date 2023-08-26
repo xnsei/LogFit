@@ -1,0 +1,66 @@
+@import "../../../pages/commons/colors.scss";
+
+.small-card-container {
+  display: inline-block;
+  min-width: 300px;
+  height: 150px;
+  padding: 20px;
+  margin: 20px 5px;
+  border-radius: 10px;
+  background-color: $cardLight;
+  border: 2px solid $border;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.small-card-title-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
+  border-bottom: 2px solid $border;
+}
+
+.small-card-title-buttons {
+  display: flex;
+  color: $button;
+}
+
+.small-card-title-buttons button {
+  height: 30px;
+  margin-left: 5px;
+  background-color: $button;
+  border: none;
+  padding: 0 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.small-card-title-buttons button:hover {
+  background-color: $buttonHover;
+}
+
+.sub-section {
+  margin: 5px;
+}
+
+.entry-list {
+  list-style: none;
+}
+
+.entry-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}
+
+.entry-container button {
+  margin-left: 5px;
+  background-color: $button;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.entry-container button:hover {
+  background-color: $buttonHover;
+}

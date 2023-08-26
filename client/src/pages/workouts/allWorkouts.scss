@@ -1,3 +1,9 @@
+@import "../commons/colors.scss";
+
+body {
+  background-color: $background;
+}
+
 .workouts-container {
   display: flex;
   flex-wrap: wrap;
@@ -13,7 +19,7 @@
 }
 
 .workout-card {
-  background-color: blanchedalmond;
+  background-color: $cardDark;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -30,7 +36,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: rgb(238, 220, 192) 2px solid;
+  border-bottom: $border 2px solid;
 }
 
 .workout-title {
@@ -45,28 +51,18 @@
 }
 
 .workout-card button {
-  /* background-color: #007bff; */
+  background-color: $button;
   color: white;
+  color: while;
   padding: 5px 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   margin-right: 5px;
   font-size: 14px;
+  height: 30px;
 }
 
-.workout-card button.delete-button {
-  background-color: rgb(218, 87, 0); /* Red color, adjust as needed */
-}
-
-.workout-card button.delete-button:hover {
-  background-color: #d84930; /* Red color, adjust as needed */
-}
-
-.workout-card button.add-exercise-button {
-  background-color: rgb(218, 131, 0); /* Blue color, adjust as needed */
-}
-
-.workout-card button.add-exercise-button:hover {
-  background-color: rgb(175, 115, 24);
+.workout-card button:hover {
+  background-color: $buttonHover;
 }

@@ -4,15 +4,13 @@ import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { ExerciseEntryProps } from "./entryProps";
 import Modal from "../../components/Modal/modal";
-import "./entries.css";
+import "./entries.scss";
 import SmallCard from "../../components/Card/small/smallCard";
 import BigCard from "../../components/Card/big/bigCard";
 
 const baseURL = "http://localhost:8000";
 
 const socket = io(baseURL);
-
-const EntryFormModal = () => {};
 
 const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
   const [entries, setEntries] = useState(Array());
@@ -113,7 +111,7 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
               onChange={(e) => setEntry(e.target.value)}
               required
             />
-            <button className="form-button" type="submit">
+            <button className="form-submit-button" type="submit">
               Add Entry
             </button>
           </form>
@@ -194,7 +192,7 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
               onChange={(e) => setEntry(e.target.value)}
               required
             />
-            <button className="form-button" type="submit">
+            <button className="form-submit-button" type="submit">
               Add Entry
             </button>
           </form>

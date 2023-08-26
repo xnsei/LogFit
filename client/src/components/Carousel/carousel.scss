@@ -1,3 +1,5 @@
+@import "../../pages/commons/colors.scss";
+
 .carousel-container {
   position: relative;
   overflow: hidden;
@@ -22,13 +24,12 @@
   height: 40px;
   font-size: 24px;
   cursor: pointer;
-  transition: background-color 0.3s;
   margin: 0 10px;
 }
 
 .button-text {
   font-weight: 900;
   font-size: 24px;
-  color: #caa670;
+  color: $darkest;
   transition: color 0.3s;
 }

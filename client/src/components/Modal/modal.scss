@@ -1,3 +1,5 @@
+@import "../../pages/commons/colors.scss";
+
 .modal {
   display: flex;
   justify-content: center;
@@ -12,7 +14,7 @@
 }
 
 .modal-content {
-  background-color: white;
+  background-color: $background;
   margin: 10% auto;
   padding: 20px;
   border-radius: 5px;
@@ -28,9 +30,9 @@
   cursor: pointer;
   font-size: 25px;
   font-weight: 800;
-  color: #555;
+  color: $button;
 }
 
 .close:hover {
-  color: #f00;
+  color: $buttonHover;
 }

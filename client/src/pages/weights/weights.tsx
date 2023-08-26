@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Chart from "../home/chart";
-import "./weights.css";
+import "./weights.scss";
 import Modal from "../../components/Modal/modal";
 
 const baseURL = "http://localhost:8000";
@@ -73,7 +73,9 @@ const Weights = () => {
     <div className="weights-container">
       <div className="weight-title-container">
         <h2 className="weights-title">Weights</h2>
-        <button onClick={openModal}>Add Weight</button>
+        <button className="add-weight-button" onClick={openModal}>
+          Add Weight
+        </button>
       </div>
       <Modal isOpen={showModal} onClose={closeModal}>
         <form className="weight-form-box" onSubmit={handleSubmit}>

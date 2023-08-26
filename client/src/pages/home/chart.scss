@@ -1,3 +1,5 @@
+@import "../commons/colors.scss";
+
 .chart-container {
   /* padding: 20px; */
   /* margin: 20px; */
@@ -13,6 +15,6 @@
 .chart-canvas {
   padding: 10px;
   height: 400px;
-  background-color: rgb(255, 244, 226);
-  border: 3px solid rgb(238, 220, 192);
+  background-color: $background;
+  border: 3px solid $border;
 }

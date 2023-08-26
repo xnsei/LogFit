@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { io } from "socket.io-client";
-import "./workoutForm.css";
+import "./workoutForm.scss";
 
 const socket = io("http://localhost:8000");
 
