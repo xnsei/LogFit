@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./showWorkout.css";
+import "./showWorkout.scss";
 import { BigCardExerciseEntries } from "../exercises/entries";
 import { io } from "socket.io-client";
 import Modal from "../../components/Modal/modal";

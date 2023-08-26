@@ -19,8 +19,8 @@ const chart = (weights: any) => {
                 borderWidth: 2,
                 fill: true,
                 tension: 0.4,
-                borderColor: "rgb(66, 72, 116)",
-                backgroundColor: "rgba(66, 72, 116, 0.3)",
+                borderColor: "rgb(118, 159, 205)",
+                backgroundColor: "rgba(118, 159, 205, 0.3)",
               },
             ],
           }}
