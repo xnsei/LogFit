@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 interface WeightData {
   entry: string;
   date: string;
@@ -11,6 +13,7 @@ type DataItem = WeightData | ExerciseData;
 
 export interface SmallCardProps {
   title: string;
+  entryModal: ReactNode;
   onDelete: (event: React.MouseEvent<HTMLElement>) => void;
   subTitile: string;
   isWeights: boolean;

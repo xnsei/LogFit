@@ -1,10 +1,7 @@
 .chart-container {
-  padding: 20px;
-  margin: 20px;
+  /* padding: 20px; */
+  /* margin: 20px; */
   position: relative;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  background-color: blanchedalmond;
 }
 
 .chart-title {

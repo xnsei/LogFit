@@ -6,6 +6,7 @@ import { BigCardExerciseEntries } from "../exercises/entries";
 import { io } from "socket.io-client";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
+import Navbar from "../commons/navbar/navbar";
 
 const baseURL = "http://localhost:8000";
 
@@ -51,10 +52,8 @@ const ShowWorkout = () => {
       );
       const data = await response.data;
       setExercises(data);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
     }
     return exercises;
   };
@@ -100,22 +99,25 @@ const ShowWorkout = () => {
   );
 
   return (
-    <div className="workout-page">
-      <div className="headings-container">
-        <h1 className="heading">{workout.name}</h1>
-        {ExerciseFormModal}
+    <div>
+      <Navbar />
+      <div className="workout-page">
+        <div className="headings-container">
+          <h1 className="heading">{workout.name}</h1>
+          {ExerciseFormModal}
+        </div>
+        <ul className="exercise-list">
+          {exercises.map((exercise) => (
+            <li key={exercise._id}>
+              <BigCardExerciseEntries
+                exerciseId={exercise._id}
+                exerciseName={exercise.name}
+                onDelete={() => handleDelete(exercise._id)}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul className="exercise-list">
-        {exercises.map((exercise) => (
-          <li key={exercise._id}>
-            <BigCardExerciseEntries
-              exerciseId={exercise._id}
-              exerciseName={exercise.name}
-              onDelete={() => handleDelete(exercise._id)}
-            />
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

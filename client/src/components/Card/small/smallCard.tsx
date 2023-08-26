@@ -27,9 +27,12 @@ const SmallCard = (props: SmallCardProps) => {
     <div className="small-card-container">
       <div className="title-container">
         <h2>{props.title}</h2>
-        <button className="delete-button" onClick={props.onDelete}>
-          Delete
-        </button>
+        <div className="title-buttons">
+          {props.entryModal}
+          <button className="delete-button" onClick={props.onDelete}>
+            Delete
+          </button>
+        </div>
       </div>
       <div className="sub-section">
         <h4>{props.subTitile}</h4>

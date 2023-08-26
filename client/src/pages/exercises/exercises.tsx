@@ -28,7 +28,7 @@ const Exercises = () => {
   }, []);
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <AllExercises />
     </>
   );

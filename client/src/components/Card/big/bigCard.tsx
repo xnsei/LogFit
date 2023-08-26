@@ -9,20 +9,6 @@ const baseURL = "http://localhost:8000";
 const socket = io(baseURL);
 
 const BigCard = (props: BigCardProps) => {
-  const handleDelete = async (url: string) => {
-    try {
-      const response = await axios.post(url, null, {
-        headers: { token: localStorage.getItem("token") },
-      });
-      if (response.status === 200) {
-        socket.emit("deleteWeight", {});
-        console.log("delete event emitted");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="big-card-container">
       <div className="title-container">

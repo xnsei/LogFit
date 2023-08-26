@@ -35,7 +35,7 @@ const Workouts = () => {
   }, []);
   return (
     <div>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className="workouts-page">
         <Modal isOpen={showModal} onClose={closeModal}>
           <WorkoutForm />

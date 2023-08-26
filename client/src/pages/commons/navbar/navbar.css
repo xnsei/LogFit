@@ -1,18 +1,76 @@
+/* Navbar.css */
+
+/* Reset some default styles */
+body,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the Navbar */
 .navbar {
-  background-color: #ece8ff;
   display: flex;
-  /* flex-direction: row; */
-  align-items: center;
-  height: 50px;
+  justify-content: space-between;
+  background-color: rgba(75, 49, 11, 0.726);
+  color: white;
+  font-family: Arial, sans-serif;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
 }
 
-.icon {
-  padding: 10px;
-  font-size: 24px;
-  color: #6439ff;
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  &:hover {
-    color: #a991ff;
-  }
+.user-container {
+  display: flex;
+  align-items: center;
+  margin: 0 30px;
+}
+
+.logout-button {
+  background-color: rgba(240, 248, 255, 0);
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  color: blanchedalmond;
+}
+
+.logo-heading {
+  padding: 15px;
+  margin: 0 30px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logo-heading:hover {
+  color: blanchedalmond;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links button {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: medium;
+  transition: color 0.3s;
+}
+
+.nav-links button:hover {
+  color: blanchedalmond;
 }

@@ -8,7 +8,6 @@ const chart = (weights: any) => {
   const data = weights.data;
   return (
     <div className="chart-container">
-      <h2 className="chart-title">Weights</h2>
       <div>
         <Line
           data={{

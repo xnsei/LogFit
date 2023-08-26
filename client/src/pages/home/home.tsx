@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "./home.css";
 import Navbar from "../commons/navbar/navbar";
-import Weights from "./weights";
+import Weights from "../weights/weights";
 import { useNavigate } from "react-router-dom";
 import { AllExercises } from "../exercises/allExercises";
 import SmallCardWorkouts from "../workouts/smallCardWorkouts";
@@ -31,15 +31,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home-page">
-      <div className="home">
-        <Weights />
-      </div>
-      <div className="workouts">
-        <SmallCardWorkouts />
-      </div>
-      <div className="exercises">
-        <AllExercises />
+    <div>
+      <Navbar />
+      <div className="home-page">
+        <div className="home">
+          <Weights />
+        </div>
+        <div className="workouts">
+          <SmallCardWorkouts />
+        </div>
+        <div className="exercises">
+          <AllExercises />
+        </div>
       </div>
     </div>
   );
