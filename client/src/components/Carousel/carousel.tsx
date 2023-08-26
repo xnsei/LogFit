@@ -1,5 +1,5 @@
 import React, { useRef, ReactNode } from "react";
-import "./carousel.css";
+import "./carousel.scss";
 
 interface CarouselProps {
   children: ReactNode;
@@ -20,15 +20,15 @@ const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
 
   return (
     <div className="carousel-container">
-      <button className="prev-button" onClick={handlePrev}>
+      <div className="prev-button" onClick={handlePrev}>
         <p className="button-text"> &lt; </p>
-      </button>
+      </div>
       <div className="carousel" ref={sliderRef}>
         {props.children}
       </div>
-      <button className="next-button" onClick={handleNext}>
+      <div className="next-button" onClick={handleNext}>
         <p className="button-text"> &gt; </p>
-      </button>
+      </div>
     </div>
   );
 };

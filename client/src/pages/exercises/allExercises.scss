@@ -1,3 +1,5 @@
+@import "../commons/colors.scss";
+
 .headings-container {
   display: flex;
   justify-content: space-between;
@@ -25,9 +27,9 @@
 
 .exercise-delete-button {
   margin-left: 50px;
-  background-color: #ff6347; /* Red color, adjust as needed */
+  background-color: $button;
 }
 
 .exercise-delete-button:hover {
-  background-color: #d84930; /* Red color, adjust as needed */
+  background-color: $buttonHover;
 }

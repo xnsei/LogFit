@@ -1,3 +1,5 @@
+@import "../commons/colors.scss";
+
 .workouts-page {
   /* display: flex;
   flex-direction: column; */
@@ -18,8 +20,8 @@
 }
 
 .add-workout-button {
-  background-color: #007bff; /* Blue color, adjust as needed */
-  color: #fff; /* White text color */
+  background-color: $button; /* Blue color, adjust as needed */
+  color: white; /* White text color */
   padding: 10px 20px;
   border: none;
   border-radius: 4px;

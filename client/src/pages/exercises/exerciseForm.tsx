@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
-import "./exerciseForm.css";
+import "./exerciseForm.scss";
 
 const baseURL = "http://localhost:8000";
 

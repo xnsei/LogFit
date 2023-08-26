@@ -5,7 +5,7 @@ import { WorkoutProps } from "./workoutProps";
 import { ExerciseEntries } from "./entries";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "./exerciseForm";
-import "./allExercises.css";
+import "./allExercises.scss";
 import Carousel from "../../components/Carousel/carousel";
 
 const baseURL = "http://localhost:8000";

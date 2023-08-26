@@ -1,5 +1,5 @@
 import React, { useState, ReactNode, useRef, useEffect } from "react";
-import "./modal.css";
+import "./modal.scss";
 
 interface ModalProps {
   children: ReactNode;
@@ -24,13 +24,11 @@ const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 
       if (e.key === "Tab") {
         if (e.shiftKey) {
-          // If Shift+Tab is pressed and focus is on the first element, move focus to the last element
           if (document.activeElement === firstElement) {
             e.preventDefault();
             lastElement.focus();
           }
         } else {
-          // If Tab is pressed and focus is on the last element, move focus to the first element
           if (document.activeElement === lastElement) {
             e.preventDefault();
             firstElement.focus();

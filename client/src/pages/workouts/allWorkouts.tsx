@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "./allWorkouts.css";
+import "./allWorkouts.scss";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { WorkoutExercises } from "../exercises/allExercises";

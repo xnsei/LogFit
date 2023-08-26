@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import SmallCard from "../../components/Card/small/smallCard";
+import Modal from "../../components/Modal/modal";
+import { WorkoutExercisesForm } from "../exercises/exerciseForm";
 
 const baseURL = "http://localhost:8000";
 
@@ -18,6 +20,10 @@ const SmallCardWorkoutExercises: React.FC<ExerciseProps> = (
   props: ExerciseProps
 ) => {
   const [exercises, setExercises] = useState(Array());
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   const getExercises = async () => {
     try {
@@ -43,10 +49,20 @@ const SmallCardWorkoutExercises: React.FC<ExerciseProps> = (
     });
   }, [socket]);
 
+  const exerciseFormModal = (
+    <div>
+      <button onClick={openModal}>Add Exercise</button>
+      <Modal isOpen={showModal} onClose={closeModal}>
+        <WorkoutExercisesForm id={props.workoutId} />
+      </Modal>
+    </div>
+  );
+
   return (
     <div>
       <SmallCard
         title={props.workoutName}
+        entryModal={exerciseFormModal}
         onDelete={props.onDelete}
         subTitile={"Exercises"}
         isWeights={false}

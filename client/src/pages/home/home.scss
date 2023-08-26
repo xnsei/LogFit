@@ -1,3 +1,5 @@
+@import "../commons/colors.scss";
+
 .home-page {
   margin: auto;
   width: 60%;
@@ -5,7 +7,7 @@
 
 .workouts,
 .exercises {
-  background-color: blanchedalmond;
+  background-color: $cardDark;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;

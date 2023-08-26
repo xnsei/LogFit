@@ -1,5 +1,5 @@
 import React from "react";
-import "./chart.css";
+import "./chart.scss";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
@@ -8,7 +8,6 @@ const chart = (weights: any) => {
   const data = weights.data;
   return (
     <div className="chart-container">
-      <h2 className="chart-title">Weights</h2>
       <div>
         <Line
           data={{
@@ -20,8 +19,8 @@ const chart = (weights: any) => {
                 borderWidth: 2,
                 fill: true,
                 tension: 0.4,
-                borderColor: "rgb(175, 115, 24)",
-                backgroundColor: "rgba(175, 115, 24, 0.3)",
+                borderColor: "rgb(118, 159, 205)",
+                backgroundColor: "rgba(118, 159, 205, 0.3)",
               },
             ],
           }}

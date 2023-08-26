@@ -1,12 +1,13 @@
-.login-container {
+@import "../commons/colors.scss";
+.registration-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background-color: $background;
 }
 
-.login-box {
+.registration-box {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -15,13 +16,13 @@
   text-align: center;
 }
 
-.login-heading {
+.registration-heading {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-.login-input {
+.registration-input {
   width: 80%;
   padding: 10px;
   margin: 10px;
@@ -30,8 +31,8 @@
   outline: none;
 }
 
-.login-button {
-  background-color: #007bff;
+.registration-button {
+  background-color: $button;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -40,8 +41,8 @@
   transition: background-color 0.3s;
 }
 
-.login-button:hover {
-  background-color: #0056b3;
+.registration-button:hover {
+  background-color: $buttonHover;
 }
 
 .error-message {
@@ -50,17 +51,17 @@
   margin-top: 10px;
 }
 
-.login-links {
-  margin-top: 10px;
+.registration-links {
+  margin-top: 15px;
+  font-size: small;
 }
 
-.login-link {
-  font-size: small;
+.registration-link {
+  font-size: larger;
   color: #007bff;
   text-decoration: none;
-  cursor: pointer;
 }
 
-.login-link:hover {
+.registration-link:hover {
   text-decoration: underline;
 }

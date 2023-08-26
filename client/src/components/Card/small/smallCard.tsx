@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
 import { SmallCardProps } from "./SmallCardProps";
-import "./smallCard.css";
+import "./smallCard.scss";
 
 const baseURL = "http://localhost:8000";
 
@@ -25,11 +25,14 @@ const SmallCard = (props: SmallCardProps) => {
 
   return (
     <div className="small-card-container">
-      <div className="title-container">
+      <div className="small-card-title-container">
         <h2>{props.title}</h2>
-        <button className="delete-button" onClick={props.onDelete}>
-          Delete
-        </button>
+        <div className="small-card-title-buttons">
+          {props.entryModal}
+          <button className="delete-button" onClick={props.onDelete}>
+            Delete
+          </button>
+        </div>
       </div>
       <div className="sub-section">
         <h4>{props.subTitile}</h4>

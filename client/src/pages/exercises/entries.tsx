@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { ExerciseEntryProps } from "./entryProps";
 import Modal from "../../components/Modal/modal";
-import "./entries.css";
+import "./entries.scss";
 import SmallCard from "../../components/Card/small/smallCard";
 import BigCard from "../../components/Card/big/bigCard";
 
@@ -111,7 +111,7 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
               onChange={(e) => setEntry(e.target.value)}
               required
             />
-            <button className="form-button" type="submit">
+            <button className="form-submit-button" type="submit">
               Add Entry
             </button>
           </form>
@@ -143,6 +143,63 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
 
 const ExerciseEntries = (props: ExerciseEntryProps) => {
   const [entries, setEntries] = useState(Array());
+  const [entry, setEntry] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const datadate: Date = new Date();
+    const formattedDate = format(datadate, "yyyyMMdd");
+    try {
+      const response = await axios.post(
+        `${baseURL}/exercises/${props.exerciseId}/entries/new`,
+        {
+          reps: entry,
+          datadate: formattedDate,
+        },
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
+      if (response.status === 200) {
+        socket.emit("addEntry", {});
+        console.log("event emitted");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const entryFormModal = (
+    <div>
+      <button className="add-entry-button" onClick={openModal}>
+        Add Entry
+      </button>
+      <Modal isOpen={showModal} onClose={closeModal}>
+        <div className="form-box">
+          <h2 className="form-heading">Add Repetitions</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="form-input"
+              type="number"
+              name="entry"
+              placeholder="Reps"
+              onChange={(e) => setEntry(e.target.value)}
+              required
+            />
+            <button className="form-submit-button" type="submit">
+              Add Entry
+            </button>
+          </form>
+        </div>
+      </Modal>
+    </div>
+  );
 
   const getEntries = async () => {
     try {
@@ -170,14 +227,16 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
     <div>
       <SmallCard
         title={props.exerciseName}
+        entryModal={entryFormModal}
         onDelete={props.onDelete}
         subTitile={"Entries"}
-        isWeights={false}
+        isWeights={true}
         namesList={entries.map((entry) => ({
           _id: entry._id,
           url: `${baseURL}/exercises/${props.exerciseId}/entries/${entry._id}/delete`,
           data: {
             entry: entry.entry,
+            date: entry.datadate,
           },
         }))}
       />
