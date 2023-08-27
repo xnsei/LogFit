@@ -37,10 +37,10 @@ const Home = () => {
         <div className="home">
           <Weights />
         </div>
-        <div className="workouts">
+        <div className="BigCard">
           <SmallCardWorkouts />
         </div>
-        <div className="exercises">
+        <div className="BigCard">
           <AllExercises />
         </div>
       </div>
