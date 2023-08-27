@@ -10,6 +10,16 @@ const baseURL = "http://localhost:8000";
 
 const socket = io(baseURL);
 
+function extractNumberFromString(inputString: string): string {
+  const numberMatch = inputString.match(/[-+]?(\d*[.])?\d+/);
+  if (numberMatch) {
+    const extractedNumber = numberMatch[0];
+    return extractedNumber.toString();
+  } else {
+    return "";
+  }
+}
+
 const Weights = () => {
   const [entry, setEntry] = useState("");
   const [weights, setWeights] = useState(Array());
@@ -26,7 +36,12 @@ const Weights = () => {
         },
       });
       const data = await response.data;
-      setWeights(data);
+      const newData = data.sort((a: any, b: any) => {
+        const dateA = parseInt(a.datadate);
+        const dateB = parseInt(b.datadate);
+        return dateA - dateB;
+      });
+      setWeights(newData);
     } catch (error) {
       console.log(error);
     }
@@ -82,10 +97,10 @@ const Weights = () => {
           <h3 className="form-heading">Add Weight</h3>
           <input
             className="weight-form-input"
-            type="number"
+            type="string"
             name="entry"
             placeholder="Weight"
-            onChange={(e) => setEntry(e.target.value)}
+            onChange={(e) => setEntry(extractNumberFromString(e.target.value))}
             required
           />
           <button className="weight-form-button" type="submit">

@@ -12,6 +12,31 @@ const baseURL = "http://localhost:8000";
 
 const socket = io(baseURL);
 
+const formatDate = (dateInyyyyMMdd: string) => {
+  const year = dateInyyyyMMdd.substring(0, 4);
+  const month = dateInyyyyMMdd.substring(4, 6);
+  const day = dateInyyyyMMdd.substring(6, 8);
+
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const monthName = monthNames[parseInt(month) - 1];
+
+  const formattedDate = `${monthName}, ${parseInt(day)}`;
+  return formattedDate;
+};
+
 const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
   const [entries, setEntries] = useState(Array());
   const [entry, setEntry] = useState("");
@@ -31,7 +56,12 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
         }
       );
       const data = await response.data;
-      setEntries(data);
+      const newData = data.sort((a: any, b: any) => {
+        const dateA = parseInt(a.datadate);
+        const dateB = parseInt(b.datadate);
+        return dateA - dateB;
+      });
+      setEntries(newData);
     } catch (error) {
       console.log(error);
     }
@@ -132,7 +162,7 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
           onEntryDelete: () => handleDelete(entry._id),
           data: {
             entry: entry.entry,
-            date: entry.datadate,
+            date: formatDate(entry.datadate),
           },
         }))}
         entryModal={entryFormModal}
@@ -211,8 +241,16 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
           },
         }
       );
-      const data = await response.data.slice(0, 3);
-      setEntries(data);
+      const data = await response.data;
+      const newData = data
+        .sort((a: any, b: any) => {
+          const dateA = parseInt(a.datadate);
+          const dateB = parseInt(b.datadate);
+          return dateA - dateB;
+        })
+        .reverse()
+        .slice(0, 3);
+      setEntries(newData);
     } catch (error) {
       console.log(error);
     }
@@ -236,7 +274,7 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
           url: `${baseURL}/exercises/${props.exerciseId}/entries/${entry._id}/delete`,
           data: {
             entry: entry.entry,
-            date: entry.datadate,
+            date: formatDate(entry.datadate),
           },
         }))}
       />

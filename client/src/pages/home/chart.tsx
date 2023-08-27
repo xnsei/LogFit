@@ -6,12 +6,38 @@ Chart.register(...registerables);
 
 const chart = (weights: any) => {
   const data = weights.data;
+
+  const formatDate = (dateInyyyyMMdd: string) => {
+    const year = dateInyyyyMMdd.substring(0, 4);
+    const month = dateInyyyyMMdd.substring(4, 6);
+    const day = dateInyyyyMMdd.substring(6, 8);
+
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "Aug",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const monthName = monthNames[parseInt(month) - 1];
+
+    const formattedDate = `${monthName}, ${parseInt(day)}`;
+    return formattedDate;
+  };
+
   return (
     <div className="chart-container">
       <div>
         <Line
           data={{
-            labels: data.map((weight: any) => weight.datadate),
+            labels: data.map((weight: any) => formatDate(weight.datadate)),
             datasets: [
               {
                 label: "Progression over past 30 days",

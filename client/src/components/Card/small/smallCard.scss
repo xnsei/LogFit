@@ -3,7 +3,7 @@
 .small-card-container {
   display: inline-block;
   min-width: 300px;
-  height: 150px;
+  height: 175px;
   padding: 20px;
   margin: 20px 5px;
   border-radius: 10px;
@@ -44,12 +44,21 @@
 
 .entry-list {
   list-style: none;
+  padding-top: 10px;
 }
 
 .entry-container {
   display: flex;
   justify-content: space-between;
   padding-bottom: 5px;
+}
+
+.entry-item {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  margin-right: 20px;
+  border-bottom: 1px solid $border;
 }
 
 .entry-container button {

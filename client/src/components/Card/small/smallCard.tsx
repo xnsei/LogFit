@@ -40,8 +40,13 @@ const SmallCard = (props: SmallCardProps) => {
           {props.namesList.slice(0, 3).map((weight) => (
             <li key={weight._id}>
               <div className="entry-container">
-                {props.isWeights && <div>{weight.data.date}</div>}
-                <div>{weight.data.entry}</div>
+                {props.isWeights && (
+                  <div className="entry-item">
+                    <div>{weight.data.date}</div>
+                    <div>{weight.data.entry}</div>
+                  </div>
+                )}
+                {!props.isWeights && <div>{weight.data.entry}</div>}
                 <button onClick={() => handleDelete(weight.url)}>Delete</button>
               </div>
             </li>
