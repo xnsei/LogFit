@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
 import "./exerciseForm.scss";

@@ -1,12 +1,5 @@
-import React from "react";
-import axios from "axios";
-import { io } from "socket.io-client";
 import { BigCardProps } from "./BigCardProps";
 import "./bigCard.scss";
-
-const baseURL = "http://localhost:8000";
-
-const socket = io(baseURL);
 
 const BigCard = (props: BigCardProps) => {
   return (

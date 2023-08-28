@@ -44,7 +44,7 @@ const SmallCardWorkoutExercises: React.FC<ExerciseProps> = (
   }, []);
 
   useEffect(() => {
-    socket.on("updateWeight", (data: any) => {
+    socket.on("updateWeight", (_data: any) => {
       getExercises();
     });
   }, [socket]);

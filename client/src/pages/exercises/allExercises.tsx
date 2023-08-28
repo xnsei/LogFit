@@ -14,7 +14,6 @@ const socket = io(baseURL);
 
 const AllExercises = () => {
   const [exercises, setExercises] = useState(Array());
-  const [isLoading, setIsLoading] = useState(true);
 
   const getExercises = async () => {
     try {
@@ -25,10 +24,8 @@ const AllExercises = () => {
       });
       const data = await response.data;
       setExercises(data);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
     }
     return exercises;
   };
@@ -38,7 +35,7 @@ const AllExercises = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateExercise", (data: any) => {
+    socket.on("updateExercise", (_data: any) => {
       getExercises();
     });
   }, [socket]);
@@ -87,7 +84,6 @@ const AllExercises = () => {
 
 const WorkoutExercises = (props: WorkoutProps) => {
   const [exercises, setExercises] = useState(Array());
-  const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
@@ -102,16 +98,14 @@ const WorkoutExercises = (props: WorkoutProps) => {
       });
       const data = await response.data;
       setExercises(data);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
     }
     return exercises;
   };
 
   useEffect(() => {
-    socket.on("updateExercise", (data: any) => {
+    socket.on("updateExercise", (_data: any) => {
       getExercises();
     });
   }, [socket]);

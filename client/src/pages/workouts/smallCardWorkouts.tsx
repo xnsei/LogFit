@@ -8,7 +8,6 @@ const socket = io("http://localhost:8000");
 
 const SmallCardWorkouts = () => {
   const [workouts, setWorkouts] = useState(Array());
-  const [isLoading, setIsLoading] = useState(true);
 
   const getWorkouts = async () => {
     try {
@@ -19,10 +18,8 @@ const SmallCardWorkouts = () => {
       });
       const data = await response.data;
       setWorkouts(data);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
     }
     return workouts;
   };
@@ -32,7 +29,7 @@ const SmallCardWorkouts = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateWeight", (data: any) => {
+    socket.on("updateWeight", (_data: any) => {
       getWorkouts();
     });
   }, [socket]);

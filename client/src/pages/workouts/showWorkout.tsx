@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./showWorkout.scss";
 import { BigCardExerciseEntries } from "../exercises/entries";
@@ -64,7 +64,7 @@ const ShowWorkout = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateExercise", (data: any) => {
+    socket.on("updateExercise", (_data: any) => {
       getExercises();
     });
   }, [socket]);

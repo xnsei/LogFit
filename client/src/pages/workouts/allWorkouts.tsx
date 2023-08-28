@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./allWorkouts.scss";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ const AllWorkouts = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateWorkout", (data: any) => {
+    socket.on("updateWorkout", (_data: any) => {
       getWorkouts();
     });
   }, [socket]);

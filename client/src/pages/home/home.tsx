@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./home.scss";
 import Navbar from "../commons/navbar/navbar";
 import Weights from "../weights/weights";

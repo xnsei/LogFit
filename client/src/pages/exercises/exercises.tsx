@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../commons/navbar/navbar";
 import { useNavigate } from "react-router-dom";
-// import "./showWorkout.css";
 import { BigCardExerciseEntries } from "../exercises/entries";
 import { io } from "socket.io-client";
 
@@ -52,7 +51,7 @@ const BigCardExercises = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateExercise", (data: any) => {
+    socket.on("updateExercise", (_data: any) => {
       getExercises();
     });
   }, [socket]);

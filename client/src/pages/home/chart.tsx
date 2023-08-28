@@ -1,4 +1,3 @@
-import React from "react";
 import "./chart.scss";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
@@ -8,7 +7,6 @@ const chart = (weights: any) => {
   const data = weights.data;
 
   const formatDate = (dateInyyyyMMdd: string) => {
-    const year = dateInyyyyMMdd.substring(0, 4);
     const month = dateInyyyyMMdd.substring(4, 6);
     const day = dateInyyyyMMdd.substring(6, 8);
 
