@@ -8,7 +8,7 @@ import { WorkoutExercisesForm } from "./exerciseForm";
 import "./allExercises.scss";
 import Carousel from "../../components/Carousel/carousel";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 

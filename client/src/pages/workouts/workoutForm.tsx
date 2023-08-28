@@ -3,7 +3,7 @@ import { useState } from "react";
 import { io } from "socket.io-client";
 import "./workoutForm.scss";
 
-const socket = io("http://localhost:8000");
+const socket = io("https://logfit-backend.onrender.com");
 
 const WorkoutForm = () => {
   const [workoutData, setWorkoutData] = useState({
@@ -18,7 +18,7 @@ const WorkoutForm = () => {
   const addWorkout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/workouts/new",
+        "https://logfit-backend.onrender.com/workouts/new",
         {
           name: workoutData.title,
         },

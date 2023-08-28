@@ -6,7 +6,7 @@ import Chart from "../home/chart";
 import "./weights.scss";
 import Modal from "../../components/Modal/modal";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 

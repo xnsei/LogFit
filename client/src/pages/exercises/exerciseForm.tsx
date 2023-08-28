@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
 import "./exerciseForm.scss";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 

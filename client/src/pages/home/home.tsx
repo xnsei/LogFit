@@ -12,11 +12,14 @@ const Home = () => {
 
   const authenticate = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/authenticate", {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        "https://logfit-backend.onrender.com/authenticate",
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status !== 200) {
         navigate("/login");
       }

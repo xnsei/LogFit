@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { SmallCardProps, WeightData } from "./SmallCardProps";
 import "./smallCard.scss";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 

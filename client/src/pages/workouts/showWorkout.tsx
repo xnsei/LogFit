@@ -8,7 +8,7 @@ import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
 import Navbar from "../commons/navbar/navbar";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 
@@ -26,11 +26,14 @@ const ShowWorkout = () => {
 
   const authenticate = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/authenticate", {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        "https://logfit-backend.onrender.com/authenticate",
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status !== 200) {
         navigate("/login");
       }
