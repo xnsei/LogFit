@@ -5,7 +5,7 @@ import SmallCard from "../../components/Card/small/smallCard";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 
@@ -44,7 +44,7 @@ const SmallCardWorkoutExercises: React.FC<ExerciseProps> = (
   }, []);
 
   useEffect(() => {
-    socket.on("updateWeight", (data: any) => {
+    socket.on("updateWeight", (_data: any) => {
       getExercises();
     });
   }, [socket]);

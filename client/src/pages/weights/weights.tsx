@@ -1,12 +1,12 @@
 import axios from "axios";
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Chart from "../home/chart";
 import "./weights.scss";
 import Modal from "../../components/Modal/modal";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 
@@ -53,7 +53,7 @@ const Weights = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateWeight", (data: any) => {
+    socket.on("updateWeight", (_data: any) => {
       getWeights();
     });
   }, [socket]);

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { ExerciseEntryProps } from "./entryProps";
 import Modal from "../../components/Modal/modal";
@@ -8,12 +8,11 @@ import "./entries.scss";
 import SmallCard from "../../components/Card/small/smallCard";
 import BigCard from "../../components/Card/big/bigCard";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 
 const formatDate = (dateInyyyyMMdd: string) => {
-  const year = dateInyyyyMMdd.substring(0, 4);
   const month = dateInyyyyMMdd.substring(4, 6);
   const day = dateInyyyyMMdd.substring(6, 8);
 
@@ -73,7 +72,7 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateEntry", (data: any) => {
+    socket.on("updateEntry", (_data: any) => {
       getEntries();
     });
   }, [socket]);

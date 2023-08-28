@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./register.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +12,14 @@ const Register = () => {
 
   const registerUser = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/users/new", {
-        username: username,
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://logfit-backend.onrender.com/users/new",
+        {
+          username: username,
+          email: email,
+          password: password,
+        }
+      );
       if (response.status === 200) {
         console.log(response.data);
         const token = response.data.token;

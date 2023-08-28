@@ -6,16 +6,20 @@ interface CarouselProps {
 }
 
 const Carousel: React.FC<CarouselProps> = (props: CarouselProps) => {
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
   const handlePrev = () => {
-    const width = sliderRef.current.clientWidth;
-    sliderRef.current.scrollLeft -= width;
+    if (sliderRef.current) {
+      const width = sliderRef.current?.clientWidth;
+      sliderRef.current.scrollLeft -= width;
+    }
   };
 
   const handleNext = () => {
-    const width = sliderRef.current.clientWidth;
-    sliderRef.current.scrollLeft += width;
+    if (sliderRef.current) {
+      const width = sliderRef.current.clientWidth;
+      sliderRef.current.scrollLeft += width;
+    }
   };
 
   return (

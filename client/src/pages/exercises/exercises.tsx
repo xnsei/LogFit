@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../commons/navbar/navbar";
 import { useNavigate } from "react-router-dom";
-// import "./showWorkout.css";
 import { BigCardExerciseEntries } from "../exercises/entries";
 import { io } from "socket.io-client";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 
@@ -17,11 +16,14 @@ const BigCardExercises = () => {
 
   const authenticate = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/authenticate", {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        "https://logfit-backend.onrender.com/authenticate",
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status !== 200) {
         navigate("/login");
       }
@@ -52,7 +54,7 @@ const BigCardExercises = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateExercise", (data: any) => {
+    socket.on("updateExercise", (_data: any) => {
       getExercises();
     });
   }, [socket]);
@@ -104,11 +106,14 @@ const Exercises = () => {
 
   const authenticate = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/authenticate", {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        "https://logfit-backend.onrender.com/authenticate",
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status !== 200) {
         navigate("/login");
       }

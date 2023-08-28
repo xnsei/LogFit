@@ -1,10 +1,9 @@
-import React from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
-import { SmallCardProps } from "./SmallCardProps";
+import { SmallCardProps, WeightData } from "./SmallCardProps";
 import "./smallCard.scss";
 
-const baseURL = "http://localhost:8000";
+const baseURL = "https://logfit-backend.onrender.com";
 
 const socket = io(baseURL);
 
@@ -42,7 +41,7 @@ const SmallCard = (props: SmallCardProps) => {
               <div className="entry-container">
                 {props.isWeights && (
                   <div className="entry-item">
-                    <div>{weight.data.date}</div>
+                    <div>{(weight.data as WeightData).date}</div>
                     <div>{weight.data.entry}</div>
                   </div>
                 )}

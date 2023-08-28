@@ -4,25 +4,25 @@ import { io } from "socket.io-client";
 import Carousel from "../../components/Carousel/carousel";
 import { SmallCardWorkoutExercises } from "./smallCardWorkoutExercises";
 
-const socket = io("http://localhost:8000");
+const socket = io("https://logfit-backend.onrender.com");
 
 const SmallCardWorkouts = () => {
   const [workouts, setWorkouts] = useState(Array());
-  const [isLoading, setIsLoading] = useState(true);
 
   const getWorkouts = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/workouts", {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        "https://logfit-backend.onrender.com/workouts",
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       const data = await response.data;
       setWorkouts(data);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
     }
     return workouts;
   };
@@ -32,7 +32,7 @@ const SmallCardWorkouts = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateWeight", (data: any) => {
+    socket.on("updateWeight", (_data: any) => {
       getWorkouts();
     });
   }, [socket]);
@@ -40,7 +40,7 @@ const SmallCardWorkouts = () => {
   const handleDelete = async (id: string) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/workouts/${id}/delete`,
+        `https://logfit-backend.onrender.com/workouts/${id}/delete`,
         null,
         {
           headers: {

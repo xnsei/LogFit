@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./workouts.scss";
 import axios from "axios";
 import Navbar from "../commons/navbar/navbar";
@@ -16,11 +16,14 @@ const Workouts = () => {
 
   const authenticate = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/authenticate", {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        "https://logfit-backend.onrender.com/authenticate",
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status !== 200) {
         navigate("/login");
       }

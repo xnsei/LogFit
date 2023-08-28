@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./login.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,10 +11,13 @@ const Login = () => {
 
   const loginUser = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/users/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://logfit-backend.onrender.com/users/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
       if (response.status === 200) {
         setError(false);
         console.log(response.data);

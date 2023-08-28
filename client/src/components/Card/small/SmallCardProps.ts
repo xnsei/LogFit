@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-interface WeightData {
+export interface WeightData {
   entry: string;
   date: string;
 }

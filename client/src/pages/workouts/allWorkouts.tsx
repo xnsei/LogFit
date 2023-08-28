@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./allWorkouts.scss";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { WorkoutExercises } from "../exercises/allExercises";
 
-const socket = io("http://localhost:8000");
+const socket = io("https://logfit-backend.onrender.com");
 
 const AllWorkouts = () => {
   const [workouts, setWorkouts] = useState(Array());
@@ -14,11 +14,14 @@ const AllWorkouts = () => {
 
   const getWorkouts = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/workouts", {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        "https://logfit-backend.onrender.com/workouts",
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       const data = await response.data;
       setWorkouts(data);
       setIsLoading(false);
@@ -34,7 +37,7 @@ const AllWorkouts = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("updateWorkout", (data: any) => {
+    socket.on("updateWorkout", (_data: any) => {
       getWorkouts();
     });
   }, [socket]);
@@ -42,7 +45,7 @@ const AllWorkouts = () => {
   const handleDelete = async (id: string) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/workouts/${id}/delete`,
+        `https://logfit-backend.onrender.com/workouts/${id}/delete`,
         null,
         {
           headers: {
@@ -61,11 +64,14 @@ const AllWorkouts = () => {
 
   const handleView = async (id: string) => {
     try {
-      const response = await axios.get(`http://localhost:8000/workouts/${id}`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        `https://logfit-backend.onrender.com/workouts/${id}`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.status === 200) {
         navigate("/workout/view", { state: { workout: response.data } });
       }
