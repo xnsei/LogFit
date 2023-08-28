@@ -10,24 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.4.0",
-    "date-fns": "^2.30.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.14.2",
-    "sass": "^1.66.1",
-    "socket.io-client": "^4.7.2",
+    "@mui/icons-material": "^5.14.6",
+    "@mui/material": "^5.14.6",
     "@types/react": "^18.2.14",
     "@types/react-chartjs-2": "^2.5.7",
     "@types/react-dom": "^18.2.6",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "@vitejs/plugin-react": "^4.0.1",
+    "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "eslint": "^8.44.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2",
+    "sass": "^1.66.1",
+    "socket.io-client": "^4.7.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.0"
-  },
-  "devDependencies": {}
+  }
 }
