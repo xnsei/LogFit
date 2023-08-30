@@ -60,6 +60,7 @@ const Weights = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    closeModal();
     const datadate: Date = new Date();
     const formattedDate = format(datadate, "yyyyMMdd");
     try {

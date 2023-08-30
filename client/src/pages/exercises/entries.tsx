@@ -99,6 +99,7 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    closeModal();
     const datadate: Date = new Date();
     const formattedDate = format(datadate, "yyyyMMdd");
     try {
@@ -180,6 +181,7 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    closeModal();
     const datadate: Date = new Date();
     const formattedDate = format(datadate, "yyyyMMdd");
     try {
@@ -259,6 +261,12 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
   useEffect(() => {
     getEntries();
   }, []);
+
+  useEffect(() => {
+    socket.on("updateEntry", (_data: any) => {
+      getEntries();
+    });
+  }, [socket]);
 
   return (
     <div>

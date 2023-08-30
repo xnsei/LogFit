@@ -5,7 +5,11 @@ import "./workoutForm.scss";
 
 const socket = io("https://logfit-backend.onrender.com");
 
-const WorkoutForm = () => {
+interface WorkoutFormProps {
+  onCloseModal: (event: React.MouseEvent<HTMLElement>) => void;
+}
+
+const WorkoutForm: React.FC<WorkoutFormProps> = (props: WorkoutFormProps) => {
   const [workoutData, setWorkoutData] = useState({
     title: "",
   });
@@ -39,6 +43,7 @@ const WorkoutForm = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    props.onCloseModal(e);
     addWorkout();
   };
 

@@ -41,7 +41,7 @@ const Workouts = () => {
       <Navbar />
       <div className="workouts-page">
         <Modal isOpen={showModal} onClose={closeModal}>
-          <WorkoutForm />
+          <WorkoutForm onCloseModal={closeModal} />
         </Modal>
         <div className="heading">
           <h1 className="workouts-heading">All Workouts</h1>

@@ -53,7 +53,7 @@ const SmallCardWorkoutExercises: React.FC<ExerciseProps> = (
     <div>
       <button onClick={openModal}>Add Exercise</button>
       <Modal isOpen={showModal} onClose={closeModal}>
-        <WorkoutExercisesForm id={props.workoutId} />
+        <WorkoutExercisesForm onCloseModal={closeModal} id={props.workoutId} />
       </Modal>
     </div>
   );

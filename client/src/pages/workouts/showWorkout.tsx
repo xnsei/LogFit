@@ -96,7 +96,7 @@ const ShowWorkout = () => {
     <div className="exerciseFormModal">
       <button onClick={openModal}>Add Exercise</button>
       <Modal isOpen={showModal} onClose={closeModal}>
-        <WorkoutExercisesForm id={workout._id} />
+        <WorkoutExercisesForm onCloseModal={closeModal} id={workout._id} />
       </Modal>
     </div>
   );

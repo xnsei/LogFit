@@ -40,6 +40,7 @@ const WorkoutExercisesForm = (props: WorkoutProps) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    props.onCloseModal(e);
     addExercise();
   };
 

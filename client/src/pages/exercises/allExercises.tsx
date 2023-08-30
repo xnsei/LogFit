@@ -143,7 +143,7 @@ const WorkoutExercises = (props: WorkoutProps) => {
         </button>
       </div>
       <Modal isOpen={showModal} onClose={closeModal}>
-        <WorkoutExercisesForm id={props.id} />
+        <WorkoutExercisesForm onCloseModal={closeModal} id={props.id} />
       </Modal>
       <ul className="exercise-list">
         <Carousel>
