@@ -4,8 +4,7 @@ import { io } from "socket.io-client";
 import SmallCard from "../../components/Card/small/smallCard";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
-
-const baseURL = "https://logfit-backend.onrender.com";
+import baseURL from "../../../utils/links";
 
 const socket = io(baseURL);
 
@@ -53,7 +52,7 @@ const SmallCardWorkoutExercises: React.FC<ExerciseProps> = (
     <div>
       <button onClick={openModal}>Add Exercise</button>
       <Modal isOpen={showModal} onClose={closeModal}>
-        <WorkoutExercisesForm id={props.workoutId} />
+        <WorkoutExercisesForm onCloseModal={closeModal} id={props.workoutId} />
       </Modal>
     </div>
   );

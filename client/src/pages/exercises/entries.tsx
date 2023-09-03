@@ -7,8 +7,7 @@ import Modal from "../../components/Modal/modal";
 import "./entries.scss";
 import SmallCard from "../../components/Card/small/smallCard";
 import BigCard from "../../components/Card/big/bigCard";
-
-const baseURL = "https://logfit-backend.onrender.com";
+import baseURL from "../../../utils/links";
 
 const socket = io(baseURL);
 
@@ -99,6 +98,7 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    closeModal();
     const datadate: Date = new Date();
     const formattedDate = format(datadate, "yyyyMMdd");
     try {
@@ -180,6 +180,7 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    closeModal();
     const datadate: Date = new Date();
     const formattedDate = format(datadate, "yyyyMMdd");
     try {
@@ -259,6 +260,12 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
   useEffect(() => {
     getEntries();
   }, []);
+
+  useEffect(() => {
+    socket.on("updateEntry", (_data: any) => {
+      getEntries();
+    });
+  }, [socket]);
 
   return (
     <div>

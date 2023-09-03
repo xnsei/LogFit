@@ -4,8 +4,7 @@ import Navbar from "../commons/navbar/navbar";
 import { useNavigate } from "react-router-dom";
 import { BigCardExerciseEntries } from "../exercises/entries";
 import { io } from "socket.io-client";
-
-const baseURL = "https://logfit-backend.onrender.com";
+import baseURL from "../../../utils/links";
 
 const socket = io(baseURL);
 
@@ -16,14 +15,11 @@ const BigCardExercises = () => {
 
   const authenticate = async () => {
     try {
-      const response = await axios.get(
-        "https://logfit-backend.onrender.com/authenticate",
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(`${baseURL}/authenticate`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       if (response.status !== 200) {
         navigate("/login");
       }
@@ -106,14 +102,11 @@ const Exercises = () => {
 
   const authenticate = async () => {
     try {
-      const response = await axios.get(
-        "https://logfit-backend.onrender.com/authenticate",
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(`${baseURL}/authenticate`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       if (response.status !== 200) {
         navigate("/login");
       }

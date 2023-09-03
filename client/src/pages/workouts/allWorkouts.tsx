@@ -4,8 +4,9 @@ import "./allWorkouts.scss";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { WorkoutExercises } from "../exercises/allExercises";
+import baseURL from "../../../utils/links";
 
-const socket = io("https://logfit-backend.onrender.com");
+const socket = io(baseURL);
 
 const AllWorkouts = () => {
   const [workouts, setWorkouts] = useState(Array());
@@ -14,14 +15,11 @@ const AllWorkouts = () => {
 
   const getWorkouts = async () => {
     try {
-      const response = await axios.get(
-        "https://logfit-backend.onrender.com/workouts",
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(`${baseURL}/workouts`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       const data = await response.data;
       setWorkouts(data);
       setIsLoading(false);
@@ -45,7 +43,7 @@ const AllWorkouts = () => {
   const handleDelete = async (id: string) => {
     try {
       const response = await axios.post(
-        `https://logfit-backend.onrender.com/workouts/${id}/delete`,
+        `${baseURL}/workouts/${id}/delete`,
         null,
         {
           headers: {
@@ -64,14 +62,11 @@ const AllWorkouts = () => {
 
   const handleView = async (id: string) => {
     try {
-      const response = await axios.get(
-        `https://logfit-backend.onrender.com/workouts/${id}`,
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(`${baseURL}/workouts/${id}`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       if (response.status === 200) {
         navigate("/workout/view", { state: { workout: response.data } });
       }

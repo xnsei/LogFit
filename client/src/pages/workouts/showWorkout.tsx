@@ -7,8 +7,7 @@ import { io } from "socket.io-client";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
 import Navbar from "../commons/navbar/navbar";
-
-const baseURL = "https://logfit-backend.onrender.com";
+import baseURL from "../../../utils/links";
 
 const socket = io(baseURL);
 
@@ -26,14 +25,11 @@ const ShowWorkout = () => {
 
   const authenticate = async () => {
     try {
-      const response = await axios.get(
-        "https://logfit-backend.onrender.com/authenticate",
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(`${baseURL}/authenticate`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       if (response.status !== 200) {
         navigate("/login");
       }
@@ -96,7 +92,7 @@ const ShowWorkout = () => {
     <div className="exerciseFormModal">
       <button onClick={openModal}>Add Exercise</button>
       <Modal isOpen={showModal} onClose={closeModal}>
-        <WorkoutExercisesForm id={workout._id} />
+        <WorkoutExercisesForm onCloseModal={closeModal} id={workout._id} />
       </Modal>
     </div>
   );

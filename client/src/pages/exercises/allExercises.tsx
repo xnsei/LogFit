@@ -1,14 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { WorkoutProps } from "./workoutProps";
+import { WorkoutExercisesProps } from "./workoutProps";
 import { ExerciseEntries } from "./entries";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "./exerciseForm";
 import "./allExercises.scss";
 import Carousel from "../../components/Carousel/carousel";
-
-const baseURL = "https://logfit-backend.onrender.com";
+import baseURL from "../../../utils/links";
 
 const socket = io(baseURL);
 
@@ -82,7 +81,7 @@ const AllExercises = () => {
   );
 };
 
-const WorkoutExercises = (props: WorkoutProps) => {
+const WorkoutExercises = (props: WorkoutExercisesProps) => {
   const [exercises, setExercises] = useState(Array());
   const [showModal, setShowModal] = useState(false);
 
@@ -143,7 +142,7 @@ const WorkoutExercises = (props: WorkoutProps) => {
         </button>
       </div>
       <Modal isOpen={showModal} onClose={closeModal}>
-        <WorkoutExercisesForm id={props.id} />
+        <WorkoutExercisesForm onCloseModal={closeModal} id={props.id} />
       </Modal>
       <ul className="exercise-list">
         <Carousel>

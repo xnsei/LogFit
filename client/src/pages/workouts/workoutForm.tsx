@@ -2,10 +2,15 @@ import axios from "axios";
 import { useState } from "react";
 import { io } from "socket.io-client";
 import "./workoutForm.scss";
+import baseURL from "../../../utils/links";
 
-const socket = io("https://logfit-backend.onrender.com");
+const socket = io(baseURL);
 
-const WorkoutForm = () => {
+interface WorkoutFormProps {
+  onCloseModal: (event: React.MouseEvent<HTMLElement>) => void;
+}
+
+const WorkoutForm: React.FC<WorkoutFormProps> = (props: WorkoutFormProps) => {
   const [workoutData, setWorkoutData] = useState({
     title: "",
   });
@@ -18,7 +23,7 @@ const WorkoutForm = () => {
   const addWorkout = async () => {
     try {
       const response = await axios.post(
-        "https://logfit-backend.onrender.com/workouts/new",
+        `${baseURL}/workouts/new`,
         {
           name: workoutData.title,
         },
@@ -39,6 +44,7 @@ const WorkoutForm = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    props.onCloseModal(e);
     addWorkout();
   };
 

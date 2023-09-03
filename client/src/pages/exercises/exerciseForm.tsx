@@ -3,8 +3,7 @@ import { useState } from "react";
 import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
 import "./exerciseForm.scss";
-
-const baseURL = "https://logfit-backend.onrender.com";
+import baseURL from "../../../utils/links";
 
 const socket = io(baseURL);
 
@@ -40,6 +39,7 @@ const WorkoutExercisesForm = (props: WorkoutProps) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    props.onCloseModal(e);
     addExercise();
   };
 
