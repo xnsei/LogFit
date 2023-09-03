@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { WorkoutProps } from "./workoutProps";
+import { WorkoutExercisesProps } from "./workoutProps";
 import { ExerciseEntries } from "./entries";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "./exerciseForm";
@@ -82,7 +82,7 @@ const AllExercises = () => {
   );
 };
 
-const WorkoutExercises = (props: WorkoutProps) => {
+const WorkoutExercises = (props: WorkoutExercisesProps) => {
   const [exercises, setExercises] = useState(Array());
   const [showModal, setShowModal] = useState(false);
 

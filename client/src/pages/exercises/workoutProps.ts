@@ -3,3 +3,8 @@ export interface WorkoutProps {
   baseUrl?: string;
   onCloseModal: (event: React.MouseEvent<HTMLElement>) => void;
 }
+
+export interface WorkoutExercisesProps {
+  id: string;
+  baseUrl?: string;
+}
