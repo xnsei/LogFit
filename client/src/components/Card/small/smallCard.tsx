@@ -5,6 +5,7 @@ import "./smallCard.scss";
 import baseURL from "../../../../links";
 
 const socket = io(baseURL);
+console.log(baseURL);
 
 const SmallCard = (props: SmallCardProps) => {
   const handleDelete = async (url: string) => {
