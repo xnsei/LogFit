@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Carousel from "../../components/Carousel/carousel";
 import { SmallCardWorkoutExercises } from "./smallCardWorkoutExercises";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const socket = io(baseURL);
 

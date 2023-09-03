@@ -4,7 +4,7 @@ import "./allWorkouts.scss";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { WorkoutExercises } from "../exercises/allExercises";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const socket = io(baseURL);
 

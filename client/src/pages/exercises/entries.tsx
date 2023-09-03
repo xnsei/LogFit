@@ -7,7 +7,7 @@ import Modal from "../../components/Modal/modal";
 import "./entries.scss";
 import SmallCard from "../../components/Card/small/smallCard";
 import BigCard from "../../components/Card/big/bigCard";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const socket = io(baseURL);
 

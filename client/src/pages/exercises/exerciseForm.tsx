@@ -3,7 +3,7 @@ import { useState } from "react";
 import { io } from "socket.io-client";
 import { WorkoutProps } from "./workoutProps";
 import "./exerciseForm.scss";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const socket = io(baseURL);
 

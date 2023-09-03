@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
 import Navbar from "../commons/navbar/navbar";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const socket = io(baseURL);
 

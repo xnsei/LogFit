@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import Chart from "../home/chart";
 import "./weights.scss";
 import Modal from "../../components/Modal/modal";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const socket = io(baseURL);
 

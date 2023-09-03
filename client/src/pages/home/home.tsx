@@ -6,7 +6,7 @@ import Weights from "../weights/weights";
 import { useNavigate } from "react-router-dom";
 import { AllExercises } from "../exercises/allExercises";
 import SmallCardWorkouts from "../workouts/smallCardWorkouts";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const Home = () => {
   const navigate = useNavigate();

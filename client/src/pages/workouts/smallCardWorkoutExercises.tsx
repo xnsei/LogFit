@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import SmallCard from "../../components/Card/small/smallCard";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const socket = io(baseURL);
 
