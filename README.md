@@ -19,6 +19,17 @@ Website is hosted at : [LogFit](https://logfit.vercel.app)
 3. Add exercises, sets, reps, and weights to your workout.
 4. Save and track your workout progress.
 
+## Tech Stack
+
+- [ReactJS](https://react.dev/) - framework
+- [Typescript](https://www.typescriptlang.org/) - language
+- [SCSS](https://sass-lang.com/) - CSS
+- [MongoDB](https://www.mongodb.com/) - database
+- [JWT](https://jwt.io/) - auth
+- [socket.io](https://socket.io/) - realtime communication between client and server
+- [Vercel](https://vercel.com/) - client hosting
+- [Render](https://render.com/) - Server hosting
+
 ## Setting up Locally
 
 - Clone this repository to your local machine:
