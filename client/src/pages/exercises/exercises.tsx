@@ -4,7 +4,7 @@ import Navbar from "../commons/navbar/navbar";
 import { useNavigate } from "react-router-dom";
 import { BigCardExerciseEntries } from "../exercises/entries";
 import { io } from "socket.io-client";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const socket = io(baseURL);
 

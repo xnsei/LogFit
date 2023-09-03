@@ -6,7 +6,7 @@ import WorkoutForm from "./workoutForm";
 import AllWorkouts from "./allWorkouts";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../components/Modal/modal";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const Workouts = () => {
   const [showModal, setShowModal] = useState(false);

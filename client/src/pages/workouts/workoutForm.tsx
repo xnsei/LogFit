@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { io } from "socket.io-client";
 import "./workoutForm.scss";
-import baseURL from "../../../utils/links";
+import baseURL from "../../../links";
 
 const socket = io(baseURL);
 
