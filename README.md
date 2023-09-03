@@ -17,31 +17,33 @@ Welcome to LogFit! This app helps you log and monitor your wokrouts to achieve y
 4. Save and track your workout progress.
 
 ## Setting up Locally
-1. Clone this repository to your local machine:
-```bash
-git clone https://github.com/xnsei/LogFit.git
-```
-2. Install MongoDB locally if you haven't already. Here's a quick guide to [install MongoDB](https://www.mongodb.com/docs/manual/administration/install-community/).
+- Clone this repository to your local machine:
+    ```bash
+    git clone https://github.com/xnsei/LogFit.git
+    ```
+- Install MongoDB locally if you haven't already. Here's a quick guide to [install MongoDB](https://www.mongodb.com/docs/manual/administration/install-community/).
 
-3. Navigate to server directory, and install all the necessary dependencies:
-```bash
-cd LogFit/server
-npm install
-```
-4. Start the server:
-```bash
-npm run dev
-```
-5. Navigate to client directory and follow similar steps to install the dependencies:
-```bash
-cd ../client
-npm install
-```
-6. Start client:
-```bash
-npm run dev
-```
-7. Open your browser and visit:
-```
-http://localhost:5173/
-```
+- Running Server:
+    1. Navigate to server directory, and install all the necessary dependencies:
+        ```bash
+        cd LogFit/server
+        npm install
+        ```
+    2.  Start the server:
+        ```bash
+        npm run dev
+        ```
+- Running Client:
+    1. Navigate to client directory and follow similar steps to install the dependencies:
+        ```bash
+        cd ../client
+        npm install
+        ```
+    2. Start client:
+        ```bash
+        npm run dev
+        ```
+- Open your browser and visit:
+    ```
+    http://localhost:5173/
+    ```

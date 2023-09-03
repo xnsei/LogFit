@@ -7,8 +7,7 @@ import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "./exerciseForm";
 import "./allExercises.scss";
 import Carousel from "../../components/Carousel/carousel";
-
-const baseURL = "https://logfit-backend.onrender.com";
+import baseURL from "../../../utils/links";
 
 const socket = io(baseURL);
 

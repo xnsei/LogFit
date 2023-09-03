@@ -6,6 +6,7 @@ import WorkoutForm from "./workoutForm";
 import AllWorkouts from "./allWorkouts";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../components/Modal/modal";
+import baseURL from "../../../utils/links";
 
 const Workouts = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,14 +17,11 @@ const Workouts = () => {
 
   const authenticate = async () => {
     try {
-      const response = await axios.get(
-        "https://logfit-backend.onrender.com/authenticate",
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(`${baseURL}/authenticate`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       if (response.status !== 200) {
         navigate("/login");
       }

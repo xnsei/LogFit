@@ -3,22 +3,20 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Carousel from "../../components/Carousel/carousel";
 import { SmallCardWorkoutExercises } from "./smallCardWorkoutExercises";
+import baseURL from "../../../utils/links";
 
-const socket = io("https://logfit-backend.onrender.com");
+const socket = io(baseURL);
 
 const SmallCardWorkouts = () => {
   const [workouts, setWorkouts] = useState(Array());
 
   const getWorkouts = async () => {
     try {
-      const response = await axios.get(
-        "https://logfit-backend.onrender.com/workouts",
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(`${baseURL}/workouts`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       const data = await response.data;
       setWorkouts(data);
     } catch (error) {
@@ -40,7 +38,7 @@ const SmallCardWorkouts = () => {
   const handleDelete = async (id: string) => {
     try {
       const response = await axios.post(
-        `https://logfit-backend.onrender.com/workouts/${id}/delete`,
+        `${baseURL}/workouts/${id}/delete`,
         null,
         {
           headers: {

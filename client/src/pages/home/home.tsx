@@ -6,20 +6,18 @@ import Weights from "../weights/weights";
 import { useNavigate } from "react-router-dom";
 import { AllExercises } from "../exercises/allExercises";
 import SmallCardWorkouts from "../workouts/smallCardWorkouts";
+import baseURL from "../../../utils/links";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const authenticate = async () => {
     try {
-      const response = await axios.get(
-        "https://logfit-backend.onrender.com/authenticate",
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(`${baseURL}/authenticate`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
       if (response.status !== 200) {
         navigate("/login");
       }

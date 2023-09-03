@@ -4,8 +4,7 @@ import { io } from "socket.io-client";
 import SmallCard from "../../components/Card/small/smallCard";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
-
-const baseURL = "https://logfit-backend.onrender.com";
+import baseURL from "../../../utils/links";
 
 const socket = io(baseURL);
 

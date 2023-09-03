@@ -2,8 +2,7 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import { SmallCardProps, WeightData } from "./SmallCardProps";
 import "./smallCard.scss";
-
-const baseURL = "https://logfit-backend.onrender.com";
+import baseURL from "../../../../utils/links";
 
 const socket = io(baseURL);
 

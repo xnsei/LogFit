@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./register.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import baseURL from "../../../utils/links";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -12,14 +13,11 @@ const Register = () => {
 
   const registerUser = async () => {
     try {
-      const response = await axios.post(
-        "https://logfit-backend.onrender.com/users/new",
-        {
-          username: username,
-          email: email,
-          password: password,
-        }
-      );
+      const response = await axios.post(`${baseURL}/users/new`, {
+        username: username,
+        email: email,
+        password: password,
+      });
       if (response.status === 200) {
         console.log(response.data);
         const token = response.data.token;
