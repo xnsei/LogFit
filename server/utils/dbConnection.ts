@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 dotenv.config();
 
-const mongoDBUrl = 'mongodb://localhost:27017/LogFit';
+const mongoDBUrl = "mongodb://localhost:27017/LogFit";
 
 export default async function connectDB() {
   const connectionParams = {
