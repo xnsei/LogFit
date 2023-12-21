@@ -6,6 +6,7 @@ import Workouts from "./pages/workouts/workouts";
 import ShowWorkout from "./pages/workouts/showWorkout";
 import Exercises from "./pages/exercises/exercises";
 import Register from "./pages/register/register";
+import {Toaster} from "react-hot-toast";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <Toaster position="bottom-right" />
     </div>
   );
 }

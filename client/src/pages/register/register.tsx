@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "./register.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import baseURL from "../../../links";
+import WelcomeMessage from "../../components/WelcomeMessage/WelcomeMessage.tsx";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -46,47 +46,50 @@ const Register = () => {
   };
 
   return (
-    <div className="registration-container">
-      <div className="registration-box">
-        <h2 className="registration-heading">Create an Account</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            className="registration-input"
-            type="text"
-            name="username"
-            placeholder="username"
-            required
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <br />
-          <input
-            className="registration-input"
-            type="email"
-            name="email"
-            placeholder="email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
-          <input
-            className="registration-input"
-            type="password"
-            name="password"
-            placeholder="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <br />
-          <button className="registration-button" type="submit">
-            Register
-          </button>
-        </form>
-        <p className="error-message">{error && "Email already exists"}</p>
-        <div className="registration-links">
-          <p>Already have an account?</p>
-          <a className="registration-link" onClick={handleNavigate}>
-            Login
-          </a>
+    <div className="grid gird-cols-1 sm:grid-cols-2 flex justify-center items-center">
+      <WelcomeMessage />
+      <div className="sm:h-screen flex justify-center items-center">
+        <div className="mx-auto w-fit text-center">
+          <h2 className="text-3xl mb-4 font-bold">Create new Account</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="rounded mb-4 w-64 lg:w-96 h-10 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black"
+              type="text"
+              name="username"
+              placeholder="username"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <br />
+            <input
+              className="rounded mb-4 w-64 lg:w-96 h-10 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black"
+              type="email"
+              name="email"
+              placeholder="email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br />
+            <input
+              className="rounded mb-4 w-64 lg:w-96 h-10 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black"
+              type="password"
+              name="password"
+              placeholder="password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <br />
+            <button className="bg-indigo-600 w-24 h-10 text-white mt-2 px-4 py-2 rounded no-underline" type="submit">
+              Register
+            </button>
+          </form>
+          {error && <p className="text-red-400 text-lg mt-4">Email already exists!</p>}
+          <div className="mt-4">
+            <p className="text-lg">Already have an account?</p>
+            <a className="text-indigo-600 cursor-pointer text-lg hover:underline" onClick={handleNavigate}>
+              Login
+            </a>
+          </div>
         </div>
       </div>
     </div>

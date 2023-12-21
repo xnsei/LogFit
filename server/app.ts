@@ -366,7 +366,7 @@ app.post(
       password: password,
     });
     if (!requestedUser) {
-      return res.json({ message: "Please enter valid credentials" });
+      return res.status(401).json({ message: "Please enter valid credentials" });
     } else {
       const secret = process.env.SECRET;
       const token = jwt.sign(

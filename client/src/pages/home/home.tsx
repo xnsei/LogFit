@@ -32,20 +32,20 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <main>
       <Navbar />
       <div className="home-page">
-        <div className="home">
-          <Weights />
+        <div className="">
+          {/*<Weights />*/}
         </div>
-        <div className="BigCard">
-          <SmallCardWorkouts />
+        <div className="">
+          {/*<SmallCardWorkouts />*/}
         </div>
-        <div className="BigCard">
-          <AllExercises />
+        <div className="">
+          {/*<AllExercises />*/}
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
