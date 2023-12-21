@@ -4,8 +4,18 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Chart from "../home/chart";
 import "./weights.scss";
-import Modal from "../../components/Modal/modal";
 import baseURL from "../../../links";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+  DialogFooter,
+} from "@/components/ui/dialog"
+
 
 const socket = io(baseURL);
 
@@ -22,11 +32,6 @@ function extractNumberFromString(inputString: string): string {
 const Weights = () => {
   const [entry, setEntry] = useState("");
   const [weights, setWeights] = useState(Array());
-  const [showModal, setShowModal] = useState(false);
-
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
-
   const getWeights = async () => {
     try {
       const response = await axios.get(baseURL + "/weights", {
@@ -59,7 +64,6 @@ const Weights = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    closeModal();
     const datadate: Date = new Date();
     const formattedDate = format(datadate, "yyyyMMdd");
     try {
@@ -88,26 +92,32 @@ const Weights = () => {
     <div className="weights-container">
       <div className="weight-title-container">
         <h2 className="weights-title">Weights</h2>
-        <button className="add-weight-button" onClick={openModal}>
-          Add Weight
-        </button>
+        <Dialog>
+          <DialogTrigger>Open</DialogTrigger>
+          <DialogContent>
+            <DialogHeader className="text-center">
+              <DialogTitle className="text-3xl mb-4 font-bold">Add Weight Entry</DialogTitle>
+              <DialogDescription>
+
+              </DialogDescription>
+            </DialogHeader>
+              <input
+                className="rounded mb-4 w-64 lg:w-96 h-10 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black"
+                type="string"
+                name="entry"
+                placeholder="Weight"
+                onChange={(e) => setEntry(extractNumberFromString(e.target.value))}
+                required
+              />
+            <DialogFooter className="sm:justify-start">
+              <DialogClose asChild>
+                <button className="bg-black text-white px-4 py-2 rounded no-underline disabled:bg-gray-400" disabled={!entry} onClick={handleSubmit}>Submit</button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
-      <Modal isOpen={showModal} onClose={closeModal}>
-        <form className="weight-form-box" onSubmit={handleSubmit}>
-          <h3 className="form-heading">Add Weight</h3>
-          <input
-            className="weight-form-input"
-            type="string"
-            name="entry"
-            placeholder="Weight"
-            onChange={(e) => setEntry(extractNumberFromString(e.target.value))}
-            required
-          />
-          <button className="weight-form-button" type="submit">
-            Add Weight
-          </button>
-        </form>
-      </Modal>
+
       <Chart data={weights} />
     </div>
   );

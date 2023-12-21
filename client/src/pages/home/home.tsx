@@ -4,8 +4,8 @@ import "./home.scss";
 import Navbar from "../commons/navbar/navbar";
 import Weights from "../weights/weights";
 import { useNavigate } from "react-router-dom";
-import { AllExercises } from "../exercises/allExercises";
-import SmallCardWorkouts from "../workouts/smallCardWorkouts";
+// import { AllExercises } from "../exercises/allExercises";
+// import SmallCardWorkouts from "../workouts/smallCardWorkouts";
 import baseURL from "../../../links";
 
 const Home = () => {
@@ -36,7 +36,7 @@ const Home = () => {
       <Navbar />
       <div className="home-page">
         <div className="">
-          {/*<Weights />*/}
+          <Weights />
         </div>
         <div className="">
           {/*<SmallCardWorkouts />*/}
