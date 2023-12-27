@@ -8,6 +8,7 @@ import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
 import Navbar from "../commons/navbar/Navbar.tsx";
 import baseURL from "../../../links";
+import {expercise} from "@/src/pages/exercises/exercises.tsx";
 
 const socket = io(baseURL);
 
@@ -15,7 +16,7 @@ const ShowWorkout = () => {
   const location = useLocation();
   const workout = location.state.workout;
 
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState(Array<expercise>());
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);

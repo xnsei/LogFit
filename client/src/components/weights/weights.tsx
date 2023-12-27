@@ -2,7 +2,7 @@ import axios from "axios";
 import {format} from "date-fns";
 import {useEffect, useState} from "react";
 import {io} from "socket.io-client";
-import Chart from "./chart.tsx";
+import Chart, {Weight} from "./chart.tsx";
 import baseURL from "../../../links.ts";
 import {
     Dialog,
@@ -14,13 +14,6 @@ import {
     DialogClose,
     DialogFooter,
 } from "@/components/ui/dialog.tsx"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card.tsx"
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {cn} from "@/lib/utils.ts";
@@ -30,11 +23,6 @@ import * as React from "react";
 
 
 const socket = io(baseURL);
-
-export interface Weight {
-    entry: number;
-    datadate: string;
-}
 
 function extractNumberFromString(inputString: string): string {
     const numberMatch = inputString.match(/[-+]?(\d*[.])?\d+/);

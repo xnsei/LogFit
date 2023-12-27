@@ -4,7 +4,17 @@ const average = (newEntry: number, averageWeight: number, count: number) => {
     return (averageWeight * count + newEntry) / (count + 1);
 }
 
-const chart = ({data}) => {
+export interface Weight {
+    entry: string,
+    datadate: string,
+}
+
+interface WeightProps {
+    data: Weight[];
+}
+
+const chart = (props: WeightProps) => {
+    const {data} = props;
     let averageWeight = 0;
     let count = 0;
     const dataWithAverageWeight = data.map((weight: any) => {
@@ -15,7 +25,6 @@ const chart = ({data}) => {
             averageWeight: averageWeight,
         };
     });
-    console.log(data)
     const formatDate = (dateInyyyyMMdd: string) => {
         const month = dateInyyyyMMdd.substring(4, 6);
         const day = dateInyyyyMMdd.substring(6, 8);
