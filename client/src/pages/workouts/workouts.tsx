@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./workouts.scss";
 import axios from "axios";
-import Navbar from "../commons/navbar/navbar";
+import Navbar from "../commons/navbar/Navbar.tsx";
 import WorkoutForm from "./workoutForm";
 import AllWorkouts from "./allWorkouts";
 import { useNavigate } from "react-router-dom";

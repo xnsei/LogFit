@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from "../commons/navbar/navbar";
+import Navbar from "../commons/navbar/Navbar.tsx";
 import { useNavigate } from "react-router-dom";
 import { BigCardExerciseEntries } from "../exercises/entries";
 import { io } from "socket.io-client";
@@ -9,7 +9,7 @@ import baseURL from "../../../links";
 const socket = io(baseURL);
 
 const BigCardExercises = () => {
-  const [exercises, setExercises] = useState(Array());
+  const [exercises, setExercises] = useState([]);
 
   const navigate = useNavigate();
 

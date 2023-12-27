@@ -6,7 +6,7 @@ import { BigCardExerciseEntries } from "../exercises/entries";
 import { io } from "socket.io-client";
 import Modal from "../../components/Modal/modal";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm";
-import Navbar from "../commons/navbar/navbar";
+import Navbar from "../commons/navbar/Navbar.tsx";
 import baseURL from "../../../links";
 
 const socket = io(baseURL);
@@ -15,7 +15,7 @@ const ShowWorkout = () => {
   const location = useLocation();
   const workout = location.state.workout;
 
-  const [exercises, setExercises] = useState(Array());
+  const [exercises, setExercises] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
