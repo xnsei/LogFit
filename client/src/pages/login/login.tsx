@@ -11,11 +11,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const loginUser = async () => {
+  const loginUser = async (_email: string, _password: string) => {
     try {
       const response = await axios.post(`${baseURL}/users/login`, {
-        email: email,
-        password: password,
+        email: _email,
+        password: _password,
       });
       if (response.status === 200) {
         console.log(response)
@@ -43,13 +43,18 @@ const Login = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    loginUser();
+    loginUser(email, password);
   };
 
   const handleNavigate = (e: any) => {
     e.preventDefault();
     navigate("/register");
   };
+
+  const testLogin = (e: any) => {
+    e.preventDefault();
+    loginUser("admin2@admin.com", "admin2@admin.com");
+  }
 
   return (
     <main className="grid gird-cols-1 sm:grid-cols-2 justify-center items-center">
@@ -86,6 +91,12 @@ const Login = () => {
             <a className="text-indigo-600 text-lg hover:underline" onClick={handleNavigate}>
               Create new account
             </a>
+          </div>
+          <div>
+            <p className="text-lg">or</p>
+            <button onClick={testLogin} className="bg-muted-foreground text-white mt-2 px-4 py-2 rounded no-underline">
+              Login with test credentials
+            </button>
           </div>
         </div>
       </div>
