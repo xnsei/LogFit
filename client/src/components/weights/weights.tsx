@@ -150,9 +150,14 @@ const Weights = () => {
                             </Popover>
                             <DialogFooter className="sm:justify-start mt-2">
                                 <DialogClose asChild>
-                                    <Button disabled={!entry} variant="default" type="submit"
-                                            className="bg-black text-white px-4 py-2 rounded no-underline disabled:bg-muted"
-                                            onClick={handleSubmit}>Submit</Button>
+                                    <Button
+                                        disabled={!entry}
+                                        type="submit"
+                                        className="bg-black text-white px-4 py-2 rounded no-underline"
+                                        onClick={handleSubmit}
+                                    >
+                                        Submit
+                                    </Button>
                                 </DialogClose>
                             </DialogFooter>
                         </DialogContent>

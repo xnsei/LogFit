@@ -8,12 +8,12 @@ import baseURL from "../../../links";
 
 const socket = io(baseURL);
 
-export interface expercise {
+export interface exercise {
     _id: string;
     name: string;
 }
 const BigCardExercises = () => {
-  const [exercises, setExercises] = useState(Array<expercise>());
+  const [exercises, setExercises] = useState(Array<exercise>());
 
   const navigate = useNavigate();
 

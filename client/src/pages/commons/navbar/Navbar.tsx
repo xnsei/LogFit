@@ -21,7 +21,7 @@ const Navbar = () => {
                         <a
                             href={"/"}
                             className={cn(
-                                "transition-colors hover:text-foreground/80",
+                                "transition-colors hover:text-foreground/80 hidden lg:inline-flex",
                                 pathname === "/" ? "text-foreground" : "text-foreground/60"
                             )}>
                             Overview

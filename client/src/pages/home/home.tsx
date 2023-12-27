@@ -45,8 +45,8 @@ const Home = () => {
                                 <h1 className="text-center text-4xl font-bold">Welcome to Log</h1>
                                 <h1 className="text-center text-4xl font-bold text-indigo-600">Fit!</h1>
                             </div>
-                            <p className="text-lg text-muted-foreground/90">One stop solution for all your fitness trackigns.
-                            </p>
+                            <p className="text-lg text-muted-foreground/90">One stop solution for all your fitness
+                                tracking.</p>
                         </div>
                         <div className="mb-4">
                             <Weights/>

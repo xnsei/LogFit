@@ -8,35 +8,15 @@ import "./entries.scss";
 import SmallCard from "../../components/Card/small/smallCard";
 import BigCard from "../../components/Card/big/bigCard";
 import baseURL from "../../../links";
+// import {getEntries} from "@/lib/entries.ts";
+// import toast from "react-hot-toast";
+import {entry} from "@/src/pages/workouts/allWorkouts.tsx";
+import {dateFormat} from "@/lib/dateFormat.ts";
 
 const socket = io(baseURL);
 
-const formatDate = (dateInyyyyMMdd: string) => {
-  const month = dateInyyyyMMdd.substring(4, 6);
-  const day = dateInyyyyMMdd.substring(6, 8);
-
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const monthName = monthNames[parseInt(month) - 1];
-
-  const formattedDate = `${monthName}, ${parseInt(day)}`;
-  return formattedDate;
-};
-
 const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
-  const [entries, setEntries] = useState(Array());
+  const [entries, setEntries] = useState(Array<entry>());
   const [entry, setEntry] = useState("");
   const [showModal, setShowModal] = useState(false);
 
@@ -161,7 +141,7 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
           onEntryDelete: () => handleDelete(entry._id),
           data: {
             entry: entry.entry,
-            date: formatDate(entry.datadate),
+            date: dateFormat(entry.datadate),
           },
         }))}
         entryModal={entryFormModal}
@@ -171,9 +151,11 @@ const BigCardExerciseEntries = (props: ExerciseEntryProps) => {
 };
 
 const ExerciseEntries = (props: ExerciseEntryProps) => {
-  const [entries, setEntries] = useState(Array());
+  // const [entries, setEntries] = useState(Array<entry>());
   const [entry, setEntry] = useState("");
   const [showModal, setShowModal] = useState(false);
+
+  const entries = Array<entry>();
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
@@ -231,40 +213,18 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
     </div>
   );
 
-  const getEntries = async () => {
-    try {
-      const response = await axios.get(
-        baseURL + `/exercises/${props.exerciseId}/entries`,
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
-      const data = await response.data;
-      const newData = data
-        .sort((a: any, b: any) => {
-          const dateA = parseInt(a.datadate);
-          const dateB = parseInt(b.datadate);
-          return dateA - dateB;
-        })
-        .reverse()
-        .slice(0, 3);
-      setEntries(newData);
-    } catch (error) {
-      console.log(error);
-    }
-    return entries;
-  };
-
   useEffect(() => {
-    getEntries();
+    // getEntries().then((data) => {
+    //   setEntries(data);
+    // }).catch((error) => {
+    //   toast.error(error.message);
+    // });
   }, []);
 
   useEffect(() => {
-    socket.on("updateEntry", (_data: any) => {
-      getEntries();
-    });
+    // socket.on("updateEntry", (_data: any) => {
+    //   getEntries();
+    // });
   }, [socket]);
 
   return (
@@ -280,7 +240,7 @@ const ExerciseEntries = (props: ExerciseEntryProps) => {
           url: `${baseURL}/exercises/${props.exerciseId}/entries/${entry._id}/delete`,
           data: {
             entry: entry.entry,
-            date: formatDate(entry.datadate),
+            date: dateFormat(entry.datadate),
           },
         }))}
       />
