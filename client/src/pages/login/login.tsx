@@ -17,6 +17,7 @@ const Login = () => {
         email: _email,
         password: _password,
       });
+      alert(response);
       if (response.status === 200) {
         console.log(response)
         setError(false);
