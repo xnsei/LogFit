@@ -36,7 +36,7 @@ const Login = () => {
       }
     } catch (error) {
       setError(true);
-      toast.error("Invalid Credentials!");
+      toast.error(`Login Failed: ${error.response?.data?.message || error.response?.data?.messaeg}`);
       console.log(error);
     }
   };
