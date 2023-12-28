@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import baseURL from "../../../links";
+import baseURL from "../../../lib/links.ts";
 import WelcomeMessage from "../../components/WelcomeMessage/WelcomeMessage.tsx";
 import toast from "react-hot-toast";
 

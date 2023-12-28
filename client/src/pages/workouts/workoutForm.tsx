@@ -2,7 +2,7 @@ import axios from "axios";
 import {useState} from "react";
 import {io} from "socket.io-client";
 import "./workoutForm.scss";
-import baseURL from "../../../links";
+import baseURL from "../../../lib/links.ts";
 import {
     Dialog, DialogClose,
     DialogContent,

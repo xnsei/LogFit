@@ -2,7 +2,7 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import "./allWorkouts.scss";
 import {io} from "socket.io-client";
-import baseURL from "../../../links";
+import baseURL from "../../../lib/links.ts";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion.tsx";
 import {exercise} from "@/src/pages/exercises/exercises.tsx";
 import {getEntries} from "@/lib/entries.ts";
@@ -25,7 +25,6 @@ export interface entry {
 const AllWorkouts = () => {
     const [workouts, setWorkouts] = useState(Array<WorkoutInterface>());
     const [isLoading, setIsLoading] = useState(true);
-    // const navigate = useNavigate();
 
 
     const getWorkouts = async () => {
@@ -55,41 +54,6 @@ const AllWorkouts = () => {
         });
     }, [socket]);
 
-    // const handleDelete = async (id: string) => {
-    //     try {
-    //         const response = await axios.post(
-    //             `${baseURL}/workouts/${id}/delete`,
-    //             null,
-    //             {
-    //                 headers: {
-    //                     token: localStorage.getItem("token"),
-    //                 },
-    //             }
-    //         );
-    //         if (response.status === 200) {
-    //             socket.emit("deleteWorkout", {});
-    //             console.log("event emitted");
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-    //
-    // const handleView = async (id: string) => {
-    //     try {
-    //         const response = await axios.get(`${baseURL}/workouts/${id}`, {
-    //             headers: {
-    //                 token: localStorage.getItem("token"),
-    //             },
-    //         });
-    //         if (response.status === 200) {
-    //             navigate("/workout/view", {state: {workout: response.data}});
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
     return (
         <div>
             {isLoading && <div>Loading...</div>}
@@ -97,16 +61,16 @@ const AllWorkouts = () => {
                 return (
                     <div id={workout._id}>
                         <Accordion type="single" collapsible>
-                            <AccordionItem className="border rounded-lg shadow-md overflow-hidden mb-4 px-4 py-2"
+                            <AccordionItem className="border rounded-lg shadow-md overflow-hidden mb-4"
                                            value={workout.name}>
-                                <AccordionTrigger className="hover:no-underline data-[state=open]:border-b-2">
-                                    <div className="text-left">
+                                <AccordionTrigger className="px-4 hover:no-underline data-[state=open]:bg-gray-100">
+                                    <div className="text-left py-2">
                                         <h1 className="text-xl">{workout.name}</h1>
                                         <p className="text-muted-foreground">{workout.name} will help you achieve your
                                             goals</p>
                                     </div>
                                 </AccordionTrigger>
-                                <AccordionContent className="mt-4">
+                                <AccordionContent className="mt-4 px-4">
                                     <Exercises baseUrl={`/workouts/${workout._id}`}/>
                                 </AccordionContent>
                             </AccordionItem>
@@ -141,13 +105,13 @@ const Exercises = ({baseUrl}: { baseUrl: string }) => {
 
     return (
         <div>
-            <h1 className="text-muted-foreground mb-2">
+            <h1 className="text-muted-foreground mb-4 border-b-2">
                 EXERCISES
             </h1>
             <div>
                 {exercises.map(exercise => {
                     return (
-                        <div className="border-b mb-4 pb-1 grid grid-cols-12 items-center">
+                        <div className="pb-2 grid grid-cols-12 items-center">
                             <h1 className="text-lg col-span-6 lg:col-span-8">
                                 {exercise.name}
                             </h1>
@@ -165,11 +129,11 @@ const Exercises = ({baseUrl}: { baseUrl: string }) => {
     )
 }
 
-const LatestUpdate = ({id} : {id: string}) => {
+const LatestUpdate = ({id}: { id: string }) => {
     const [latestEntryDate, setLatestEntryDate] = useState("");
 
     const getLatestEntryDate = async () => {
-        const entries = await getEntries({exerciseId: id});
+        const entries = await getEntries(id);
         console.log(entries)
         const latestEntryDate = await entries[0].datadate;
         setLatestEntryDate(latestEntryDate);

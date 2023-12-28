@@ -3,7 +3,7 @@ import {format} from "date-fns";
 import {useEffect, useState} from "react";
 import {io} from "socket.io-client";
 import Chart, {Weight} from "./chart.tsx";
-import baseURL from "../../../links.ts";
+import baseURL from "../../../lib/links.ts";
 import {
     Dialog,
     DialogContent,
@@ -97,9 +97,6 @@ const Weights = () => {
     };
 
     return (
-        // <Card className="px-2">
-        //     <CardHeader>
-        //         <CardTitle>
         <div className="border shadow-md rounded mb-8">
             <div className="overflow-hidden bg-white">
                 <div className="flex flex-row justify-between items-center overflow-hidden bg-gray-100 py-2 px-4">
@@ -130,13 +127,13 @@ const Weights = () => {
                                     <Button
                                         variant={"outline"}
                                         className={cn(
-                                            " justify-start text-left font-normal rounded h-10 border border-gray-300",
+                                            " justify-start items-center text-left font-normal rounded h-10 border border-gray-300",
                                             !date && "text-muted-foreground"
                                         )}
                                     >
                                         <CalendarIcon className="mr-4 h-6 w-6"/>
                                         {date ? format(date, "PPP") :
-                                            <span className="text-xl">Pick a date</span>}
+                                            <span className="text-lg">Pick a date</span>}
                                     </Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-auto p-2">
@@ -164,17 +161,10 @@ const Weights = () => {
                     </Dialog>
                 </div>
             </div>
-            {/*</CardTitle>*/}
-            {/*// <CardDescription>*/}
-            {/*// </CardDescription>*/}
-            {/*// </CardHeader>*/}
-            {/*// <CardContent className="pb-4">*/}
             <div className="">
                 <Chart data={weights}/>
             </div>
         </div>
-        // </CardContent>
-        // </Card>
     );
 };
 

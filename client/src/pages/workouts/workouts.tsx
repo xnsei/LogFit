@@ -5,11 +5,10 @@ import Navbar from "../commons/navbar/Navbar.tsx";
 import WorkoutForm from "./workoutForm";
 import AllWorkouts from "./allWorkouts";
 import {useNavigate} from "react-router-dom";
-import baseURL from "../../../links";
+import baseURL from "../../../lib/links.ts";
 import Sidebar from "@/src/pages/commons/Sidebar/Sidebar.tsx";
 
 const Workouts = () => {
-    // const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     const authenticate = async () => {

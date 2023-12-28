@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import Navbar from "../commons/navbar/Navbar.tsx";
 import Weights from "@/src/components/weights/weights";
 import {useNavigate} from "react-router-dom";
-import baseURL from "../../../links";
+import baseURL from "../../../lib/links.ts";
 import Sidebar from "@/src/pages/commons/Sidebar/Sidebar.tsx";
 import FavoriteWorkouts from "@/src/components/FavoriteWorkouts/FavoriteWorkouts.tsx";
 import FavoriteExercises from "@/src/components/FavoriteExercises/FavoriteExercises.tsx";

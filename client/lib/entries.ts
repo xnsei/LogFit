@@ -1,7 +1,7 @@
 import axios from "axios";
-import baseURL from "../links";
+import baseURL from "./links.ts";
 
-export const getEntries = async ({exerciseId}: {exerciseId: string}) => {
+export const getEntries = async (exerciseId: string) => {
     try {
         const response = await axios.get(
             baseURL + `/exercises/${exerciseId}/entries`,
@@ -19,6 +19,7 @@ export const getEntries = async ({exerciseId}: {exerciseId: string}) => {
                 return dateA - dateB;
             })
             .reverse();
+
     } catch (error) {
         console.log(error);
     }

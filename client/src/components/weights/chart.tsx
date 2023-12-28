@@ -1,4 +1,5 @@
 import {Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {dateFormat} from "@/lib/dateFormat.ts";
 
 const average = (newEntry: number, averageWeight: number, count: number) => {
     return (averageWeight * count + newEntry) / (count + 1);
@@ -25,27 +26,7 @@ const chart = (props: WeightProps) => {
             averageWeight: averageWeight,
         };
     });
-    const formatDate = (dateInyyyyMMdd: string) => {
-        const month = dateInyyyyMMdd.substring(4, 6);
-        const day = dateInyyyyMMdd.substring(6, 8);
 
-        const monthNames = [
-            "Jan",
-            "Feb",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "Aug",
-            "Sept",
-            "Oct",
-            "Nov",
-            "Dec",
-        ];
-        const monthName = monthNames[parseInt(month) - 1];
-        return `${monthName}, ${parseInt(day)}`;
-    };
     const maxWeight = Math.max(
         Math.max(...data.map((weight: any) => weight.entry)),
         Math.max(...data.map((weight: any) => weight.averageWeight))
@@ -75,7 +56,7 @@ const chart = (props: WeightProps) => {
                                         return (
                                             <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                 <div>
-                                                    {formatDate(payload[0].payload.datadate)}
+                                                    {dateFormat(payload[0].payload.datadate)}
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-2">
                                                     <div className="flex flex-col">
