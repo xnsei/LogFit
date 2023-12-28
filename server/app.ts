@@ -375,7 +375,7 @@ app.post(
         },
         secret
       );
-      return res.json({ messaeg: "Logged in successfully!", token: token });
+      return res.json({ message: "Logged in successfully!", token: token });
     }
   })
 );

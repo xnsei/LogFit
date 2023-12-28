@@ -17,7 +17,6 @@ const Login = () => {
         email: _email,
         password: _password,
       });
-      alert(response);
       if (response.status === 200) {
         console.log(response)
         setError(false);
@@ -37,7 +36,6 @@ const Login = () => {
       }
     } catch (error) {
       setError(true);
-      alert(error);
       toast.error("Invalid Credentials!");
       console.log(error);
     }
@@ -94,7 +92,7 @@ const Login = () => {
               Create new account
             </a>
           </div>
-          <div>
+          <div className="mb-4">
             <p className="text-lg">or</p>
             <button onClick={testLogin} className="bg-muted-foreground text-white mt-2 px-4 py-2 rounded no-underline">
               Login with test credentials
