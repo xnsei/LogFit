@@ -1,11 +1,11 @@
 import {cn} from "@/lib/utils.ts";
 import {useLocation} from "react-router-dom";
 
-const Sidebar  = () => {
+const Sidebar = () => {
     const pathname = useLocation().pathname;
     return (
         <div className="flex flex-col w-full text-center space-y-2">
-            <p>Quick Links</p>
+            <p className="text-foreground/60">QUICK LINKS</p>
             <a
                 href={"/"}
                 className={cn(

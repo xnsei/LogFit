@@ -1,12 +1,13 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
-import "./allWorkouts.scss";
 import {io} from "socket.io-client";
 import baseURL from "../../../lib/links.ts";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion.tsx";
 import {exercise} from "@/src/pages/exercises/exercises.tsx";
 import {getEntries} from "@/lib/entries.ts";
 import {convertDate, dateFormat} from "@/lib/dateFormat.ts";
+import {useNavigate} from "react-router-dom";
+import { WorkoutExercisesForm } from "../exercises/exerciseForm.tsx";
 
 const socket = io(baseURL);
 
@@ -23,6 +24,7 @@ export interface entry {
 }
 
 const AllWorkouts = () => {
+    const navigate = useNavigate();
     const [workouts, setWorkouts] = useState(Array<WorkoutInterface>());
     const [isLoading, setIsLoading] = useState(true);
 
@@ -71,7 +73,24 @@ const AllWorkouts = () => {
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent className="mt-4 px-4">
-                                    <Exercises baseUrl={`/workouts/${workout._id}`}/>
+                                    <div className="border-b-2 pb-2">
+                                        <Exercises baseUrl={`/workouts/${workout._id}`} workoutId={workout._id}/>
+                                    </div>
+                                    <div className="mt-2 flex">
+                                        <button
+                                            onClick={() => {
+                                                navigate(`/workouts/${workout._id}`, {
+                                                    state: {
+                                                        workoutId: workout._id,
+                                                        workoutName: workout.name
+                                                    }
+                                                })
+                                            }}
+                                            className="bg-black text-white px-4 py-2 rounded no-underline"
+                                        >
+                                            View Workout Details
+                                        </button>
+                                    </div>
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
@@ -82,7 +101,8 @@ const AllWorkouts = () => {
     );
 };
 
-const Exercises = ({baseUrl}: { baseUrl: string }) => {
+const Exercises = ({baseUrl, workoutId}: { baseUrl: string, workoutId: string }) => {
+    const navigate = useNavigate();
     const [exercises, setExercises] = useState(Array<exercise>());
     const getExercises = async () => {
         try {
@@ -105,9 +125,12 @@ const Exercises = ({baseUrl}: { baseUrl: string }) => {
 
     return (
         <div>
-            <h1 className="text-muted-foreground mb-4 border-b-2">
+            <div className="flex justify-between items-center pb-2 mb-4 border-b-2">
+            <h1 className="text-muted-foreground">
                 EXERCISES
             </h1>
+                <WorkoutExercisesForm workoutId={workoutId} />
+            </div>
             <div>
                 {exercises.map(exercise => {
                     return (
@@ -119,6 +142,12 @@ const Exercises = ({baseUrl}: { baseUrl: string }) => {
                                 <LatestUpdate id={exercise._id}/>
                             </div>
                             <button
+                                onClick={() => navigate(`/exercises/${exercise._id}`, {
+                                    state: {
+                                        exerciseId: exercise._id,
+                                        exerciseName: exercise.name
+                                    }
+                                })}
                                 className="col-span-2 lg:col-span-1 bg-black text-white px-auto py-2 rounded no-underline">Details
                             </button>
                         </div>
@@ -153,3 +182,4 @@ const LatestUpdate = ({id}: { id: string }) => {
 }
 
 export default AllWorkouts;
+export {Exercises};

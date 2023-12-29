@@ -7,6 +7,8 @@ import Exercises from "./pages/exercises/exercises";
 import Register from "./pages/register/register";
 import {Toaster} from "react-hot-toast";
 import WeightPage from "@/src/pages/WeightPage/WeightPage.tsx";
+import ExercisePage from "@/src/pages/ExercisePage/ExercisePage.tsx";
+import WorkoutPage from "@/src/pages/WorkoutPage/WorkoutPage.tsx";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="workouts" element={<Workouts />} />
             <Route path="exercises" element={<Exercises />} />
+            <Route path="exercises/:id" element={<ExercisePage />} />
+            <Route path="workouts/:id" element={<WorkoutPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

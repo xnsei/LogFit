@@ -101,7 +101,7 @@ const Weights = () => {
             <div className="overflow-hidden bg-white">
                 <div className="flex flex-row justify-between items-center overflow-hidden bg-gray-100 py-2 px-4">
                     <div className="">
-                        <h2 className="text-2xl font-bold">Track Your Weight</h2>
+                        <h2 className="text-2xl font-bold">Progress Timeline</h2>
                         <h3 className="text-gray-500">Your weight is more than what it usually is.</h3>
                     </div>
                     <Dialog open={open} onOpenChange={setOpen}>

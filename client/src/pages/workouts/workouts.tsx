@@ -1,5 +1,4 @@
 import {useEffect} from "react";
-import "./workouts.scss";
 import axios from "axios";
 import Navbar from "../commons/navbar/Navbar.tsx";
 import WorkoutForm from "./workoutForm";
