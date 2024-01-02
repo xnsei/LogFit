@@ -22,7 +22,7 @@ const WorkoutPage = () => {
                         </p>
                         </div>
                     </div>
-                    <Exercises baseUrl={`/workouts/${workoutId}`}/>
+                    <Exercises baseUrl={`/workouts/${workoutId}`} workoutId={workoutId}/>
                 </div>
             </div>
         </div>

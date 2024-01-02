@@ -101,7 +101,7 @@ const AllExercises = () => {
                                             </div>
                                         </AccordionTrigger>
                                         <AccordionContent className="mt-0 px-4">
-                                            <div key={exercise._id}>
+                                            <div className="border-b-2" key={exercise._id}>
                                                 <EntryForm
                                                     exerciseId={exercise._id}
                                                     exerciseName={exercise.name}
@@ -109,6 +109,19 @@ const AllExercises = () => {
                                                 />
                                                 <AllEntries exerciseId={exercise._id} startIndex={0} endIndex={5}/>
                                             </div>
+                                            <button
+                                                onClick={() => {
+                                                    navigate(`/exercises/${exercise._id}`, {
+                                                        state: {
+                                                            exerciseId: exercise._id,
+                                                            exerciseName: exercise.name
+                                                        }
+                                                    })
+                                                }}
+                                                className="bg-black text-white px-4 py-2 rounded no-underline mt-2"
+                                            >
+                                                View Exercise Details
+                                            </button>
                                         </AccordionContent>
                                     </AccordionItem>
                                 </Accordion>

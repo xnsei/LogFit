@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <div
-            className=" sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container grid grid-cols-1 md:grid-cols-2 h-14 max-w-screen-2xl items-center">
                 <div className="mr-4 hidden md:flex">
                     <div className="mr-4 flex items-center cursor-pointer" onClick={() => navigate('/')}>
