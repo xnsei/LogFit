@@ -7,7 +7,7 @@ const WorkoutPage = () => {
     const location = useLocation();
     const {workoutId, workoutName} = location.state as { workoutId: string, workoutName: string };
     return (
-        <div className="w-full">
+        <div key={workoutId} className="w-full">
             <Navbar/>
             <div className="container my-4 grid grid-cols-12">
                 <div className="hidden md:inline-flex col-span-2">
@@ -22,7 +22,7 @@ const WorkoutPage = () => {
                         </p>
                         </div>
                     </div>
-                    <Exercises key={workoutId} baseUrl={`/workouts/${workoutId}`} workoutId={workoutId}/>
+                    <Exercises baseUrl={`/workouts/${workoutId}`} workoutId={workoutId}/>
                 </div>
             </div>
         </div>
