@@ -20,7 +20,8 @@ import {cn} from "@/lib/utils.ts";
 import {CalendarIcon} from "@radix-ui/react-icons";
 import {Calendar} from "@/components/ui/calendar.tsx";
 import * as React from "react";
-
+import {useSelector} from "react-redux";
+import {getWeights} from "@/lib/weights.ts";
 
 const socket = io(baseURL);
 
@@ -35,40 +36,24 @@ function extractNumberFromString(inputString: string): string {
 }
 
 const Weights = () => {
+    const selector = useSelector((state: any) => state.weights);
     const [open, setOpen] = useState(false);
     const [entry, setEntry] = useState("");
     const [weights, setWeights] = useState(Array<Weight>());
     const [date, setDate] = React.useState<Date>();
 
-    const getWeights = async () => {
-        try {
-            const response = await axios.get(baseURL + "/weights", {
-                headers: {
-                    token: localStorage.getItem("token"),
-                },
-            });
-            const data = await response.data;
-            const newData = data.sort((a: any, b: any) => {
-                const dateA = parseInt(a.datadate);
-                const dateB = parseInt(b.datadate);
-                return dateA - dateB;
-            });
-            setWeights(newData);
-        } catch (error) {
-            console.log(error);
+    useEffect(() => {
+        const weights = selector.weights;
+        const reversedWeights = [...weights].reverse();
+        setWeights(reversedWeights);
+        if(reversedWeights.length < 1) {
+            getWeights().then(data => {
+                setWeights(data.reverse());
+            }).catch(error => {
+                console.log(error);
+            })
         }
-        return weights;
-    };
-
-    useEffect(() => {
-        getWeights();
     }, []);
-
-    useEffect(() => {
-        socket.on("updateWeight", (_data: any) => {
-            getWeights();
-        });
-    }, [socket]);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();

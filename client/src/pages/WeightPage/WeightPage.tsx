@@ -4,9 +4,8 @@ import Sidebar from "@/src/pages/commons/Sidebar/Sidebar.tsx";
 import PaginationHelper from "@/src/components/Pagination/PaginationHelper.tsx";
 import {useEffect, useState} from "react";
 import {Weight} from "@/src/components/weights/chart.tsx";
-import axios from "axios";
-import baseURL from "@/lib/links.ts";
 import {dateFormat} from "@/lib/dateFormat.ts";
+import {getWeights} from "@/lib/weights.ts";
 
 const WeightPage = () => {
     const [weights, setWeights] = useState(Array<Weight>());
@@ -18,28 +17,16 @@ const WeightPage = () => {
     const firstIndex = lastIndex - itemsPerPage;
     const currentWeights = weights.slice(firstIndex, lastIndex);
 
-    const getWeights = async () => {
-        try {
-            const response = await axios.get(baseURL + "/weights", {
-                headers: {
-                    token: localStorage.getItem("token"),
-                },
-            });
-            const data = await response.data;
-            const newData = data.sort((a: any, b: any) => {
-                const dateA = parseInt(a.datadate);
-                const dateB = parseInt(b.datadate);
-                return dateA - dateB;
-            }).reverse();
-            setWeights(newData);
-        } catch (error) {
+    const updateWeights = () => {
+        getWeights().then(data => {
+            setWeights(data);
+        }).catch(error => {
             console.log(error);
-        }
-        return weights;
-    };
+        })
+    }
 
     useEffect(() => {
-        getWeights();
+        updateWeights();
     }, []);
 
     return (
@@ -55,14 +42,15 @@ const WeightPage = () => {
                         <h1 className="font-bold text-2xl border-b-2 pb-2">My Weight Log</h1>
                         {currentWeights.map((weight: Weight) => {
                             return (
-                                <div className="container my-4 grid grid-cols-12 pb-1 items-center">
+                                <div key={weight.datadate} className="container my-4 grid grid-cols-12 pb-1 items-center">
                                     <h2 className="text-muted-foreground col-span-6 md:col-span-8 lg:col-span-9">
                                         {dateFormat(weight.datadate)}
                                     </h2>
                                     <h2 className="text-lg font-bold col-span-3 md:col-span-2 lg:col-span-2">
                                         {weight.entry}
                                     </h2>
-                                    <button className="bg-black text-white py-2 rounded px-auto col-span-3 md:col-span-2 lg:col-span-1">
+                                    <button
+                                        className="bg-black text-white py-2 rounded px-auto col-span-3 md:col-span-2 lg:col-span-1">
                                         Edit
                                     </button>
                                 </div>

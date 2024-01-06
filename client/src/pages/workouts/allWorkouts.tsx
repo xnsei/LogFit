@@ -1,6 +1,6 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
-import {io} from "socket.io-client";
+// import {io} from "socket.io-client";
 import baseURL from "../../../lib/links.ts";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion.tsx";
 import {exercise} from "@/src/pages/exercises/exercises.tsx";
@@ -8,8 +8,9 @@ import {getEntries} from "@/lib/entries.ts";
 import {convertDate, dateFormat} from "@/lib/dateFormat.ts";
 import {useNavigate} from "react-router-dom";
 import { WorkoutExercisesForm } from "../exercises/exerciseForm.tsx";
+import {getWorkouts} from "@/lib/workouts.ts";
 
-const socket = io(baseURL);
+// const socket = io(baseURL);
 
 export interface WorkoutInterface {
     _id: string;
@@ -29,32 +30,21 @@ const AllWorkouts = () => {
     const [isLoading, setIsLoading] = useState(true);
 
 
-    const getWorkouts = async () => {
-        try {
-            const response = await axios.get(`${baseURL}/workouts`, {
-                headers: {
-                    token: localStorage.getItem("token"),
-                },
-            });
-            const data = await response.data;
+    useEffect(() => {
+        getWorkouts().then((data) => {
             setWorkouts(data);
             setIsLoading(false);
-        } catch (error) {
+        }).catch((error) => {
             console.log(error);
-            setIsLoading(false);
-        }
-        return workouts;
-    };
-
-    useEffect(() => {
-        getWorkouts();
+            setIsLoading(false)
+        });
     }, []);
 
-    useEffect(() => {
-        socket.on("updateWorkout", (_data: any) => {
-            getWorkouts();
-        });
-    }, [socket]);
+    // useEffect(() => {
+    //     socket.on("updateWorkout", (_data: any) => {
+    //         getWorkouts();
+    //     });
+    // }, [socket]);
 
     return (
         <div>

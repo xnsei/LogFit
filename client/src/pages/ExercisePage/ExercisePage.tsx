@@ -49,7 +49,7 @@ const ExercisePage = () => {
     };
 
     return (
-        <div className="w-full">
+        <div key={exerciseId} className="w-full">
             <Navbar/>
             <div className="container my-4 grid grid-cols-12">
                 <div className="hidden md:inline-flex col-span-2">

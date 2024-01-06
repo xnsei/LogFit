@@ -16,9 +16,13 @@ import {
     MoonIcon,
     ExitIcon,
 } from "@radix-ui/react-icons"
+import {useSelector} from "react-redux";
+import {WorkoutInterface} from "@/src/pages/workouts/allWorkouts.tsx";
+import {exercise} from "@/src/pages/exercises/exercises.tsx";
 
 
 const NavSearch = () => {
+    const selector = useSelector((state: any) => state);
     const navigate = useNavigate();
     const [open, setOpen] = useState(false)
 
@@ -52,7 +56,7 @@ const NavSearch = () => {
                 <CommandInput placeholder="Type a command or search..."/>
                 <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
-                    <CommandGroup heading="Links">
+                    <CommandGroup heading="QUICK LINKS">
                         <CommandItem
                             key="weights"
                             value="Weights"
@@ -84,13 +88,45 @@ const NavSearch = () => {
                             Exercises
                         </CommandItem>
                     </CommandGroup>
+                    <CommandGroup heading="WORKOUTS">
+                        {selector.workouts.workouts.map((workout: WorkoutInterface) => {
+                            return (
+                                <CommandItem
+                                    key={workout._id}
+                                    value={workout.name}
+                                    onSelect={() => {
+                                        runCommand(() => window.location.href = `/workouts/${workout._id}`)
+                                    }}
+                                >
+                                    <FileIcon className="mr-2 h-4 w-4"/>
+                                    {workout.name}
+                                </CommandItem>
+                            );
+                        })}
+                    </CommandGroup>
+                    <CommandGroup heading="EXERCISES">
+                        {selector.exercises.exercises.map((exercise: exercise) => {
+                            return (
+                                <CommandItem
+                                    key={exercise._id}
+                                    value={exercise.name}
+                                    onSelect={() => {
+                                        runCommand(() => window.location.href = `/exercises/${exercise._id}`)
+                                    }}
+                                >
+                                    <FileIcon className="mr-2 h-4 w-4"/>
+                                    {exercise.name}
+                                </CommandItem>
+                            );
+                        })}
+                    </CommandGroup>
                 </CommandList>
             </CommandDialog>
             <button className="mx-2">
                 <MoonIcon/>
             </button>
             <button className="mx-2" onClick={logOut}>
-                <ExitIcon />
+                <ExitIcon/>
             </button>
         </>
     );

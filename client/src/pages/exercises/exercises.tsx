@@ -8,6 +8,7 @@ import baseURL from "../../../lib/links.ts";
 import Sidebar from "@/src/pages/commons/Sidebar/Sidebar.tsx";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion.tsx";
 import AllEntries from "@/src/pages/exercises/entryTypes.tsx";
+import {getAllExercises} from "@/lib/exercises.ts";
 
 const socket = io(baseURL);
 
@@ -37,29 +38,24 @@ const AllExercises = () => {
         }
     };
 
-    const getExercises = async () => {
-        try {
-            const response = await axios.get(baseURL + `/exercises`, {
-                headers: {
-                    token: localStorage.getItem("token"),
-                },
-            });
-            const data = await response.data;
-            setExercises(data);
-        } catch (error) {
-            console.log(error);
-        }
-        return exercises;
-    };
+
 
     useEffect(() => {
         authenticate();
-        getExercises();
+        getAllExercises().then((data) => {
+            setExercises(data);
+        }).catch((error) => {
+            console.log(error);
+        });
     }, []);
 
     useEffect(() => {
         socket.on("updateExercise", (_data: any) => {
-            getExercises();
+            getAllExercises().then((data) => {
+                setExercises(data);
+            }).catch((error) => {
+                console.log(error);
+            });
         });
     }, [socket]);
 
