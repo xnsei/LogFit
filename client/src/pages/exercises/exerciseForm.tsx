@@ -11,12 +11,15 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog.tsx";
 import {Button} from "@/components/ui/button.tsx";
+import {Switch} from "@/components/ui/switch.tsx";
 
 const socket = io(baseURL);
 
 const WorkoutExercisesForm = ({workoutId}: { workoutId: string }) => {
     const [open, setOpen] = useState(false);
     const [exerciseTitle, setExerciseTitle] = useState("");
+    const [exerciseDescription, setExerciseDescription] = useState("");
+    const [isCardio, setIsCardio] = useState(false);
 
     const addExercise = async () => {
         try {
@@ -24,6 +27,8 @@ const WorkoutExercisesForm = ({workoutId}: { workoutId: string }) => {
                 baseURL + `/workouts/${workoutId}/exercises/new`,
                 {
                     name: exerciseTitle,
+                    description: exerciseDescription,
+                    isCardio: isCardio,
                 },
                 {
                     headers: {
@@ -67,10 +72,34 @@ const WorkoutExercisesForm = ({workoutId}: { workoutId: string }) => {
                     placeholder="Exercise Title"
                     required
                 />
+                <textarea
+                    className="rounded mb-2 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black"
+                    id="description"
+                    rows={2}
+                    name="description"
+                    value={exerciseDescription}
+                    onChange={(e) => setExerciseDescription(e.target.value)}
+                    placeholder="Exercise Description"
+                    required
+                />
+                <div className="flex border px-4 py-2 rounded justify-between items-center">
+                    <div>
+                        <h1 className="font-medium">
+                            Is This exercise Cardio?
+                        </h1>
+                        <p className="text-muted-foreground text-sm">You won't be able to change this later.</p>
+                    </div>
+                    <Switch
+                        id="isCardio"
+                        name="isCardio"
+                        checked={isCardio}
+                        onCheckedChange={(e) => setIsCardio(e.valueOf())}
+                    />
+                </div>
                 <DialogFooter className="sm:justify-start">
                     <DialogClose asChild>
                         <Button
-                            disabled={!exerciseTitle}
+                            disabled={!exerciseTitle || !exerciseDescription}
                             className="bg-black text-white px-4 py-2 rounded no-underline"
                             type="submit"
                             variant="default"
@@ -82,7 +111,7 @@ const WorkoutExercisesForm = ({workoutId}: { workoutId: string }) => {
                 </DialogFooter>
             </DialogContent>
         </Dialog>
-);
+    );
 };
 
 export {

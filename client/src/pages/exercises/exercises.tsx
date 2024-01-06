@@ -15,6 +15,8 @@ const socket = io(baseURL);
 export interface exercise {
     _id: string;
     name: string;
+    description: string;
+    isCardio: boolean;
 }
 
 const AllExercises = () => {
@@ -82,7 +84,7 @@ const AllExercises = () => {
     return (
         <div>
             <div className="">
-                {exercises.map(exercise => {
+                {exercises.map((exercise: exercise) => {
                         return (
                             <div key={exercise._id}>
                                 <Accordion type={"single"} collapsible>
@@ -91,14 +93,13 @@ const AllExercises = () => {
                                         <AccordionTrigger className="px-4 hover:no-underline data-[state=open]:bg-gray-100">
                                             <div className="text-left py-2">
                                                 <h1 className="text-xl">{exercise.name}</h1>
-                                                <p className="text-muted-foreground">{exercise.name} will help you achieve
-                                                    your
-                                                    goals</p>
+                                                <p></p>
                                             </div>
                                         </AccordionTrigger>
                                         <AccordionContent className="mt-0 px-4">
                                             <div className="border-b-2" key={exercise._id}>
                                                 <EntryForm
+                                                    isCardio={exercise.isCardio}
                                                     exerciseId={exercise._id}
                                                     exerciseName={exercise.name}
                                                     onDelete={() => handleDelete(exercise._id)}

@@ -9,6 +9,8 @@ import EntryForm from "@/src/pages/exercises/EntryForm.tsx";
 import axios from "axios";
 import baseURL from "@/lib/links.ts";
 import PaginationHelper from "@/src/components/Pagination/PaginationHelper.tsx";
+import {useSelector} from "react-redux";
+import {exercise} from "@/src/pages/exercises/exercises.tsx";
 
 const ExercisePage = () => {
     const location = useLocation();
@@ -48,6 +50,12 @@ const ExercisePage = () => {
         }
     };
 
+    const isExerciseCardio = (id: string): boolean => {
+        const exercises = useSelector((state: any) => state.exercises.exercises);
+        if(!exercises) return false;
+        return exercises.find((exercise: exercise) => exercise._id === id).isCardio ?? false;
+    }
+
     return (
         <div key={exerciseId} className="w-full">
             <Navbar/>
@@ -60,6 +68,7 @@ const ExercisePage = () => {
                     <p className="text-muted-foreground">{exerciseName} will help you achieve your
                         goals</p>
                     <EntryForm
+                        isCardio={isExerciseCardio(exerciseId)}
                         exerciseId={exerciseId}
                         exerciseName={exerciseName}
                         onDelete={() => handleDelete(exerciseId)}

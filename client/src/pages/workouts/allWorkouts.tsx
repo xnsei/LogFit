@@ -1,65 +1,57 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
-// import {io} from "socket.io-client";
 import baseURL from "../../../lib/links.ts";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion.tsx";
 import {exercise} from "@/src/pages/exercises/exercises.tsx";
 import {getEntries} from "@/lib/entries.ts";
 import {convertDate, dateFormat} from "@/lib/dateFormat.ts";
 import {useNavigate} from "react-router-dom";
-import { WorkoutExercisesForm } from "../exercises/exerciseForm.tsx";
-import {getWorkouts} from "@/lib/workouts.ts";
-
-// const socket = io(baseURL);
+import {WorkoutExercisesForm} from "../exercises/exerciseForm.tsx";
+import {useSelector} from "react-redux";
 
 export interface WorkoutInterface {
     _id: string;
     name: string;
+    description: string;
+    isFavorite: boolean;
     exercises: Array<string>;
 }
 
 export interface entry {
     _id: string;
-    entry: string;
+    weight: string;
+    repetitions: string;
+    duration: string;
     datadate: string;
+    exerciseId: string;
 }
 
 const AllWorkouts = () => {
+    const selector = useSelector((state: any) => state.workouts);
     const navigate = useNavigate();
     const [workouts, setWorkouts] = useState(Array<WorkoutInterface>());
     const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
-        getWorkouts().then((data) => {
-            setWorkouts(data);
-            setIsLoading(false);
-        }).catch((error) => {
-            console.log(error);
-            setIsLoading(false)
-        });
-    }, []);
-
-    // useEffect(() => {
-    //     socket.on("updateWorkout", (_data: any) => {
-    //         getWorkouts();
-    //     });
-    // }, [socket]);
+        const workouts = selector.workouts;
+        setWorkouts(workouts);
+        setIsLoading(false);
+    }, [selector]);
 
     return (
         <div>
             {isLoading && <div>Loading...</div>}
             {!isLoading && workouts.map(workout => {
                 return (
-                    <div id={workout._id}>
+                    <div key={workout._id}>
                         <Accordion type="single" collapsible>
                             <AccordionItem className="border rounded-lg shadow-md overflow-hidden mb-4"
                                            value={workout.name}>
                                 <AccordionTrigger className="px-4 hover:no-underline data-[state=open]:bg-gray-100">
                                     <div className="text-left py-2">
                                         <h1 className="text-xl">{workout.name}</h1>
-                                        <p className="text-muted-foreground">{workout.name} will help you achieve your
-                                            goals</p>
+                                        <p className="text-sm text-muted-foreground">{workout.description}</p>
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent className="mt-4 px-4">
@@ -116,15 +108,18 @@ const Exercises = ({baseUrl, workoutId}: { baseUrl: string, workoutId: string })
     return (
         <div>
             <div className="flex justify-between items-center pb-2 mb-4 border-b-2">
-            <h1 className="text-muted-foreground">
-                EXERCISES
-            </h1>
-                <WorkoutExercisesForm workoutId={workoutId} />
+                <h1 className="text-muted-foreground">
+                    EXERCISES
+                </h1>
+                <WorkoutExercisesForm workoutId={workoutId}/>
             </div>
             <div>
                 {exercises.map(exercise => {
                     return (
-                        <div className="pb-2 grid grid-cols-12 items-center">
+                        <div
+                            key={exercise._id}
+                            className="pb-2 grid grid-cols-12 items-center"
+                        >
                             <h1 className="text-lg col-span-6 lg:col-span-8">
                                 {exercise.name}
                             </h1>
@@ -152,9 +147,8 @@ const LatestUpdate = ({id}: { id: string }) => {
     const [latestEntryDate, setLatestEntryDate] = useState("");
 
     const getLatestEntryDate = async () => {
-        const entries = await getEntries(id);
-        console.log(entries)
-        const latestEntryDate = await entries[0].datadate;
+        const entries: Array<entry> = await getEntries(id);
+        const latestEntryDate: string = entries[0]?.datadate;
         setLatestEntryDate(latestEntryDate);
     }
 

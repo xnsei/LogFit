@@ -1,6 +1,5 @@
 import axios from "axios";
 import {useState} from "react";
-import {io} from "socket.io-client";
 import baseURL from "../../../lib/links.ts";
 import {
     Dialog, DialogClose,
@@ -11,13 +10,16 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog.tsx";
 import {Button} from "@/components/ui/button.tsx";
-
-const socket = io(baseURL);
-
+import {useDispatch} from "react-redux";
+import {getWorkouts} from "@/lib/workouts.ts";
+import {setWorkouts} from "@/src/redux/workoutSlice.ts";
 
 const WorkoutForm = () => {
+    const dispatch = useDispatch();
+
     const [open, setOpen] = useState(false);
     const [workoutTitle, setWorkoutTitle] = useState("");
+    const [workoutDescription, setWorkoutDescription] = useState("");
 
     const addWorkout = async () => {
         try {
@@ -25,6 +27,7 @@ const WorkoutForm = () => {
                 `${baseURL}/workouts/new`,
                 {
                     name: workoutTitle,
+                    description: workoutDescription,
                 },
                 {
                     headers: {
@@ -33,7 +36,11 @@ const WorkoutForm = () => {
                 }
             );
             if (response.status === 200) {
-                socket.emit("addWorkout", {});
+                getWorkouts().then((workouts) => {
+                    dispatch(setWorkouts(workouts));
+                }).catch((error) => {
+                    console.log(error);
+                });
                 console.log("event emitted");
             }
         } catch (error) {
@@ -66,10 +73,18 @@ const WorkoutForm = () => {
                     onChange={(e) => setWorkoutTitle(e.target.value)}
                     required
                 />
+                <textarea
+                    className="rounded mb-2 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black"
+                    rows={2}
+                    name="description"
+                    placeholder="Workout Description"
+                    onChange={(e) => setWorkoutDescription(e.target.value)}
+                    required
+                />
                 <DialogFooter className="sm:justify-start">
                     <DialogClose asChild>
                         <Button
-                            disabled={!workoutTitle}
+                            disabled={!workoutTitle || !workoutDescription}
                             className="bg-black text-white px-4 py-2 rounded no-underline"
                             type="submit"
                             variant="default"

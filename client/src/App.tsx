@@ -29,6 +29,7 @@ function App() {
         });
 
         getWorkouts().then((workouts) => {
+            console.log(workouts);
             dispatch(setWorkouts(workouts));
         }).catch((error) => {
             console.log(error);

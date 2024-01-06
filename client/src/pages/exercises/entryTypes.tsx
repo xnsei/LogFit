@@ -43,7 +43,7 @@ const AllEntries = ({exerciseId, startIndex, endIndex}: { exerciseId: string, st
                         <div>
                             <div className="pb-2 grid grid-cols-12 items-center">
                                 <h1 className="text-muted-foreground col-span-6 lg:col-span-8">{dateFormat(entry.datadate)}</h1>
-                                <h1 className="text-lg col-span-4 lg:col-span-3">{entry.entry}</h1>
+                                <h1 className="text-lg col-span-4 lg:col-span-3">{entry.repetitions}</h1>
                                 <button
                                     className="col-span-2 lg:col-span-1 bg-black text-white px-auto py-2 rounded no-underline"
                                     onClick={() => handleDelete(exerciseId, entry._id)}

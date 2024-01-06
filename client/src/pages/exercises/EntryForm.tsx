@@ -24,9 +24,11 @@ import * as React from "react";
 const socket = io(baseURL);
 
 const EntryForm = (props: ExerciseEntryProps) => {
-    const [entry, setEntry] = useState("");
-    const [open, setOpen] = useState(false);
+    const [weight, setWeight] = useState("");
+    const [repetitions, setRepetitions] = useState("");
+    const [duration, setDuration] = useState("");
     const [date, setDate] = React.useState<Date>();
+    const [open, setOpen] = useState(false);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -36,7 +38,9 @@ const EntryForm = (props: ExerciseEntryProps) => {
             const response = await axios.post(
                 `${baseURL}/exercises/${props.exerciseId}/entries/new`,
                 {
-                    reps: entry,
+                    weight: weight,
+                    repetitions: repetitions,
+                    duration: duration,
                     datadate: formattedDate,
                 },
                 {
@@ -67,14 +71,30 @@ const EntryForm = (props: ExerciseEntryProps) => {
                         <DialogDescription>
                         </DialogDescription>
                     </DialogHeader>
-                    <input
+                    {!props.isCardio && <input
                         className="rounded mb-2 h-10 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black"
                         type="number"
-                        name="entry"
-                        placeholder="Repetitions"
-                        onChange={(e) => setEntry(e.target.value)}
+                        name="weight"
+                        placeholder="Weight"
+                        onChange={(e) => setWeight(e.target.value)}
                         required
-                    />
+                    />}
+                    {!props.isCardio && <input
+                        className="rounded mb-2 h-10 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black"
+                        type="number"
+                        name="repetitions"
+                        placeholder="Repetitions"
+                        onChange={(e) => setRepetitions(e.target.value)}
+                        required
+                    />}
+                    {props.isCardio && <input
+                        className="rounded mb-2 h-10 px-4 py-2 border border-gray-300 focus:outline-none focus:border-black"
+                        type="number"
+                        name="duration"
+                        placeholder="Duration (in secs)"
+                        onChange={(e) => setDuration(e.target.value)}
+                        required
+                    />}
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button
@@ -101,7 +121,7 @@ const EntryForm = (props: ExerciseEntryProps) => {
                     <DialogFooter className="sm:justify-start mt-2">
                         <DialogClose asChild>
                             <Button
-                                disabled={!entry}
+                                disabled={props.isCardio ? !duration : !weight || !repetitions}
                                 type="submit"
                                 className="bg-black text-white px-4 py-2 rounded no-underline"
                                 onClick={handleSubmit}
